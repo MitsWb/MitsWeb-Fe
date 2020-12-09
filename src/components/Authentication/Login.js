@@ -117,7 +117,7 @@ const Login = () => {
     setForm(fieldValue);
   }
   const fresponseGoogle = (response) => {
-    setnotify({ msg: "Login failed", popup: true, type: "error" });
+    //setnotify({ msg: "Login failed", popup: true, type: "error" });
   };
 
   const responseGoogle = (response) => {
