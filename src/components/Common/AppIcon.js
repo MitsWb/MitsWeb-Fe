@@ -1,7 +1,14 @@
 import React from "react";
-import SvgIcon from "@material-ui/core/SvgIcon";
+const logo = require("../../assets/images/logo.png");
+//import SvgIcon from "@material-ui/core/SvgIcon";
 
 export default function AppIcon(props) {
+  return (
+    <>
+      <img className="h-8 w-8 mr-2" alt="logo" src={logo}></img>
+    </>
+  );
+  /*
   return (
     <SvgIcon viewBox="0 0 512 512" {...props}>
       <path
@@ -73,4 +80,6 @@ export default function AppIcon(props) {
       />
     </SvgIcon>
   );
+
+  */
 }
