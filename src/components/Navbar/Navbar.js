@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       width: `calc(100% - ${drawerWidth}px)`,
     },
+    backgroundColor: "red",
   },
   menuButton: {
     marginRight: 20,
