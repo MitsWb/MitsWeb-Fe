@@ -98,8 +98,8 @@ const ProfilePage = () => {
                     <Typography className={classes.parent}>
                       Details of Father :
                     </Typography>
-                    <span className={classes.title}>Name :</span> Sreekumar P.N{" "}
-                    <br></br>
+                    <span className={classes.title}>Name :</span> Google
+                    Assistant <br></br>
                     <span className={classes.title}>Mobile No : </span>
                     9874514878
                   </Typography>
@@ -109,7 +109,7 @@ const ProfilePage = () => {
                     <Typography className={classes.parent}>
                       Details of Mother :
                     </Typography>
-                    <span className={classes.title}>Name :</span> Bindu .N{" "}
+                    <span className={classes.title}>Name :</span> Amazon Alexa
                     <br></br>
                     <span className={classes.title}>Mobile No : </span>
                     9854510124
