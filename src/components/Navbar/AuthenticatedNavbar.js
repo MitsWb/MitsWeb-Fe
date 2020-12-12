@@ -21,7 +21,7 @@ const AuthenticatedNavbar = ({ page }) => {
       icon: <AccountCircleIcon />,
     },
     {
-      path: "/leave",
+      path: "/gatepass",
       text: "Gate Pass ",
       icon: <DirectionsWalkIcon />,
     },

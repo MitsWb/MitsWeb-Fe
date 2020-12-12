@@ -9,6 +9,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { green } from "@material-ui/core/colors";
 import {
   KeyboardDatePicker,
+  KeyboardTimePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
@@ -64,7 +65,7 @@ const LoaderButton = ({ Loading, handleSubmit, type }) => {
         className={classes.submit}
         style={{ outline: "none" }}
       >
-        {type} Leave
+        {type} Gate Pass Request
       </Button>
       {loading && (
         <CircularProgress size={24} className={classes.buttonProgress} />
@@ -73,12 +74,11 @@ const LoaderButton = ({ Loading, handleSubmit, type }) => {
   );
 };
 
-const LeaveForm = ({
+const GatePassForm = ({
   handleChange,
   handleSubmit,
   Form,
   Error,
-  Loading,
   date,
   handleDateChange,
 }) => {
@@ -87,22 +87,11 @@ const LeaveForm = ({
   return (
     <Card className={classes.form}>
       <Typography variant="h6" gutterBottom>
-        Request Leave
+        Request Gate Pass
       </Typography>
       <form className={classes.form}>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <TextField
-                required
-                id="type"
-                name="type"
-                value={Form.type}
-                onChange={handleChange}
-                label="Leave Type"
-                fullWidth
-              />
-            </Grid>
             <Grid item xs={12}>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
                 <div className="mr-0 md:mr-2 lg:mr-2">
@@ -111,27 +100,24 @@ const LeaveForm = ({
                     variant="inline"
                     format="MM/dd/yyyy"
                     margin="normal"
-                    id="fromDate"
-                    label="From"
-                    value={date.from}
-                    onChange={(e) => handleDateChange(e, "from")}
+                    id="date-picker-inline"
+                    label="On Date"
+                    value={date}
+                    onChange={handleDateChange}
                     KeyboardButtonProps={{
                       "aria-label": "change date",
                     }}
                   />
                 </div>
                 <div className="ml-0 md:ml-2 lg:ml-2">
-                  <KeyboardDatePicker
-                    disableToolbar
-                    variant="inline"
-                    format="MM/dd/yyyy"
+                  <KeyboardTimePicker
                     margin="normal"
-                    id="toDate"
-                    label="To"
-                    value={date.to}
-                    onChange={(e) => handleDateChange(e, "to")}
+                    id="time-picker"
+                    label="On Time"
+                    value={date}
+                    onChange={handleDateChange}
                     KeyboardButtonProps={{
-                      "aria-label": "change date",
+                      "aria-label": "change time",
                     }}
                   />
                 </div>
@@ -142,7 +128,7 @@ const LeaveForm = ({
                 required
                 id="description"
                 name="description"
-                label="Leave Description"
+                label="Gate Pass Description"
                 value={Form.description}
                 fullWidth
                 onChange={handleChange}
@@ -156,7 +142,7 @@ const LeaveForm = ({
                 <LoaderButton
                   type={"Submit"}
                   handleSubmit={handleSubmit}
-                  Loading={Loading}
+                  //   Loading={Loading}
                 />
               </div>
             </Grid>
@@ -167,4 +153,4 @@ const LeaveForm = ({
   );
 };
 
-export default LeaveForm;
+export default GatePassForm;
