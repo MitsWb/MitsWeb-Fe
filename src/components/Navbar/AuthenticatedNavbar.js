@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
+import EventIcon from "@material-ui/icons/Event";
 import Navbar from "./Navbar";
 import { navigate } from "hookrouter";
 
@@ -18,6 +20,17 @@ const AuthenticatedNavbar = ({ page }) => {
       text: "Profile",
       icon: <AccountCircleIcon />,
     },
+    {
+      path: "/leave",
+      text: "Gate Pass ",
+      icon: <DirectionsWalkIcon />,
+    },
+    {
+      path: "/leave",
+      text: "Leave Application",
+      icon: <EventIcon />,
+    },
+
     { divider: true },
     {
       fn: async () => {
