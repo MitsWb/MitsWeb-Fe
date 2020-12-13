@@ -5,6 +5,7 @@ import ProfilePage from "../components/Pages/ProfilePage";
 import NotFoundPage from "../components/Pages/NotFoundPage";
 import AuthenticatedNavbar from "../components/Navbar/AuthenticatedNavbar";
 import RequestLeave from "../components/Features/LeaveApplication/RequestLeave";
+import RequestGatePass from "../components/Features/GatePass/RequestGatePass";
 import UpdateProfile from "../components/Pages/UpdateProfile";
 
 const routes = {
@@ -12,6 +13,7 @@ const routes = {
   "/user/:user": ({ user }) => <ProfilePage user={user} />,
   "/updateprofile": () => <UpdateProfile />,
   "/leave": () => <RequestLeave />,
+  "/gatepass": () => <RequestGatePass />,
 };
 
 const AuthenticatedRouter = () => {
