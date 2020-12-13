@@ -104,9 +104,10 @@ export const APIRequest = (
     //baseURL: "http://localhost:3999",
     headers: {},
   };
-  if (!request.noAuth && localStorage.getItem("access_token")) {
-    config.headers["Authorization"] =
-      "Bearer " + localStorage.getItem("access_token");
+  if (!request.noAuth && localStorage.getItem("mitsweb-access-token")) {
+    config.headers["mitsweb-access-token"] = localStorage.getItem(
+      "mitsweb-access-token"
+    );
   }
 
   if (multipart) {
@@ -118,7 +119,7 @@ export const APIRequest = (
   } else {
     params = {
       ...params,
-      cancelToken: isRunning[key].token,
+      //  cancelToken: isRunning[key].token,
     };
   }
   const axiosApiCall = axios.create(config);
@@ -132,8 +133,8 @@ export const APIRequest = (
         // currentUser is ignored because on the first page load
         // 403 error is displayed for invalid credential.
         if (error.response.status !== 200 && key === "currentUser") {
-          if (localStorage.getItem("access_token")) {
-            localStorage.removeItem("access_token");
+          if (localStorage.getItem("mitsweb-access-token")) {
+            localStorage.removeItem("mitsweb-access-token");
           }
           //              Notficiation.Error({
           //                msg: "Token invalid, please login again",

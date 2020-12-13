@@ -53,7 +53,6 @@ const Register = () => {
     name: "",
     confirm: "",
     type: "owner",
-    location: "",
   };
   const initError = {
     name: "",
@@ -196,19 +195,6 @@ const Register = () => {
                   label="Mobile No"
                   error={error["number"]}
                   helperText={error["number"]}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  onChange={changeHandler}
-                  autoComplete="location"
-                  name="location"
-                  variant="outlined"
-                  value={form.location}
-                  required
-                  fullWidth
-                  id="location"
-                  label="Location"
                 />
               </Grid>
               <Grid item xs={12} sm={6}>

@@ -49,7 +49,7 @@ const UpdateProfile = () => {
   const currentUser = state.newapi.currentUser.data.data;
   const initForm = {
     name: currentUser.name,
-    number: currentUser.number,
+    number: currentUser.mobile,
     password: "",
     confirm: "",
   };
@@ -92,13 +92,13 @@ const UpdateProfile = () => {
 
       if (password.length < 8) {
         err["password"] = "Must be atleast 8 characters";
-        formValid = false;
+        //    formValid = false;
       } else if (password.length > 49) {
         err["password"] = "Maximum 49 characters";
         formValid = false;
       } else if (!validatePassword(password)) {
         err["password"] = "Needed one upper one lower and one digit";
-        formValid = false;
+        //  formValid = false;
       }
     }
 
@@ -111,6 +111,7 @@ const UpdateProfile = () => {
     if (validInputs()) {
       dispatch(updateProfile(form)).then((res) => {
         if (res) {
+          console.log(res.data);
           if (res.data.success) {
             setnotify({
               msg: "Profile updated",

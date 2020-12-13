@@ -5,10 +5,12 @@ import ProfilePage from "../components/Pages/ProfilePage";
 import NotFoundPage from "../components/Pages/NotFoundPage";
 import AuthenticatedNavbar from "../components/Navbar/AuthenticatedNavbar";
 import RequestLeave from "../components/Features/LeaveApplication/RequestLeave";
+import UpdateProfile from "../components/Pages/UpdateProfile";
 
 const routes = {
   "/": () => <Dashboard />,
   "/user/:user": ({ user }) => <ProfilePage user={user} />,
+  "/updateprofile": () => <UpdateProfile />,
   "/leave": () => <RequestLeave />,
 };
 

@@ -34,7 +34,7 @@ const AuthenticatedNavbar = ({ page }) => {
     { divider: true },
     {
       fn: async () => {
-        localStorage.removeItem("access_token");
+        localStorage.removeItem("mitsweb-access-token");
         navigate("/");
         window.location.reload();
       },

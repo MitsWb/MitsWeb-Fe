@@ -19,9 +19,10 @@ const Router = () => {
 
   useAbortableEffect(
     async (status) => {
-      const access = localStorage.getItem("access_token");
+      const access = localStorage.getItem("mitsweb-access-token");
       if (access) {
         const res = await dispatch(getCurrentUser());
+
         if (res) {
           if (res.data) {
             if (

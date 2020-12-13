@@ -66,7 +66,7 @@ const ProfilePage = () => {
           <Grid container spacing={2} className="text-center">
             <Grid item xs={12} sm={6}>
               <Typography gutterBottom className="text-center lg:text-right">
-                <PhoneIcon fontSize="small" /> {currentUser.number}
+                <PhoneIcon fontSize="small" /> {currentUser.mobile}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>

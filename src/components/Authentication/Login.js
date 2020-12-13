@@ -143,11 +143,14 @@ const Login = () => {
     if (validateEmailAddress(email)) {
       setloading(true);
       const resultForm = {
-        email: "EMAIL_AUTH" + splitterString + email + splitterString + "owner",
+        email: email,
+        //   email: "EMAIL_AUTH" + splitterString + email + splitterString + "owner",
         password: password,
       };
       dispatch(login(resultForm)).then((resp) => {
         if (resp) {
+          console.log(resp);
+          setloading(false);
           const { data: res } = resp;
           const { status: statusCode } = resp;
           if (resp.data === undefined) {
@@ -158,8 +161,8 @@ const Login = () => {
               popup: !notify.popup,
             });
           }
-          if (res && statusCode === 201) {
-            localStorage.setItem("access_token", res.access_token);
+          if ((res && statusCode === 201) || true) {
+            localStorage.setItem("mitsweb-access-token", res.token);
             setloading(false);
             window.location.reload();
           }
