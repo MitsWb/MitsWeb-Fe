@@ -14,11 +14,10 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import GoogleLogin from "react-google-login";
 import { makeStyles } from "@material-ui/core/styles";
 import { A, useQueryParams, navigate } from "hookrouter";
-import { login } from "../../redux/apiActions";
+import { login, loginGoogle } from "../../redux/apiActions";
 import { useDispatch } from "react-redux";
 import { validateEmailAddress } from "../../utils/validation";
 import Notify from "../../utils/Notify";
-const splitterString = "%=%@~!lorem^ipsum^split~@%//+%";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -122,13 +121,12 @@ const Login = () => {
 
   const responseGoogle = (response) => {
     setloading(true);
-    const body = {
-      email: "GOOGLE_AUTH" + splitterString + response.tokenObj.id_token,
-      password: "owner",
-    };
-    dispatch(login(body)).then((res) => {
+    const googleToken = response.tokenObj.id_token;
+
+    dispatch(loginGoogle({ googleToken: googleToken })).then((res) => {
       if (res.data) {
-        localStorage.setItem("access_token", res.data.access_token);
+        console.log(res.data);
+        localStorage.setItem("mitsweb-access-token", res.data.token);
         setloading(false);
         navigate("/");
         window.location.reload();

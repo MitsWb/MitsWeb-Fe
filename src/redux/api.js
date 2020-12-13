@@ -3,13 +3,18 @@ export default {
     path: "/user/getUser",
     noAuth: false,
   },
+  loginGoogle: {
+    path: "/auth/googlelogin",
+    method: "POST",
+    noAuth: true,
+  },
   register: {
-    path: "/signup",
+    path: "/auth/signup",
     method: "post",
     noAuth: true,
   },
   login: {
-    path: "/signin",
+    path: "/auth/signin",
     method: "post",
     noAuth: true,
   },

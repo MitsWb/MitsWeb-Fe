@@ -52,7 +52,7 @@ const Register = () => {
     number: "",
     name: "",
     confirm: "",
-    type: "owner",
+    type: "student",
   };
   const initError = {
     name: "",
@@ -94,7 +94,7 @@ const Register = () => {
       err["number"] = "Invalid Number";
       formValid = false;
     }
-    if (password.length < 8) {
+    /*  if (password.length < 8) {
       err["password"] = "Must be atleast 8 characters";
       formValid = false;
     } else if (password.length > 49) {
@@ -103,7 +103,7 @@ const Register = () => {
     } else if (!validatePassword(password)) {
       err["password"] = "Needed one upper one lower and one digit";
       formValid = false;
-    }
+    }*/
 
     setError(err);
     return formValid;
@@ -120,6 +120,7 @@ const Register = () => {
     if (validInputs()) {
       dispatch(register(form)).then((res) => {
         if (res) {
+          console.log(res);
           if (res.data.success === true) {
             setnotify({
               msg: "Regsitration success",
