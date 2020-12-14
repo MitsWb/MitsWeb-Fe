@@ -52,7 +52,7 @@ const ProfilePage = () => {
       <Card className={classes.root}>
         <Avatar
           className={classes.media}
-          src={currentUser.photo ? currentUser.photo : noImg}
+          src={currentUser.pic ? currentUser.pic : noImg}
         ></Avatar>
         <CardContent>
           <Typography
@@ -80,16 +80,18 @@ const ProfilePage = () => {
             <CardContent>
               <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1">
                 <Typography>
-                  <span className={classes.title}>D.O.B : </span> 01-Jan-2001
+                  <span className={classes.title}>D.O.B : </span>{" "}
+                  {currentUser.dob ? currentUser.dob : "EMPTY"}
                 </Typography>
                 <Typography>
-                  <span className={classes.title}>Blood Group : </span> O+
+                  <span className={classes.title}>Blood Group : </span>{" "}
+                  {currentUser.bloodGroup ? currentUser.bloodGroup : "EMPTY"}
                 </Typography>
               </div>
 
               <Typography>
-                <span className={classes.title}> Address :</span> Abc House,
-                Edappally, Ernakulam, PIN : 635124
+                <span className={classes.title}> Address :</span>{" "}
+                {currentUser.address ? currentUser.address : "EMPTY"}
               </Typography>
               <br></br>
               <Grid container spacing={2}>
@@ -98,10 +100,15 @@ const ProfilePage = () => {
                     <Typography className={classes.parent}>
                       Details of Father :
                     </Typography>
-                    <span className={classes.title}>Name :</span> Google
-                    Assistant <br></br>
+                    <span className={classes.title}>Name :</span>{" "}
+                    {currentUser.parentDetails
+                      ? currentUser.parentDetails.father.name
+                      : "EMPTY"}
+                    <br></br>
                     <span className={classes.title}>Mobile No : </span>
-                    9874514878
+                    {currentUser.parentDetails
+                      ? currentUser.parentDetails.father.mobile
+                      : "EMPTY"}
                   </Typography>
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -109,10 +116,15 @@ const ProfilePage = () => {
                     <Typography className={classes.parent}>
                       Details of Mother :
                     </Typography>
-                    <span className={classes.title}>Name :</span> Amazon Alexa
+                    <span className={classes.title}>Name :</span>{" "}
+                    {currentUser.parentDetails
+                      ? currentUser.parentDetails.mother.name
+                      : "EMPTY"}
                     <br></br>
                     <span className={classes.title}>Mobile No : </span>
-                    9854510124
+                    {currentUser.parentDetails
+                      ? currentUser.parentDetails.mother.mobile
+                      : "EMPTY"}
                   </Typography>
                 </Grid>
               </Grid>

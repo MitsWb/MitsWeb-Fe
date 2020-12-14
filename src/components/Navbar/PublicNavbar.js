@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import HomeIcon from "@material-ui/icons/Home";
 import InfoIcon from "@material-ui/icons/Info";
-import VpnKeyIcon from "@material-ui/icons/VpnKey";
+//import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import LockIcon from "@material-ui/icons/Lock";
 import Navbar from "./Navbar";
 
@@ -19,11 +19,11 @@ const PublicNavbar = ({ page }) => {
       icon: <InfoIcon />,
     },
     { divider: true },
-    {
+    /*   {
       path: "/login",
       text: "Login",
       icon: <VpnKeyIcon />,
-    },
+    },*/
     {
       path: "/register",
       text: "Register",
