@@ -52,12 +52,26 @@ const UpdateProfile = () => {
     number: currentUser.mobile,
     password: "",
     confirm: "",
+    address: currentUser.address,
+    fatherName: currentUser.parentDetails.father.name,
+    fatherMobile: currentUser.parentDetails.father.mobile,
+    motherName: currentUser.parentDetails.mother.name,
+    motherMobile: currentUser.parentDetails.mother.mobile,
+    dob: currentUser.dob,
+    bloodGroup: currentUser.bloodGroup,
   };
   const initError = {
     name: "",
     number: "",
     password: "",
     confirm: "",
+    address: "",
+    fatherName: "",
+    fatherMobile: "",
+    motherName: "",
+    motherMobile: "",
+    dob: "",
+    bloodGroup: "",
   };
 
   const [form, setForm] = useState(initForm);
@@ -109,7 +123,27 @@ const UpdateProfile = () => {
   function submitHandler(e) {
     e.preventDefault();
     if (validInputs()) {
-      dispatch(updateProfile(form)).then((res) => {
+      const newForm = {
+        name: form.name,
+        address: form.address,
+        number: form.number,
+        dob: form.dob,
+        password: form.password,
+        confirm: form.confirm,
+        bloodGroup: form.bloodGroup,
+        parentDetails: {
+          father: {
+            name: form.fatherName,
+            mobile: form.fatherMobile,
+          },
+          mother: {
+            name: form.motherName,
+            mobile: form.motherMobile,
+          },
+        },
+      };
+      console.log(form);
+      dispatch(updateProfile(newForm)).then((res) => {
         if (res) {
           console.log(res.data);
           if (res.data.success) {
@@ -178,6 +212,119 @@ const UpdateProfile = () => {
               error={Error["number"]}
               helperText={Error["number"]}
             />
+            <TextField
+              onChange={changeHandler}
+              value={form.address}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="address"
+              label="Address"
+              id="address"
+              autoComplete="address"
+              error={Error["address"]}
+              helperText={Error["address"]}
+            />
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  onChange={changeHandler}
+                  autoComplete="fatherName"
+                  name="fatherName"
+                  variant="outlined"
+                  value={form.fatherName}
+                  required
+                  fullWidth
+                  id="fatherName"
+                  label="Father's Name "
+                  error={Error["fatherName"]}
+                  helperText={Error["fatherName"]}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  onChange={changeHandler}
+                  autoComplete="fatherMobile"
+                  name="fatherMobile"
+                  variant="outlined"
+                  value={form.fatherMobile}
+                  required
+                  type="text"
+                  fullWidth
+                  id="fatherMobile"
+                  label="Contact Number"
+                  error={Error["fatherMobile"]}
+                  helperText={Error["fatherMobile"]}
+                />
+              </Grid>
+            </Grid>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  onChange={changeHandler}
+                  autoComplete="motherName"
+                  name="motherName"
+                  variant="outlined"
+                  value={form.motherName}
+                  required
+                  fullWidth
+                  id="motherName"
+                  label="Mother's Name "
+                  error={Error["motherName"]}
+                  helperText={Error["motherName"]}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  onChange={changeHandler}
+                  autoComplete="motherMobile"
+                  name="motherMobile"
+                  variant="outlined"
+                  value={form.motherMobile}
+                  required
+                  type="text"
+                  fullWidth
+                  id="motherMobile"
+                  label="Contact Number"
+                  error={Error["motherMobile"]}
+                  helperText={Error["motherMobile"]}
+                />
+              </Grid>
+            </Grid>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  onChange={changeHandler}
+                  autoComplete="dob"
+                  name="dob"
+                  variant="outlined"
+                  value={form.dob}
+                  required
+                  fullWidth
+                  id="dob"
+                  label="Date Of Birth"
+                  error={Error["dob"]}
+                  helperText={Error["dob"]}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  onChange={changeHandler}
+                  autoComplete="bloodGroup"
+                  name="bloodGroup"
+                  variant="outlined"
+                  value={form.bloodGroup}
+                  required
+                  type="text"
+                  fullWidth
+                  id="bloodGroup"
+                  label="Blood Group"
+                  error={Error["bloodGroup"]}
+                  helperText={Error["bloodGroup"]}
+                />
+              </Grid>
+            </Grid>
             <Typography className={classes.h5} variant="h5">
               Leave blank if no need to change
             </Typography>
@@ -215,6 +362,7 @@ const UpdateProfile = () => {
                 />
               </Grid>
             </Grid>
+
             <Button
               fullWidth
               variant="contained"
