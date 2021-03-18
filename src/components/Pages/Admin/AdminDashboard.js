@@ -1,9 +1,452 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useHeading from "../useHeading";
+import { useDispatch } from "react-redux";
+import { getAllusers, deleteUser } from "../../../redux/apiActions";
+//import { navigate } from "hookrouter";
+import ConfirmationBox from "./Confirmation";
+import Notify from "../../../utils/Notify";
+import Loader from "../../../utils/Loader";
+import {
+  Button,
+  Grid,
+  Typography,
+  DialogActions,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableContainer,
+  Table,
+  TableRow,
+  DialogTitle,
+  DialogContent,
+  Dialog,
+  TextField,
+  Paper,
+} from "@material-ui/core";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import { adminUpdateuser } from "../../../redux/apiActions";
+import {
+  //makeStyles,
+  withStyles,
+} from "@material-ui/core/styles";
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+/*const useStyles = makeStyles((theme) => ({
+  link: {
+    textDecoration: "none",
+    color: "inherit",
+    cursor: "pointer",
+  },
+  container: {
+    marginTop: "10px",
+  },
+}));*/
+
+const FormDialog = ({ open, handleClose, id, changeStatus }) => {
+  const initForm = {
+    name: "",
+    email: "",
+    mobile: "",
+    type: "",
+    id: "",
+  };
+  const initError = {
+    name: "",
+    email: "",
+    mobile: "",
+    id: "",
+    type: "",
+  };
+  const [form, setform] = useState(initForm);
+  const [err, seterr] = useState(initError);
+  const [notify, setnotify] = useState({ popup: false, msg: "", type: "" });
+  const dispatch = useDispatch();
+  const [confOpen, setconfOpen] = useState(false);
+  const [data, setdata] = useState("");
+  //modal doesn't close after successful updation
+  //delete customer needs to be done
+  //variable names needs to be improved
+  //the list of users should re render after successful updation
+  useEffect(() => {
+    let mount = true;
+    if (mount) {
+      setform({
+        id: id.id,
+        name: id.name,
+        email: id.email,
+        mobile: id.mobile,
+        type: id.type,
+      });
+    }
+    return () => {
+      mount = false;
+    };
+  }, [handleClose, id, id.type, id.email, id.name, id.mobile]);
+  const handleChange = (e) => {
+    setnotify({
+      popup: false,
+    });
+    seterr(initError);
+    const { value, name } = e.target;
+    setform({ ...form, [name]: value });
+  };
+
+  const optionalValues = ["email", "type"];
+
+  const validInputs = () => {
+    let formValid = true;
+    let err = Object.assign({}, initError);
+    //const { mobile, email, name, type } = form;
+    const { name } = form;
+    Object.keys(form).forEach((key) => {
+      if (form[key] === "" && !optionalValues.includes(key)) {
+        formValid = false;
+        err[key] = "This field is required";
+      }
+    });
+    if (!name.replace(/\s/g, "").length) {
+      formValid = false;
+      err["name"] = "This field is required";
+    }
+
+    // if (!phonePreg(mobile)) {
+    //   formValid = false;
+    //   err["mobile"] = "Enter Valid phone number";
+    // }
+    // if (type !== "") {
+    //   if (isNaN(type) || type === "") {
+    //     formValid = false;
+    //     err["type"] = "Enter a number";
+    //   }
+    // }
+    // if (email !== "") {
+    //   if (!validateEmailAddress(email)) {
+    //     err["email"] = "Enter a valid email";
+    //     formValid = false;
+    //   }
+    // }
+
+    seterr(err);
+    return formValid;
+  };
+
+  const handleSubmit = () => {
+    if (validInputs()) {
+      let Result;
+
+      Result = {
+        ...form,
+      };
+      handleClose("");
+      changeStatus(true, { popup: false });
+      dispatch(adminUpdateuser(Result)).then((res) => {
+        if (res && res.data) {
+          if (res.data.success === true) {
+            changeStatus(false, {
+              msg: "Updated user",
+              type: "success",
+              popup: true,
+            });
+          }
+        } else {
+          changeStatus(false, {
+            msg: "Error",
+            type: "error",
+            popup: true,
+          });
+        }
+      });
+    }
+  };
+  const closeAlert = () => {
+    setnotify({
+      popup: false,
+    });
+  };
+  const handleCustomerDelete = (userID) => {
+    setconfOpen(false);
+    handleClose("DELETING");
+    dispatch(deleteUser({ deleteId: userID })).then((res) => {
+      if (res && res.data.success) {
+        handleClose("DELETED");
+      }
+    });
+  };
+  return (
+    <>
+      <ConfirmationBox
+        open={confOpen}
+        data={data}
+        handleClose={() => {
+          setconfOpen(false);
+        }}
+        handleConfirm={handleCustomerDelete}
+      />
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">
+          <div className=" flex-column md:flex lg:flex">
+            <div className="w-full md:w-3/4 lg:w-3/4 text-left">
+              Edit Student Details
+            </div>
+            <div className="w-full md:w-1/4 lg:w-1/4 text-right">
+              <Button
+                size="small"
+                color="secondary"
+                onClick={() => {
+                  setconfOpen(true);
+                  setdata({ userId: String(id.id), userName: id.name });
+                }}
+                style={{ outline: "none", borderRadius: "50%" }}
+              >
+                <DeleteForeverIcon color="secondary" />
+                Delete
+              </Button>
+            </div>
+          </div>
+        </DialogTitle>
+        <DialogContent>
+          <Grid container spacing={1}>
+            <Grid item xs={12}>
+              <TextField
+                id="name"
+                name="name"
+                onChange={handleChange}
+                label="Customer Name"
+                value={form.name}
+                fullWidth
+                error={err["name"]}
+                helperText={err["name"]}
+                autoComplete="new-password"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="mobile"
+                name="mobile"
+                onChange={handleChange}
+                label="Mobile Number"
+                value={form.mobile}
+                fullWidth
+                error={err["mobile"]}
+                helperText={err["mobile"]}
+                autoComplete="new-password"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="email"
+                name="email"
+                onChange={handleChange}
+                label="Email"
+                value={form.email}
+                fullWidth
+                error={err["email"]}
+                helperText={err["email"]}
+                autoComplete="new-password"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                id="type"
+                name="type"
+                onChange={handleChange}
+                label="type"
+                value={form.type}
+                type="text"
+                fullWidth
+                error={err["type"]}
+                helperText={err["type"]}
+                autoComplete="type"
+              />
+            </Grid>
+            <Notify props={notify} closeAlert={closeAlert} />
+          </Grid>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            style={{ outline: "none" }}
+            onClick={handleClose}
+            color="primary"
+          >
+            Cancel
+          </Button>
+          <Button
+            style={{ outline: "none" }}
+            onClick={handleSubmit}
+            color="primary"
+          >
+            Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  );
+};
 
 const AdminDashboard = () => {
-  useHeading("Admin Dashboard");
+  const dispatch = useDispatch();
+  const [data, setdata] = useState([]);
+  let studentList = useState();
+  const [open, setOpen] = useState(false);
+  const [Loading, setLoading] = useState(false);
+  const [notify, setnotify] = useState({ popup: false, msg: "", type: "" });
+  const [Rerender, setRerender] = useState(Math.random());
+  const [select, setselect] = useState({
+    id: "",
+    name: "",
+    email: "",
+    mobile: "",
+    type: "",
+  });
+  const closeAlert = () => {
+    setnotify({
+      popup: false,
+    });
+  };
 
-  return <div>Admin</div>;
+  const changeStatus = (LOADSTATUS, POPUPSTATUS) => {
+    // setLoading(LOADSTATUS);
+    setnotify(POPUPSTATUS);
+    if (POPUPSTATUS.type === "success") {
+      setRerender(Math.random());
+    }
+  };
+
+  const handleClickOpen = (id, e) => {
+    setselect({
+      id: e._id,
+      name: e.name,
+      email: e.email,
+      mobile: e.mobile,
+      type: e.type,
+    });
+    setOpen(true);
+  };
+
+  const handleClose = (msg) => {
+    setOpen(false);
+    if (msg === "DELETING") {
+      setLoading(true);
+    }
+    if (msg === "DELETED") {
+      setLoading(false);
+      setnotify({ msg: "User deleted", type: "success", popup: true });
+      setRerender(Math.random());
+    }
+  };
+  useHeading("Admin Dashboard");
+  useEffect(() => {
+    dispatch(getAllusers()).then((res) => {
+      if (res && res.data && res.data.data) {
+        setdata(res.data.data);
+        setLoading(false);
+      }
+    });
+  }, [dispatch, Rerender]);
+
+  if (data.length === 0) {
+    studentList = (
+      <TableRow>
+        <TableCell
+          colSpan={4}
+          className=" border-b border-gray-200 text-center "
+        >
+          <Typography>Loading ....</Typography>
+        </TableCell>
+      </TableRow>
+    );
+  } else {
+    studentList = data.map((e, key) => {
+      return (
+        <>
+          <TableRow key={e.id} onClick={() => handleClickOpen(e.id, e)} hover>
+            <TableCell
+              //  onClick={() => navigate("/hotel/" + e.id)}
+              className=" border-b border-gray-200 text-sm "
+            >
+              <Typography className="items-center">
+                <div className="ml-2">{key + 1}</div>
+              </Typography>
+            </TableCell>
+            <TableCell
+              //  onClick={() => navigate("/hotel/" + e.id)}
+              className=" border-b border-gray-200 text-sm "
+            >
+              <Typography className="items-center">
+                <div className="ml-2">{e.name}</div>
+              </Typography>
+            </TableCell>
+            <TableCell
+              //     onClick={() => navigate("/hotel/" + e.id)}
+              className="border-b border-gray-200 text-sm "
+            >
+              <Typography className="items-center">
+                <div className="ml-2">{e.address}</div>
+              </Typography>
+            </TableCell>
+            <TableCell
+              //   onClick={() => navigate("/hotel/" + e.id)}
+              className=" border-b border-gray-200 text-sm "
+            >
+              <Typography className="items-center">
+                <div className="ml-2">{e.type}</div>
+              </Typography>
+            </TableCell>
+          </TableRow>
+        </>
+      );
+    });
+  }
+
+  return (
+    <>
+      <Notify props={notify} closeAlert={closeAlert} />
+      {Loading ? (
+        <Loader />
+      ) : (
+        <div>
+          <FormDialog
+            open={open}
+            handleClose={handleClose}
+            id={select}
+            data={data}
+            changeStatus={changeStatus}
+          />
+          <div style={{ overflow: "hidden" }}>
+            <Paper
+              style={{ width: "100%", margin: "0px auto", marginTop: "15px" }}
+            >
+              <TableContainer style={{ maxHeight: 440 }} component={Paper}>
+                <Table stickyHeader aria-label="sticky table">
+                  <TableHead>
+                    <TableRow>
+                      <StyledTableCell>Index</StyledTableCell>
+                      <StyledTableCell>Name</StyledTableCell>
+                      <StyledTableCell>Address</StyledTableCell>
+                      <StyledTableCell>Type</StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody className={"cursor-pointer"}>
+                    {studentList}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Paper>
+          </div>
+        </div>
+      )}
+    </>
+  );
 };
 export default AdminDashboard;

@@ -23,4 +23,19 @@ export default {
     method: "POST",
     noAuth: false,
   },
+  getAllusers: {
+    path: "/admin/allusers",
+    method: "get",
+    noAuth: false,
+  },
+  adminUpdateuser: {
+    path: "/admin/updateuser",
+    method: "post",
+    noAuth: false,
+  },
+  deleteUser: {
+    path: "/admin/deleteuser",
+    method: "post",
+    noAuth: false,
+  },
 };

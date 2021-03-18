@@ -14,7 +14,7 @@ import { register } from "../../redux/apiActions";
 import { useDispatch } from "react-redux";
 import {
   validateEmailAddress,
-  validatePassword,
+  //validatePassword,
   phonePreg,
 } from "../../utils/validation";
 import Notify from "../../utils/Notify";
@@ -120,7 +120,6 @@ const Register = () => {
     if (validInputs()) {
       dispatch(register(form)).then((res) => {
         if (res) {
-          console.log(res);
           if (res.data.success === true) {
             setnotify({
               msg: "Regsitration success",

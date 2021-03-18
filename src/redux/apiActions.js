@@ -17,3 +17,15 @@ export const updateProfile = (body) => {
 export const loginGoogle = (body) => {
   return fireRequest("loginGoogle", [], body);
 };
+
+export const getAllusers = () => {
+  return fireRequest("getAllusers");
+};
+
+export const adminUpdateuser = (body) => {
+  return fireRequest("adminUpdateuser", [], body);
+};
+
+export const deleteUser = (body) => {
+  return fireRequest("deleteUser", [], body);
+};
