@@ -71,7 +71,6 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
   const [confOpen, setconfOpen] = useState(false);
   const [data, setdata] = useState("");
   //modal doesn't close after successful updation
-  //delete customer needs to be done
   //variable names needs to be improved
   //the list of users should re render after successful updation
   useEffect(() => {
@@ -170,7 +169,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
       popup: false,
     });
   };
-  const handleCustomerDelete = (userID) => {
+  const handleUserDelete = (userID) => {
     setconfOpen(false);
     handleClose("DELETING");
     dispatch(deleteUser({ deleteId: userID })).then((res) => {
@@ -187,7 +186,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
         handleClose={() => {
           setconfOpen(false);
         }}
-        handleConfirm={handleCustomerDelete}
+        handleConfirm={handleUserDelete}
       />
       <Dialog
         open={open}
@@ -222,7 +221,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
                 id="name"
                 name="name"
                 onChange={handleChange}
-                label="Customer Name"
+                label="User Name"
                 value={form.name}
                 fullWidth
                 error={err["name"]}
