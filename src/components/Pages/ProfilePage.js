@@ -52,7 +52,7 @@ const ProfilePage = () => {
       <Card className={classes.root}>
         <Avatar
           className={classes.media}
-          src={currentUser.pic ? currentUser.pic : noImg}
+          src={currentUser.photo ? currentUser.photo : noImg}
         ></Avatar>
         <CardContent>
           <Typography

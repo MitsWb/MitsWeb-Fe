@@ -19,10 +19,13 @@ import {
   TableRow,
   DialogTitle,
   DialogContent,
+  FormControlLabel,
   Dialog,
   TextField,
   Paper,
+  Switch,
 } from "@material-ui/core";
+
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { adminUpdateuser } from "../../../redux/apiActions";
 import {
@@ -48,6 +51,59 @@ const StyledTableCell = withStyles((theme) => ({
     marginTop: "10px",
   },
 }));*/
+
+const IOSSwitch = withStyles((theme) => ({
+  root: {
+    width: 42,
+    height: 26,
+    padding: 0,
+    margin: theme.spacing(1),
+  },
+  switchBase: {
+    padding: 1,
+    "&$checked": {
+      transform: "translateX(16px)",
+      color: theme.palette.common.white,
+      "& + $track": {
+        backgroundColor: "#52d869",
+        opacity: 1,
+        border: "none",
+      },
+    },
+    "&$focusVisible $thumb": {
+      color: "#52d869",
+      border: "6px solid #fff",
+    },
+  },
+  thumb: {
+    width: 24,
+    height: 24,
+  },
+  track: {
+    borderRadius: 26 / 2,
+    border: `1px solid ${theme.palette.grey[400]}`,
+    backgroundColor: theme.palette.grey[50],
+    opacity: 1,
+    transition: theme.transitions.create(["background-color", "border"]),
+  },
+  checked: {},
+  focusVisible: {},
+}))(({ classes, ...props }) => {
+  return (
+    <Switch
+      focusVisibleClassName={classes.focusVisible}
+      disableRipple
+      classes={{
+        root: classes.root,
+        switchBase: classes.switchBase,
+        thumb: classes.thumb,
+        track: classes.track,
+        checked: classes.checked,
+      }}
+      {...props}
+    />
+  );
+});
 
 const FormDialog = ({ open, handleClose, id, changeStatus }) => {
   const initForm = {
@@ -82,6 +138,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
         email: id.email,
         mobile: id.mobile,
         type: id.type,
+        active: id.active,
       });
     }
     return () => {
@@ -195,8 +252,24 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
       >
         <DialogTitle id="form-dialog-title">
           <div className=" flex-column md:flex lg:flex">
-            <div className="w-full md:w-3/4 lg:w-3/4 text-left">
-              Edit Student Details
+            <div className="w-full md:w-3/4 flex lg:w-3/4 text-left">
+              <div className="text-sm mr-1 mt-2 md:text-lg lg:text-lg">
+                Edit Student Details
+              </div>
+              <div className="ml-1">
+                <FormControlLabel
+                  control={
+                    <IOSSwitch
+                      checked={form.active}
+                      onChange={() => {
+                        setform({ ...form, active: !form.active });
+                      }}
+                      name="checkedB"
+                    />
+                  }
+                  label={form.active ? "Active" : "disabled"}
+                />
+              </div>
             </div>
             <div className="w-full md:w-1/4 lg:w-1/4 text-right">
               <Button
@@ -285,7 +358,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
             onClick={handleSubmit}
             color="primary"
           >
-            Submit
+            Save
           </Button>
         </DialogActions>
       </Dialog>
@@ -307,6 +380,7 @@ const AdminDashboard = () => {
     email: "",
     mobile: "",
     type: "",
+    active: "",
   });
   const closeAlert = () => {
     setnotify({
@@ -329,6 +403,7 @@ const AdminDashboard = () => {
       email: e.email,
       mobile: e.mobile,
       type: e.type,
+      active: e.active,
     });
     setOpen(true);
   };
