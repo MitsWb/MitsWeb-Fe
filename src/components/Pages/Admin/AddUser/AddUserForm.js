@@ -11,6 +11,7 @@ import {
   Input,
   InputAdornment,
   IconButton,
+  InputLabel,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card } from "@material-ui/core";
@@ -101,6 +102,7 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error }) => {
         <Grid container spacing={3}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
+              <InputLabel htmlFor="email">Email</InputLabel>
               <Input
                 required
                 id="email"
@@ -115,6 +117,7 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error }) => {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
+              <InputLabel htmlFor="password">Password</InputLabel>
               <Input
                 id="password"
                 name="password"
