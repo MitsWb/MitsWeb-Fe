@@ -89,7 +89,7 @@ const LoaderButton = ({ Loading, handleSubmit, type }) => {
   );
 };
 
-const AddUserForm = ({ handleChange, handleSubmit, Form, Error }) => {
+const AddUserForm = ({ handleChange, handleSubmit, Form, Error, loading }) => {
   const classes = useStyles();
   const [show, setshow] = useState(false);
 
@@ -185,7 +185,11 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error }) => {
           </Grid>
           <Grid item xs={12}>
             <div className="text-center">
-              <LoaderButton type={"Submit"} handleSubmit={handleSubmit} />
+              <LoaderButton
+                type={"Submit"}
+                handleSubmit={handleSubmit}
+                Loading={loading}
+              />
             </div>
           </Grid>
         </Grid>

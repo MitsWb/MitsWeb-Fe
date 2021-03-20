@@ -24,6 +24,7 @@ const AddUser = () => {
   const [Form, setForm] = useState(Initform);
   const [Error, setError] = useState(initError);
   const [notify, setnotify] = useState({ popup: false, msg: "", type: "" });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setError(initError);
@@ -45,10 +46,12 @@ const AddUser = () => {
     setError(err);
 
     if (validForm) {
+      setLoading(true);
       dispatch(addUser(Form)).then((res) => {
         if (res && res.data) {
           if (res.data.success) {
             setnotify({ msg: "User created", popup: true, type: "success" });
+            setLoading(false);
             setForm(Initform);
           } else {
             setnotify({
@@ -56,8 +59,10 @@ const AddUser = () => {
               popup: true,
               type: "error",
             });
+            setLoading(false);
           }
         }
+        setLoading(false);
       });
     }
   };
@@ -75,6 +80,7 @@ const AddUser = () => {
         Error={Error}
         handleSubmit={handleSubmit}
         Helper={""}
+        loading={loading}
       />
     </>
   );
