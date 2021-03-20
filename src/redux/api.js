@@ -43,4 +43,11 @@ export default {
     method: "post",
     noAuth: false,
   },
+
+  //gatepass api's
+  requestGatePass: {
+    path: "/gatepass/request",
+    method: "post",
+    noAuth: false,
+  },
 };

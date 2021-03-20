@@ -33,3 +33,8 @@ export const deleteUser = (body) => {
 export const addUser = (body) => {
   return fireRequest("addUser", [], body);
 };
+
+//gatepass api's
+export const requestGatePass = (body) => {
+  return fireRequest("requestGatePass", [], body);
+};

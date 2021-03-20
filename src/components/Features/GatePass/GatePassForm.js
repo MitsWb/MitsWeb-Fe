@@ -81,6 +81,7 @@ const GatePassForm = ({
   Error,
   date,
   handleDateChange,
+  loading,
 }) => {
   const classes = useStyles();
 
@@ -142,7 +143,7 @@ const GatePassForm = ({
                 <LoaderButton
                   type={"Submit"}
                   handleSubmit={handleSubmit}
-                  //   Loading={Loading}
+                  Loading={loading}
                 />
               </div>
             </Grid>
