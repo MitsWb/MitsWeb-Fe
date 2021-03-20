@@ -124,12 +124,14 @@ const Login = () => {
     const googleToken = response.tokenObj.id_token;
 
     dispatch(loginGoogle({ googleToken: googleToken })).then((res) => {
-      if (res.data) {
-        console.log(res.data);
+      if (res && res.data && res.data.success) {
         localStorage.setItem("mitsweb-access-token", res.data.token);
         setloading(false);
         navigate("/");
         window.location.reload();
+      } else {
+        setnotify({ msg: "Invalid email", popup: true, type: "error" });
+        setloading(false);
       }
       setloading(false);
     });
@@ -142,30 +144,29 @@ const Login = () => {
       setloading(true);
       const resultForm = {
         email: email,
-        //   email: "EMAIL_AUTH" + splitterString + email + splitterString + "owner",
         password: password,
       };
       dispatch(login(resultForm)).then((resp) => {
-        if (resp) {
-          console.log(resp);
-          setloading(false);
-          const { data: res } = resp;
-          const { status: statusCode } = resp;
-          if (resp.data === undefined) {
-            setloading(false);
-            setnotify({
-              msg: "Invalid credentials",
-              type: "error",
-              popup: !notify.popup,
-            });
-          }
-          if ((res && statusCode === 201) || true) {
-            localStorage.setItem("mitsweb-access-token", res.token);
+        if (resp && resp.data) {
+          if (resp && resp.data.success) {
+            localStorage.setItem("mitsweb-access-token", resp.data.token);
             setloading(false);
             window.location.reload();
+          } else {
+            setloading(false);
+            setnotify({
+              msg: resp.data.msg,
+              type: "error",
+              popup: true,
+            });
           }
         } else {
           setloading(false);
+          setnotify({
+            msg: "Invalid credentials",
+            type: "error",
+            popup: true,
+          });
         }
       });
     } else {

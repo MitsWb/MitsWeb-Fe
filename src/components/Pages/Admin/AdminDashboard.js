@@ -391,7 +391,7 @@ const AdminDashboard = () => {
               className="border-b border-gray-200 text-sm "
             >
               <Typography className="items-center">
-                <div className="ml-2">{e.address}</div>
+                <div className="ml-2">{e.email}</div>
               </Typography>
             </TableCell>
             <TableCell
@@ -432,7 +432,7 @@ const AdminDashboard = () => {
                     <TableRow>
                       <StyledTableCell>Index</StyledTableCell>
                       <StyledTableCell>Name</StyledTableCell>
-                      <StyledTableCell>Address</StyledTableCell>
+                      <StyledTableCell>Email</StyledTableCell>
                       <StyledTableCell>Type</StyledTableCell>
                     </TableRow>
                   </TableHead>

@@ -53,12 +53,14 @@ const Register = () => {
     name: "",
     confirm: "",
     type: "student",
+    oldpassword: "",
   };
   const initError = {
     name: "",
     email: "",
     password: "",
     confirm: "",
+    oldnumber: "",
   };
   const [form, setForm] = useState(initForm);
   const [error, setError] = useState(initError);
@@ -119,7 +121,7 @@ const Register = () => {
     e.preventDefault();
     if (validInputs()) {
       dispatch(register(form)).then((res) => {
-        if (res) {
+        if (res && res.data) {
           if (res.data.success === true) {
             setnotify({
               msg: "Regsitration success",
@@ -129,7 +131,7 @@ const Register = () => {
             setForm(initForm);
           } else {
             setnotify({
-              msg: "User exists, Please login!",
+              msg: res.data.msg,
               type: "error",
               popup: true,
             });
@@ -154,7 +156,7 @@ const Register = () => {
           </Typography>
           <form className={classes.form} onSubmit={submitHandler}>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
+              <Grid item sm={6} xs={12}>
                 <TextField
                   onChange={changeHandler}
                   autoComplete="fname"
@@ -168,6 +170,21 @@ const Register = () => {
                   autoFocus
                 />
               </Grid>
+              <Grid item sm={6} xs={12}>
+                <TextField
+                  onChange={changeHandler}
+                  autoComplete="fname"
+                  name="number"
+                  variant="outlined"
+                  value={form.number}
+                  required
+                  fullWidth
+                  id="number"
+                  label="Mobile Number"
+                  autoFocus
+                />
+              </Grid>
+
               <Grid item xs={12} sm={6}>
                 <TextField
                   onChange={changeHandler}
@@ -185,16 +202,17 @@ const Register = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   onChange={changeHandler}
-                  autoComplete="number"
-                  name="number"
+                  autoComplete="oldpassword"
+                  name="oldpassword"
                   variant="outlined"
-                  value={form.number}
+                  value={form.oldpassword}
                   required
                   fullWidth
-                  id="number"
-                  label="Mobile No"
-                  error={error["number"]}
-                  helperText={error["number"]}
+                  type="password"
+                  id="oldpassword"
+                  label="Old password"
+                  error={error["oldpassword"]}
+                  helperText={error["oldpassword"]}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -208,7 +226,7 @@ const Register = () => {
                   type="password"
                   fullWidth
                   id="password"
-                  label="Password"
+                  label="New Password"
                   error={error["password"]}
                   helperText={error["password"]}
                 />

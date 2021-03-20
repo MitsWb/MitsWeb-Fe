@@ -38,4 +38,9 @@ export default {
     method: "post",
     noAuth: false,
   },
+  addUser: {
+    path: "/admin/adduser",
+    method: "post",
+    noAuth: false,
+  },
 };

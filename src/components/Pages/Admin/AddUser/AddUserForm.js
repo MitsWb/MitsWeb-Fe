@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
 import {
   Button,
   FormControl,
@@ -9,11 +8,15 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
+  Input,
+  InputAdornment,
+  IconButton,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { green } from "@material-ui/core/colors";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -51,7 +54,6 @@ const useStyles = makeStyles((theme) => ({
 const LoaderButton = ({ Loading, handleSubmit, type }) => {
   const classes = useStyles();
   const [loading, setLoading] = React.useState(false);
-
   React.useEffect(() => {
     let mount = true;
     if (mount) {
@@ -88,6 +90,7 @@ const LoaderButton = ({ Loading, handleSubmit, type }) => {
 
 const AddUserForm = ({ handleChange, handleSubmit, Form, Error }) => {
   const classes = useStyles();
+  const [show, setshow] = useState(false);
 
   return (
     <Card className={classes.form}>
@@ -96,19 +99,41 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error }) => {
       </Typography>
       <form className={classes.form}>
         <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <TextField
-              required
-              id="email"
-              name="email"
-              label="User Email"
-              value={Form.email}
-              fullWidth
-              onChange={handleChange}
-              autoComplete="email"
-              error={Error["email"]}
-              helperText={Error["email"]}
-            />
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <Input
+                required
+                id="email"
+                name="email"
+                label="User Email"
+                value={Form.email}
+                fullWidth
+                onChange={handleChange}
+                autoComplete="email"
+                error={Error["email"]}
+                helperText={Error["email"]}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Input
+                id="password"
+                name="password"
+                type={show ? "text" : "password"}
+                value={Form.password}
+                onChange={handleChange}
+                error={Error["password"]}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => setshow(!show)}
+                    >
+                      {show ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </Grid>
           </Grid>
           <Grid item xs={12}>
             <FormControl component="fieldset">
@@ -116,11 +141,13 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error }) => {
               <RadioGroup
                 row
                 aria-label="position"
-                name="position"
+                name="type"
                 defaultValue="top"
+                onChange={handleChange}
+                value={Form.type}
               >
                 <FormControlLabel
-                  value="Student"
+                  value="student"
                   control={
                     <Radio
                       classes={{
@@ -146,7 +173,7 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error }) => {
                   labelPlacement="end"
                 />
                 <FormControlLabel
-                  value="end"
+                  value="admin"
                   control={<Radio color="secondary" />}
                   label="Admin"
                 />

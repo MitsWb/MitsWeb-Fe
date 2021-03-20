@@ -29,3 +29,7 @@ export const adminUpdateuser = (body) => {
 export const deleteUser = (body) => {
   return fireRequest("deleteUser", [], body);
 };
+
+export const addUser = (body) => {
+  return fireRequest("addUser", [], body);
+};
