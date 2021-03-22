@@ -8,10 +8,14 @@ import { navigate } from "hookrouter";
 import Loader from "../utils/Loader";
 import AdminRouter from "./AdminRouter";
 import Notify from "../utils/Notify";
+import FacultyRouter from "./FacultyRouter";
 
 const Router = () => {
   const [user, setUser] = useState();
-  const [admin, setAdmin] = useState(false);
+  const [loggedinAs, setloggedinAs] = useState({
+    faculty: false,
+    admin: false,
+  });
   const dispatch = useDispatch();
   const state = useSelector((reduxState) => reduxState);
   const [notify, setnotify] = useState({ msg: "", popup: false, type: "" });
@@ -29,7 +33,10 @@ const Router = () => {
               res.data.data.type === "owner" ||
               res.data.data.type === "admin"
             )
-              res.data.data.type === "admin" ? setAdmin(true) : setAdmin(false);
+              if (res.data.data.type === "admin")
+                setloggedinAs({ faculty: false, admin: true });
+            if (res.data.data.type === "faculty")
+              setloggedinAs({ faculty: true, admin: false });
             setUser(res.data.data);
           } else {
             setnotify({
@@ -64,8 +71,10 @@ const Router = () => {
     <>
       <Notify props={notify} closeAlert={closeAlert} />
       {user ? (
-        admin ? (
+        loggedinAs.admin ? (
           <AdminRouter />
+        ) : loggedinAs.faculty ? (
+          <FacultyRouter />
         ) : (
           <AuthenticatedRouter />
         )
