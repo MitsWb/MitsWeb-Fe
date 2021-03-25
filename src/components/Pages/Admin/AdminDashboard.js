@@ -254,7 +254,10 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
           <div className=" flex-column md:flex lg:flex">
             <div className="w-full md:w-3/4 flex lg:w-3/4 text-left">
               <div className="text-sm mr-1 mt-2 md:text-lg lg:text-lg">
-                Edit Student Details
+                Edit{" "}
+                {form.type.charAt(0).toUpperCase() + form.type.slice(1) ||
+                  "USER"}{" "}
+                Details
               </div>
               <div className="ml-1">
                 <FormControlLabel
