@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import useHeading from "../useHeading";
 import { useDispatch } from "react-redux";
-import { getAllusers, deleteUser } from "../../../redux/apiActions";
+import {
+  getAllusers,
+  deleteUser,
+  adminUpdateuser,
+  getAlladmins,
+  getAllfaculties,
+} from "../../../redux/apiActions";
 //import { navigate } from "hookrouter";
 import ConfirmationBox from "./Confirmation";
 import Notify from "../../../utils/Notify";
@@ -16,6 +22,7 @@ import {
   TableHead,
   TableContainer,
   Table,
+  Card,
   TableRow,
   DialogTitle,
   DialogContent,
@@ -27,7 +34,6 @@ import {
 } from "@material-ui/core";
 
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import { adminUpdateuser } from "../../../redux/apiActions";
 import {
   //makeStyles,
   withStyles,
@@ -377,6 +383,7 @@ const AdminDashboard = () => {
   const [Loading, setLoading] = useState(false);
   const [notify, setnotify] = useState({ popup: false, msg: "", type: "" });
   const [Rerender, setRerender] = useState(Math.random());
+  const [showType, setshowType] = useState("student");
   const [select, setselect] = useState({
     id: "",
     name: "",
@@ -398,7 +405,7 @@ const AdminDashboard = () => {
       setRerender(Math.random());
     }
   };
-
+  // eslint-disable-next-line
   const handleClickOpen = (id, e) => {
     setselect({
       id: e._id,
@@ -424,13 +431,34 @@ const AdminDashboard = () => {
   };
   useHeading("Admin Dashboard");
   useEffect(() => {
+    setLoading(true);
     dispatch(getAllusers()).then((res) => {
       if (res && res.data && res.data.data) {
         setdata(res.data.data);
-        setLoading(false);
       }
+      setLoading(false);
     });
   }, [dispatch, Rerender]);
+
+  const getAdmin = () => {
+    setLoading(true);
+    dispatch(getAlladmins()).then((res) => {
+      if (res && res.data && res.data.data) {
+        setdata(res.data.data);
+      }
+      setLoading(false);
+    });
+  };
+
+  const getFaculty = () => {
+    setLoading(true);
+    dispatch(getAllfaculties()).then((res) => {
+      if (res && res.data && res.data.data) {
+        setdata(res.data.data);
+      }
+      setLoading(false);
+    });
+  };
 
   if (data.length === 0) {
     studentList = (
@@ -439,7 +467,7 @@ const AdminDashboard = () => {
           colSpan={4}
           className=" border-b border-gray-200 text-center "
         >
-          <Typography>Loading ....</Typography>
+          <Typography>No Data found</Typography>
         </TableCell>
       </TableRow>
     );
@@ -447,7 +475,11 @@ const AdminDashboard = () => {
     studentList = data.map((e, key) => {
       return (
         <>
-          <TableRow key={e.id} onClick={() => handleClickOpen(e.id, e)} hover>
+          <TableRow
+            key={e.id}
+            /*onClick={() => handleClickOpen(e.id, e)}*/
+            hover
+          >
             <TableCell
               //  onClick={() => navigate("/hotel/" + e.id)}
               className=" border-b border-gray-200 text-sm "
@@ -489,17 +521,58 @@ const AdminDashboard = () => {
   return (
     <>
       <Notify props={notify} closeAlert={closeAlert} />
-      {Loading ? (
-        <Loader />
-      ) : (
-        <div>
-          <FormDialog
-            open={open}
-            handleClose={handleClose}
-            id={select}
-            data={data}
-            changeStatus={changeStatus}
-          />
+      <div>
+        <FormDialog
+          open={open}
+          handleClose={handleClose}
+          id={select}
+          data={data}
+          changeStatus={changeStatus}
+        />
+        <Card className="flex mt-3 text-center lg:text-md text-sm w-5/6 flex-row  shadow lg:w-1/2 m-0 m-auto ">
+          <div className="text-center w-1/3  px-3 py-2 m-1">
+            <Button
+              variant="contained"
+              size="small"
+              color={showType === "student" ? "primary" : "default"}
+              onClick={() => {
+                setshowType("student");
+                setRerender(Math.random());
+              }}
+            >
+              Student
+            </Button>
+          </div>
+          <div className=" text-center w-1/3  px-1 py-2 m-1">
+            <Button
+              variant="contained"
+              size="small"
+              color={showType === "faculty" ? "primary" : "default"}
+              onClick={() => {
+                setshowType("faculty");
+                getFaculty();
+              }}
+            >
+              Faculty
+            </Button>
+          </div>
+          <div className=" text-center w-1/3 px-3 py-2 m-1">
+            <Button
+              variant="contained"
+              size="small"
+              color={showType === "admin" ? "primary" : "default"}
+              onClick={() => {
+                setshowType("admin");
+                getAdmin();
+              }}
+            >
+              Admin
+            </Button>
+          </div>
+        </Card>
+        {Loading ? (
+          <Loader />
+        ) : (
           <div style={{ overflow: "hidden" }}>
             <Paper
               style={{ width: "100%", margin: "0px auto", marginTop: "15px" }}
@@ -521,8 +594,8 @@ const AdminDashboard = () => {
               </TableContainer>
             </Paper>
           </div>
-        </div>
-      )}
+        )}{" "}
+      </div>
     </>
   );
 };

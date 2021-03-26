@@ -24,7 +24,17 @@ export default {
     noAuth: false,
   },
   getAllusers: {
-    path: "/admin/allusers",
+    path: "/admin/allstudents",
+    method: "get",
+    noAuth: false,
+  },
+  getAllfaculties: {
+    path: "/admin/allfaculties",
+    method: "get",
+    noAuth: false,
+  },
+  getAlladmins: {
+    path: "/admin/alladmins",
     method: "get",
     noAuth: false,
   },
