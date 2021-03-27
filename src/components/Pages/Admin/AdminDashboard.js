@@ -139,7 +139,6 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
     let mount = true;
     if (mount) {
       setform({
-        id: id.id,
         name: id.name,
         email: id.email,
         mobile: id.mobile,
@@ -150,7 +149,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
     return () => {
       mount = false;
     };
-  }, [handleClose, id, id.type, id.email, id.name, id.mobile]);
+  }, [handleClose, id, id.email, id.name, id.mobile]);
   const handleChange = (e) => {
     setnotify({
       popup: false,
@@ -260,10 +259,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
           <div className=" flex-column md:flex lg:flex">
             <div className="w-full md:w-3/4 flex lg:w-3/4 text-left">
               <div className="text-sm mr-1 mt-2 md:text-lg lg:text-lg">
-                Edit{" "}
-                {form.type.charAt(0).toUpperCase() + form.type.slice(1) ||
-                  "USER"}{" "}
-                Details
+                Edit User
               </div>
               <div className="ml-1">
                 <FormControlLabel
@@ -341,7 +337,6 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
               <TextField
                 id="type"
                 name="type"
-                onChange={handleChange}
                 label="type"
                 value={form.type}
                 type="text"
@@ -401,18 +396,24 @@ const AdminDashboard = () => {
   const changeStatus = (LOADSTATUS, POPUPSTATUS) => {
     // setLoading(LOADSTATUS);
     setnotify(POPUPSTATUS);
-    if (POPUPSTATUS.type === "success") {
+    if (POPUPSTATUS.type === "success" && showType === "student") {
       setRerender(Math.random());
+    }
+    if (POPUPSTATUS.type === "success" && showType === "admin") {
+      getAdmin();
+    }
+    if (POPUPSTATUS.type === "success" && showType === "faculty") {
+      getFaculty();
     }
   };
   // eslint-disable-next-line
-  const handleClickOpen = (id, e) => {
+  const handleClickOpen = (id, e, typeNow) => {
     setselect({
       id: e._id,
       name: e.name,
       email: e.email,
       mobile: e.mobile,
-      type: e.type,
+      type: typeNow,
       active: e.active,
     });
     setOpen(true);
@@ -477,7 +478,7 @@ const AdminDashboard = () => {
         <>
           <TableRow
             key={e.id}
-            /*onClick={() => handleClickOpen(e.id, e)}*/
+            onClick={() => handleClickOpen(e.id, e, showType)}
             hover
           >
             <TableCell
