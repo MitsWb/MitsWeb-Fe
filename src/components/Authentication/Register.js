@@ -18,6 +18,7 @@ import {
   phonePreg,
 } from "../../utils/validation";
 import Notify from "../../utils/Notify";
+import { CircularProgress } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -42,7 +43,56 @@ const useStyles = makeStyles((theme) => ({
     color: "inherit",
     cursor: "pointer",
   },
+  wrapper: {
+    position: "relative",
+  },
+  buttonProgress: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    marginTop: -5,
+    marginLeft: -1,
+  },
 }));
+
+const LoaderButton = ({ Loading, handleSubmit }) => {
+  const classes = useStyles();
+  const [loading, setLoading] = React.useState(false);
+
+  React.useEffect(() => {
+    let mount = true;
+    if (mount) {
+      if (!Loading) {
+        setLoading(false);
+      } else {
+        setLoading(true);
+      }
+    }
+    return () => {
+      mount = false;
+    };
+  }, [Loading]);
+
+  return (
+    <div className={classes.wrapper}>
+      <Button
+        variant="contained"
+        color="primary"
+        disabled={loading}
+        fullWidth
+        onClick={handleSubmit}
+        fullwidth
+        className={classes.submit}
+        style={{ outline: "none" }}
+      >
+        Register
+      </Button>
+      {loading && (
+        <CircularProgress size={24} className={classes.buttonProgress} />
+      )}
+    </div>
+  );
+};
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -64,6 +114,7 @@ const Register = () => {
   };
   const [form, setForm] = useState(initForm);
   const [error, setError] = useState(initError);
+  const [loading, setloading] = useState(false);
   const [notify, setnotify] = useState({ popup: false, msg: "", type: "" });
 
   function changeHandler(e) {
@@ -120,8 +171,10 @@ const Register = () => {
   function submitHandler(e) {
     e.preventDefault();
     if (validInputs()) {
+      setloading(true);
       dispatch(register(form)).then((res) => {
         if (res && res.data) {
+          setloading(false);
           if (res.data.success === true) {
             setnotify({
               msg: "Regsitration success",
@@ -130,6 +183,7 @@ const Register = () => {
             });
             setForm(initForm);
           } else {
+            setloading(false);
             setnotify({
               msg: res.data.msg,
               type: "error",
@@ -137,6 +191,7 @@ const Register = () => {
             });
           }
         }
+        setloading(false);
       });
     }
   }
@@ -248,7 +303,7 @@ const Register = () => {
                 />
               </Grid>
             </Grid>
-            <Button
+            {/* <Button
               type="submit"
               style={{ outline: "none" }}
               fullWidth
@@ -257,7 +312,8 @@ const Register = () => {
               className={classes.submit}
             >
               Register
-            </Button>
+            </Button> */}
+            <LoaderButton Loading={loading} handleSubmit={submitHandler} />
             <Grid container justify="flex-end">
               <Grid item>
                 <A href="/" className={classes.link}>
