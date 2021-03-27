@@ -22,7 +22,7 @@ import {
   TableHead,
   TableContainer,
   Table,
-  Card,
+  // Card,
   TableRow,
   DialogTitle,
   DialogContent,
@@ -31,6 +31,8 @@ import {
   TextField,
   Paper,
   Switch,
+  ButtonGroup,
+  Box,
 } from "@material-ui/core";
 
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
@@ -530,8 +532,49 @@ const AdminDashboard = () => {
           data={data}
           changeStatus={changeStatus}
         />
-        <Card className="flex mt-3 text-center lg:text-md text-sm w-5/6 flex-row  shadow lg:w-1/2 m-0 m-auto ">
-          <div className="text-center w-1/3  px-3 py-2 m-1">
+        <Box textAlign="center">
+          <ButtonGroup
+            size="large"
+            color="primary"
+            aria-label="large outlined primary button group"
+          >
+            <Button
+              variant="outlined"
+              size="large"
+              color={showType === "student" ? "primary" : "default"}
+              onClick={() => {
+                setshowType("student");
+                setRerender(Math.random());
+              }}
+            >
+              Student
+            </Button>
+            <Button
+              variant="outlined"
+              size="large"
+              color={showType === "faculty" ? "primary" : "default"}
+              onClick={() => {
+                setshowType("faculty");
+                getFaculty();
+              }}
+            >
+              Faculty
+            </Button>
+            <Button
+              variant="outlined"
+              size="large"
+              color={showType === "admin" ? "primary" : "default"}
+              onClick={() => {
+                setshowType("admin");
+                getAdmin();
+              }}
+            >
+              Admin
+            </Button>{" "}
+          </ButtonGroup>
+        </Box>
+        {/* <Card className="flex mt-3 text-center lg:text-md text-sm w-5/6 flex-row  shadow lg:w-1/2 m-0 m-auto "> */}
+        {/* <div className="text-center w-1/3  px-3 py-2 m-1">
             <Button
               variant="contained"
               size="small"
@@ -543,8 +586,8 @@ const AdminDashboard = () => {
             >
               Student
             </Button>
-          </div>
-          <div className=" text-center w-1/3  px-1 py-2 m-1">
+          </div> */}
+        {/* <div className=" text-center w-1/3  px-1 py-2 m-1">
             <Button
               variant="contained"
               size="small"
@@ -569,8 +612,8 @@ const AdminDashboard = () => {
             >
               Admin
             </Button>
-          </div>
-        </Card>
+          </div> */}
+        {/* </Card> */}
         {Loading ? (
           <Loader />
         ) : (
