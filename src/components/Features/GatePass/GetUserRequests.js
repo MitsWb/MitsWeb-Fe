@@ -48,7 +48,6 @@ const GetUserRequests = () => {
       if (res && res.data && res.data.data) {
         setRows(res.data.data);
       }
-      console.log(res);
       setLoading(false);
     });
   }, [dispatch]);

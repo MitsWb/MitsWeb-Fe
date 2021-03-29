@@ -28,8 +28,10 @@ const AddUser = () => {
 
   const handleChange = (e) => {
     setError(initError);
-    const { value, name } = e.target;
-    setForm({ ...Form, [name]: value });
+    const { name, value } = e.target;
+    const fieldValue = { ...Form };
+    fieldValue[name] = name === "email" ? value.toLowerCase() : value;
+    setForm(fieldValue);
   };
 
   const handleSubmit = () => {
