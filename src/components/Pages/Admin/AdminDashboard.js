@@ -120,6 +120,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
     mobile: "",
     type: "",
     id: "",
+    isHOD: "",
   };
   const initError = {
     name: "",
@@ -127,6 +128,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
     mobile: "",
     id: "",
     type: "",
+    isHOD: "",
   };
   const [form, setform] = useState(initForm);
   const [err, seterr] = useState(initError);
@@ -146,6 +148,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
         mobile: id.mobile,
         type: id.type,
         active: id.active,
+        isHOD: id.isHOD,
       });
     }
     return () => {
@@ -276,6 +279,20 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
                   }
                   label={form.active ? "Active" : "disabled"}
                 />
+                {form.type && form.type === "faculty" && (
+                  <FormControlLabel
+                    control={
+                      <IOSSwitch
+                        checked={form.isHOD}
+                        onChange={() => {
+                          setform({ ...form, isHOD: !form.isHOD });
+                        }}
+                        name="checkedB"
+                      />
+                    }
+                    label={form.isHOD ? "HOD" : "Not HOD"}
+                  />
+                )}
               </div>
             </div>
             <div className="w-full md:w-1/4 lg:w-1/4 text-right">
@@ -388,6 +405,7 @@ const AdminDashboard = () => {
     mobile: "",
     type: "",
     active: "",
+    isHOD: "",
   });
   const closeAlert = () => {
     setnotify({
@@ -417,6 +435,7 @@ const AdminDashboard = () => {
       mobile: e.mobile,
       type: typeNow,
       active: e.active,
+      isHOD: e.isHOD,
     });
     setOpen(true);
   };
