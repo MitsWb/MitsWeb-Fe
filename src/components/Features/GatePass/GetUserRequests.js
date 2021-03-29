@@ -9,9 +9,9 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import { useDispatch } from "react-redux";
-import useHeading from "../../Pages/useHeading";
 import { getUserPasses } from "../../../redux/apiActions";
 import { Typography } from "@material-ui/core";
+import Loader from "../../../utils/Loader";
 
 const columns = [
   { id: "onDate", label: "On\u00a0Date", minWidth: 100 },
@@ -40,10 +40,7 @@ const GetUserRequests = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(2);
   const dispatch = useDispatch();
   const [rows, setRows] = useState([]);
-  const [open, setOpen] = useState(false);
   const [Loading, setLoading] = useState(false);
-  const [notify, setnotify] = useState({ popup: false, msg: "", type: "" });
-  const [Rerender, setRerender] = useState(Math.random());
 
   useEffect(() => {
     setLoading(true);
@@ -54,13 +51,7 @@ const GetUserRequests = () => {
       console.log(res);
       setLoading(false);
     });
-  }, [dispatch, Rerender]);
-
-  const closeAlert = () => {
-    setnotify({
-      popup: false,
-    });
-  };
+  }, [dispatch]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -72,67 +63,78 @@ const GetUserRequests = () => {
   };
 
   return (
-    <Paper className={classes.root}>
-      <TableContainer className={classes.container}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.length > 0 ? (
-              rows
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
-                  return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={row._id}>
-                      {columns.map((column) => {
-                        const value = row[column.id];
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={4}
-                  className=" border-b border-gray-200 text-center "
-                >
-                  <Typography>
-                    You have not made any gate pass requests!!
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[2, 4, 6]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
-      />
-    </Paper>
+    <>
+      {Loading ? (
+        <Loader />
+      ) : (
+        <Paper className={classes.root}>
+          <TableContainer className={classes.container}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  {columns.map((column) => (
+                    <TableCell
+                      key={column.id}
+                      align={column.align}
+                      style={{ minWidth: column.minWidth }}
+                    >
+                      {column.label}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.length > 0 ? (
+                  rows
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row) => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row._id}
+                        >
+                          {columns.map((column) => {
+                            const value = row[column.id];
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                {column.format && typeof value === "number"
+                                  ? column.format(value)
+                                  : value}
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      );
+                    })
+                ) : (
+                  <TableRow>
+                    <TableCell
+                      colSpan={4}
+                      className=" border-b border-gray-200 text-center "
+                    >
+                      <Typography>
+                        You have not made any gate pass requests!!
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[2, 4, 6]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
+        </Paper>
+      )}{" "}
+    </>
   );
 };
 export default GetUserRequests;
