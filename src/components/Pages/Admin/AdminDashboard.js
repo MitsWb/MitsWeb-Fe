@@ -514,7 +514,10 @@ const AdminDashboard = () => {
               //  onClick={() => navigate("/hotel/" + e.id)}
               className=" border-b border-gray-200 text-sm "
             >
-              <Typography className="items-center">
+              <Typography
+                className="items-center"
+                color={e.isHOD ? "primary" : "default"}
+              >
                 <div className="ml-2">{e.name}</div>
               </Typography>
             </TableCell>
@@ -522,7 +525,10 @@ const AdminDashboard = () => {
               //     onClick={() => navigate("/hotel/" + e.id)}
               className="border-b border-gray-200 text-sm "
             >
-              <Typography className="items-center">
+              <Typography
+                className="items-center"
+                color={e.isHOD ? "primary" : "default"}
+              >
                 <div className="ml-2">{e.email}</div>
               </Typography>
             </TableCell>
@@ -530,7 +536,10 @@ const AdminDashboard = () => {
               //   onClick={() => navigate("/hotel/" + e.id)}
               className=" border-b border-gray-200 text-sm "
             >
-              <Typography className="items-center">
+              <Typography
+                className="items-center"
+                color={e.isHOD ? "primary" : "default"}
+              >
                 <div className="ml-2">{e.type}</div>
               </Typography>
             </TableCell>
