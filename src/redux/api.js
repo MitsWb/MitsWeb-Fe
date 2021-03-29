@@ -60,4 +60,9 @@ export default {
     method: "post",
     noAuth: false,
   },
+  getUserPasses: {
+    path: "/gatepass/usergatepasses",
+    method: "get",
+    noAuth: false,
+  },
 };

@@ -39,6 +39,10 @@ export const requestGatePass = (body) => {
   return fireRequest("requestGatePass", [], body);
 };
 
+export const getUserPasses = (body) => {
+  return fireRequest("getUserPasses", [], body);
+};
+
 export const getAlladmins = () => {
   return fireRequest("getAlladmins");
 };

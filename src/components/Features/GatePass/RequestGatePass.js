@@ -5,6 +5,7 @@ import useHeading from "../../Pages/useHeading";
 import GatePassForm from "./GatePassForm";
 import Notify from "../../../utils/Notify";
 import moment from "moment";
+import GetUserRequests from "./GetUserRequests";
 
 export default function RequestGatePass() {
   useHeading("Request Gate Pass");
@@ -91,6 +92,8 @@ export default function RequestGatePass() {
         date={date}
         loading={loading}
       />
+      <br />
+      <GetUserRequests />
     </>
   );
 }
