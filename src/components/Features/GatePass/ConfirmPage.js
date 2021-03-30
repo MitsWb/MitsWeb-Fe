@@ -6,12 +6,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-export default function ConfirmationBox({
-  open,
-  handleClose,
-  data,
-  handleConfirm,
-}) {
+export default function ConfirmationBox({ open, handleClose, handleConfirm }) {
   return (
     <div>
       <Dialog
@@ -19,10 +14,10 @@ export default function ConfirmationBox({
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">Delete User</DialogTitle>
+        <DialogTitle id="responsive-dialog-title">Delete</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            You are about to delete {data._id}
+            Are you sure you want to delete this?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -30,7 +25,9 @@ export default function ConfirmationBox({
             Cancel
           </Button>
           <Button
-            onClick={() => handleConfirm(data.userId)}
+            onClick={() => {
+              handleConfirm();
+            }}
             color="secondary"
             autoFocus
           >

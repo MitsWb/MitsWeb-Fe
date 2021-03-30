@@ -138,19 +138,6 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <div className="w-full md:w-1/4 lg:w-1/4 text-right">
-          <Button
-            size="small"
-            color="secondary"
-            onClick={() => {
-              setconfOpen(true);
-            }}
-            style={{ outline: "none", borderRadius: "50%" }}
-          >
-            <DeleteForeverIcon color="secondary" />
-            Delete
-          </Button>
-        </div>
         <DialogContent>
           <GatePassForm
             Form={gatepassForm}
@@ -171,6 +158,16 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
             color="primary"
           >
             Cancel
+          </Button>
+          <Button
+            style={{ outline: "none" }}
+            color="secondary"
+            onClick={() => {
+              setconfOpen(true);
+            }}
+          >
+            <DeleteForeverIcon color="secondary" />
+            Delete
           </Button>
         </DialogActions>
       </Dialog>
