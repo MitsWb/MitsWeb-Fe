@@ -85,6 +85,8 @@ const GatePassForm = ({
 }) => {
   const classes = useStyles();
 
+  alert(date);
+
   return (
     <Card className={classes.form}>
       <Typography variant="h6" gutterBottom>

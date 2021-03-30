@@ -7,6 +7,7 @@ import AuthenticatedNavbar from "../components/Navbar/AuthenticatedNavbar";
 import RequestLeave from "../components/Features/LeaveApplication/RequestLeave";
 import RequestGatePass from "../components/Features/GatePass/RequestGatePass";
 import UpdateProfile from "../components/Pages/UpdateProfile";
+import NewGatepass from "../components/Features/GatePass/NewGatpass";
 
 const routes = {
   "/": () => <Dashboard />,
@@ -14,6 +15,7 @@ const routes = {
   "/updateprofile": () => <UpdateProfile />,
   "/leave": () => <RequestLeave />,
   "/gatepass": () => <RequestGatePass />,
+  "/gatepass/new": () => <NewGatepass />,
 };
 
 const AuthenticatedRouter = () => {
