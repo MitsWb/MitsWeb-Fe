@@ -65,7 +65,7 @@ const LoaderButton = ({ Loading, handleSubmit, type }) => {
         className={classes.submit}
         style={{ outline: "none" }}
       >
-        {type} Gate Pass Request
+        {type}
       </Button>
       {loading && (
         <CircularProgress size={24} className={classes.buttonProgress} />
@@ -82,12 +82,13 @@ const GatePassForm = ({
   date,
   handleDateChange,
   loading,
+  title = "Gatepass",
 }) => {
   const classes = useStyles();
   return (
     <Card className={classes.form}>
       <Typography variant="h6" gutterBottom>
-        Request Gate Pass
+        {title}
       </Typography>
       <form className={classes.form}>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>

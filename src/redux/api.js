@@ -61,24 +61,28 @@ export default {
     noAuth: false,
   },
   getUserPasses: {
-    path: "/gatepass/usergatepasses",
+    path: "/gatepass",
     method: "get",
     noAuth: false,
   },
-  
-   getUserRequests: {
+
+  getUserRequests: {
     path: "/gatepass/userrequests",
     method: "get",
     noAuth: false,
   },
-  
-   //faculty api's
+  cancelGatepass: {
+    path: "/gatepass/cancel",
+    method: "post",
+    noAuth: false,
+  },
+  //faculty api's
   getCurrentFaculty: {
     path: "/user/faculty",
     method: "get",
     noAuth: false,
   },
-  
+
   editGatepass: {
     path: "/gatepass/edit",
     method: "post",

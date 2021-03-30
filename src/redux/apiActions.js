@@ -38,7 +38,9 @@ export const addUser = (body) => {
 export const requestGatePass = (body) => {
   return fireRequest("requestGatePass", [], body);
 };
-
+export const cancelGatepass = (body) => {
+  return fireRequest("cancelGatepass", [], body);
+};
 export const getUserPasses = (body) => {
   return fireRequest("getUserPasses", [], body);
 };

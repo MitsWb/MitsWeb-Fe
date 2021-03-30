@@ -4,11 +4,8 @@ import {
   Paper,
   DialogActions,
   Dialog,
-  DialogTitle,
   Button,
-  TextField,
   DialogContent,
-  Grid,
 } from "@material-ui/core";
 import moment from "moment";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
@@ -21,7 +18,11 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import { useDispatch } from "react-redux";
-import { getUserPasses, editGatepass } from "../../../redux/apiActions";
+import {
+  getUserPasses,
+  editGatepass,
+  cancelGatepass,
+} from "../../../redux/apiActions";
 import { Typography } from "@material-ui/core";
 import Loader from "../../../utils/Loader";
 import Notify from "../../../utils/Notify";
@@ -48,7 +49,6 @@ const useStyles = makeStyles({
 });
 
 const FormDialog = ({ open, handleClose, data, changeStatus }) => {
-  console.log(data.time);
   const [Data, setData] = useState();
   const initForm = {
     onDate: moment(data.time).format("MMM Do YY"),
@@ -63,13 +63,13 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
   };
   const [Error, setError] = useState(initError);
   const [date, setDate] = useState(data.time);
-  const [loading, setLoading] = useState(false);
+  const loading = false;
   const dispatch = useDispatch();
   const [confOpen, setconfOpen] = useState(false);
 
   useEffect(() => {
     setDate(data.time);
-    setData(data);
+    setData(data._id);
     setgatepassForm({
       onDate: moment(data.time).format("MMM Do YY"),
       onTime: moment(data.time).format("h:mm:ss a"),
@@ -104,140 +104,24 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
       changeStatus(true);
       dispatch(editGatepass(gatepassForm)).then((res) => {
         if (res && res.data && res.data.success) {
-          changeStatus(false);
+          changeStatus(false, "Gate Pass updated");
         }
       });
     } else alert("err");
   };
-  /*const initForm = {
-    name: "",
-    email: "",
-    mobile: "",
-    type: "",
-    id: "",
-    isHOD: "",
-  };
-  const initError = {
-    name: "",
-    email: "",
-    mobile: "",
-    id: "",
-    type: "",
-    isHOD: "",
-  };
-  const [form, setform] = useState(initForm);
-  const [err, seterr] = useState(initError);
-  const [notify, setnotify] = useState({ popup: false, msg: "", type: "" });
-  const dispatch = useDispatch();
-  const [select, setselect] = useState({ description: "" });
-  const [confOpen, setconfOpen] = useState(false);
-  const [data, setdata] = useState("");
 
-  //modal doesn't close after successful updation
-  //variable names needs to be improved
-  //the list of users should re render after successful updation
-  useEffect(() => {
-    let mount = true;
-    console.log(id);
-    if (mount) {
-      setform({
-        id,
-      });
-    }
-    return () => {
-      mount = false;
-    };
-  }, [handleClose, id, id.email, id.name, id.mobile]);
-  const handleChange = (e) => {
-    setnotify({
-      popup: false,
-    });
-    seterr(initError);
-    const { value, name } = e.target;
-    setform({ ...form, [name]: value });
-  };
-
-  const optionalValues = ["email", "type"];
-
-  const validInputs = () => {
-    let formValid = true;
-    let err = Object.assign({}, initError);
-    //const { mobile, email, name, type } = form;
-    const { name } = form;
-    Object.keys(form).forEach((key) => {
-      if (form[key] === "" && !optionalValues.includes(key)) {
-        formValid = false;
-        err[key] = "This field is required";
-      }
-    });
-    if (!name.replace(/\s/g, "").length) {
-      formValid = false;
-      err["name"] = "This field is required";
-    }
-
-    // if (!phonePreg(mobile)) {
-    //   formValid = false;
-    //   err["mobile"] = "Enter Valid phone number";
-    // }
-    // if (type !== "") {
-    //   if (isNaN(type) || type === "") {
-    //     formValid = false;
-    //     err["type"] = "Enter a number";
-    //   }
-    // }
-    // if (email !== "") {
-    //   if (!validateEmailAddress(email)) {
-    //     err["email"] = "Enter a valid email";
-    //     formValid = false;
-    //   }
-    // }
-
-    seterr(err);
-    return formValid;
-  };
-
-  const handleSubmit = () => {
-    if (validInputs()) {
-      let Result;
-
-      Result = {
-        ...form,
-      };
-      handleClose("");
-      changeStatus(true, { popup: false });
-      /* dispatch(adminUpdateuser(Result)).then((res) => {
-        if (res && res.data) {
-          if (res.data.success === true) {
-            changeStatus(false, {
-              msg: "Updated user",
-              type: "success",
-              popup: true,
-            });
-          }
-        } else {
-          changeStatus(false, {
-            msg: "Error",
-            type: "error",
-            popup: true,
-          });
-        }
-      });
-    }
-  };
-  const closeAlert = () => {
-    setnotify({
-      popup: false,
-    });
-  };
-  const handleUserDelete = (userID) => {
+  const handleUserDelete = () => {
     setconfOpen(false);
-    handleClose("DELETING");
-    /*   dispatch(deleteUser({ deleteId: userID })).then((res) => {
-      if (res && res.data.success) {
-        handleClose("DELETED");
+    handleClose();
+    dispatch(cancelGatepass({ deleteId: Data })).then((res) => {
+      if (res && res.data && res.data.success) {
+        changeStatus(false, "Deleted");
+        // handleClose("DELETED", 1);
+      } else {
+        changeStatus(false, "An error occured", "error");
       }
     });
-  };*/
+  };
 
   return (
     <>
@@ -247,9 +131,7 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
         handleClose={() => {
           setconfOpen(false);
         }}
-        handleConfirm={() => {
-          alert("de");
-        }}
+        handleConfirm={handleUserDelete}
       />
       <Dialog
         open={open}
@@ -262,7 +144,6 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
             color="secondary"
             onClick={() => {
               setconfOpen(true);
-              setData({ _id: String(data._id) });
             }}
             style={{ outline: "none", borderRadius: "50%" }}
           >
@@ -276,68 +157,12 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
             handleChange={handleChange}
             Error={Error}
             Helper={""}
+            title="Edit Gate Pass"
             handleDateChange={handleDatechange}
             handleSubmit={handleSubmit}
             date={date}
             loading={loading}
           />
-          {/*    <Grid container spacing={1}>
-            <Grid item xs={12}>
-              <TextField
-                id="name"
-                name="name"
-                onChange={handleChange}
-                label="User Name"
-                value={form.name}
-                fullWidth
-                error={err["name"]}
-                helperText={err["name"]}
-                autoComplete="new-password"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                id="mobile"
-                name="mobile"
-                onChange={handleChange}
-                label="Mobile Number"
-                value={form.mobile}
-                fullWidth
-                error={err["mobile"]}
-                helperText={err["mobile"]}
-                autoComplete="new-password"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                id="email"
-                name="email"
-                onChange={handleChange}
-                label="Email"
-                value={form.email}
-                fullWidth
-                error={err["email"]}
-                helperText={err["email"]}
-                autoComplete="new-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                id="type"
-                name="type"
-                label="type"
-                value={form.type}
-                type="text"
-                fullWidth
-                error={err["type"]}
-                helperText={err["type"]}
-                autoComplete="type"
-              />
-            </Grid>
-          </Grid>
-      
-      
-     */}{" "}
         </DialogContent>
         <DialogActions>
           <Button
@@ -385,19 +210,18 @@ const GetUserRequests = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const changeStatus = (status) => {
+  const changeStatus = (status, notify, succ = "success") => {
     if (status) {
       setLoading(true);
     } else {
       setLoading(false);
-      setnotify({ popup: true, type: "success", msg: "Saved" });
+      setnotify({ popup: true, type: succ, msg: notify });
       setrerender(!rerender);
     }
   };
   const closeAlert = () => {
     setnotify({ popup: false });
   };
-  console.log(rows);
   return (
     <>
       <Notify props={notify} closeAlert={closeAlert} />

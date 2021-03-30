@@ -88,6 +88,7 @@ export default function RequestGatePass() {
         Form={Form}
         handleChange={handleChange}
         Error={Error}
+        title="Request Gate Pass"
         Helper={""}
         handleDateChange={handleDatechange}
         handleSubmit={handleSubmit}
