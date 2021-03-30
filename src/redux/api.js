@@ -65,4 +65,11 @@ export default {
     method: "get",
     noAuth: false,
   },
+
+  //faculty api's
+  getCurrentFaculty: {
+    path: "/user/faculty",
+    method: "get",
+    noAuth: false,
+  },
 };

@@ -46,6 +46,12 @@ export const getUserPasses = (body) => {
 export const getAlladmins = () => {
   return fireRequest("getAlladmins");
 };
+
+//faculty api's
 export const getAllfaculties = () => {
   return fireRequest("getAllfaculties");
+};
+
+export const getCurrentFaculty = () => {
+  return fireRequest("getCurrentFaculty");
 };
