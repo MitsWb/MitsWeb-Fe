@@ -24,7 +24,7 @@ function ApproveRequests() {
       {Loading ? (
         <h1>loading.....</h1>
       ) : faculty && faculty["isHOD"] ? (
-        <GetGatePassRequests />
+        <GetGatePassRequests department={faculty.department} />
       ) : (
         <h1>No requests at the moment!!</h1>
       )}
