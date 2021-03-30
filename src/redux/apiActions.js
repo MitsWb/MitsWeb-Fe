@@ -56,6 +56,10 @@ export const getAllfaculties = () => {
   return fireRequest("getAllfaculties");
 };
 
+export const editGatepass = (body) => {
+  return fireRequest("editGatepass", [], body);
+};
+
 export const getCurrentFaculty = () => {
   return fireRequest("getCurrentFaculty");
 };
