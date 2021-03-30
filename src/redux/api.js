@@ -65,6 +65,20 @@ export default {
     method: "get",
     noAuth: false,
   },
+  
+   getUserRequests: {
+    path: "/gatepass/userrequests",
+    method: "get",
+    noAuth: false,
+  },
+  
+   //faculty api's
+  getCurrentFaculty: {
+    path: "/user/faculty",
+    method: "get",
+    noAuth: false,
+  },
+  
   editGatepass: {
     path: "/gatepass/edit",
     method: "post",

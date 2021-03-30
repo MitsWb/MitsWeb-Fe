@@ -3,11 +3,11 @@ import { useRoutes } from "hookrouter";
 import NotFoundPage from "../components/Pages/NotFoundPage";
 import FacultyDashboard from "../components/Pages/Faculty/Dashboard";
 import FacultyNavbar from "../components/Navbar/FacultyNavbar";
-import AddUser from "../components/Pages/Admin/AddUser/AddUser";
+import ApproveRequests from "../components/Pages/Faculty/ApproveRequests";
 
 const routes = {
   "/": () => <FacultyDashboard />,
-  "/adduser": () => <AddUser />,
+  "/requests": () => <ApproveRequests />,
 };
 
 const FacultyRouter = () => {

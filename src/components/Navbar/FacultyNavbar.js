@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
-//import GroupAddIcon from "@material-ui/icons/GroupAdd";
+import DoneAllIcon from "@material-ui/icons/DoneAll";
 import Navbar from "./Navbar";
 import { navigate } from "hookrouter";
 
@@ -12,6 +12,12 @@ const FacultyNavbar = ({ page }) => {
       path: "/",
       text: "Dashboard",
       icon: <DashboardIcon />,
+    },
+    { divider: true },
+    {
+      path: "/requests",
+      text: "Approve Requests",
+      icon: <DoneAllIcon />,
     },
     { divider: true },
     {
