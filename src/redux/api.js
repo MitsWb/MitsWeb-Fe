@@ -65,4 +65,9 @@ export default {
     method: "get",
     noAuth: false,
   },
+  editGatepass: {
+    path: "/gatepass/edit",
+    method: "post",
+    noAuth: false,
+  },
 };

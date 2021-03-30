@@ -49,3 +49,6 @@ export const getAlladmins = () => {
 export const getAllfaculties = () => {
   return fireRequest("getAllfaculties");
 };
+export const editGatepass = (body) => {
+  return fireRequest("editGatepass", [], body);
+};

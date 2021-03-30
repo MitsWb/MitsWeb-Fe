@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 import moment from "moment";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import ConfirmationBox from "./ConfirmPage";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -20,12 +21,11 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import { useDispatch } from "react-redux";
-import { getUserPasses } from "../../../redux/apiActions";
+import { getUserPasses, editGatepass } from "../../../redux/apiActions";
 import { Typography } from "@material-ui/core";
 import Loader from "../../../utils/Loader";
 import Notify from "../../../utils/Notify";
 import GatePassForm from "./GatePassForm";
-
 const columns = [
   { id: "onDate", label: "On\u00a0Date", minWidth: 100 },
   { id: "onTime", label: "On\u00a0Time", minWidth: 100 },
@@ -49,6 +49,7 @@ const useStyles = makeStyles({
 
 const FormDialog = ({ open, handleClose, data, changeStatus }) => {
   console.log(data.time);
+  const [Data, setData] = useState();
   const initForm = {
     onDate: moment(data.time).format("MMM Do YY"),
     onTime: moment(data.time).format("h:mm:ss a"),
@@ -60,10 +61,23 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
     onTime: "",
     description: "",
   };
-  alert(data.time);
   const [Error, setError] = useState(initError);
   const [date, setDate] = useState(data.time);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const [confOpen, setconfOpen] = useState(false);
+
+  useEffect(() => {
+    setDate(data.time);
+    setData(data);
+    setgatepassForm({
+      onDate: moment(data.time).format("MMM Do YY"),
+      onTime: moment(data.time).format("h:mm:ss a"),
+      description: data.description,
+      _id: data._id,
+    });
+    // eslint-disable-next-line
+  }, [data.time]);
 
   const handleChange = (e) => {
     setError(initError);
@@ -76,11 +90,24 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
       onDate: moment(dateNow).format("MMM Do YY"),
       onTime: moment(dateNow).format("h:mm:ss a"),
     });
-    console.log(dateNow, "  ", data.time);
     setDate(dateNow);
   };
   const handleSubmit = () => {
-    alert("submited");
+    let formValid = true;
+    const { description } = gatepassForm;
+    if (!description.replace(/\s/g, "").length) {
+      formValid = false;
+      //err["name"] = "This field is required";
+    }
+    if (formValid) {
+      handleClose();
+      changeStatus(true);
+      dispatch(editGatepass(gatepassForm)).then((res) => {
+        if (res && res.data && res.data.success) {
+          changeStatus(false);
+        }
+      });
+    } else alert("err");
   };
   /*const initForm = {
     name: "",
@@ -214,19 +241,35 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
 
   return (
     <>
-      {/* <ConfirmationBox
+      <ConfirmationBox
         open={confOpen}
-        data={data}
+        data={{ _id: "jishnu" }}
         handleClose={() => {
           setconfOpen(false);
         }}
-        handleConfirm={handleUserDelete}
-      />*/}
+        handleConfirm={() => {
+          alert("de");
+        }}
+      />
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
+        <div className="w-full md:w-1/4 lg:w-1/4 text-right">
+          <Button
+            size="small"
+            color="secondary"
+            onClick={() => {
+              setconfOpen(true);
+              setData({ _id: String(data._id) });
+            }}
+            style={{ outline: "none", borderRadius: "50%" }}
+          >
+            <DeleteForeverIcon color="secondary" />
+            Delete
+          </Button>
+        </div>
         <DialogContent>
           <GatePassForm
             Form={gatepassForm}
@@ -291,7 +334,6 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
                 autoComplete="type"
               />
             </Grid>
-            <Notify props={notify} closeAlert={closeAlert} />
           </Grid>
       
       
@@ -320,7 +362,8 @@ const GetUserRequests = () => {
   const [Loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [data, setdata] = useState("");
-
+  const [rerender, setrerender] = useState(false);
+  const [notify, setnotify] = useState({ msg: "", popup: false, type: "" });
   useEffect(() => {
     setLoading(true);
     dispatch(getUserPasses()).then((res) => {
@@ -329,7 +372,7 @@ const GetUserRequests = () => {
       }
       setLoading(false);
     });
-  }, [dispatch]);
+  }, [dispatch, rerender]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -342,10 +385,22 @@ const GetUserRequests = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const changeStatus = (LOADSTATUS, POPUPSTATUS) => {};
-
+  const changeStatus = (status) => {
+    if (status) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+      setnotify({ popup: true, type: "success", msg: "Saved" });
+      setrerender(!rerender);
+    }
+  };
+  const closeAlert = () => {
+    setnotify({ popup: false });
+  };
+  console.log(rows);
   return (
     <>
+      <Notify props={notify} closeAlert={closeAlert} />
       <FormDialog
         open={open}
         handleClose={handleClose}
