@@ -59,6 +59,7 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
   const initError = {
     onDate: "",
     onTime: "",
+    time: "",
     description: "",
   };
   const [Error, setError] = useState(initError);
@@ -75,6 +76,7 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
       onTime: moment(data.time).format("h:mm:ss a"),
       description: data.description,
       _id: data._id,
+      time: data.time,
     });
     // eslint-disable-next-line
   }, [data.time]);
@@ -87,6 +89,7 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
   const handleDatechange = (dateNow) => {
     setgatepassForm({
       ...gatepassForm,
+      time: dateNow,
       onDate: moment(dateNow).format("MMM Do YY"),
       onTime: moment(dateNow).format("h:mm:ss a"),
     });
@@ -105,6 +108,8 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
       dispatch(editGatepass(gatepassForm)).then((res) => {
         if (res && res.data && res.data.success) {
           changeStatus(false, "Gate Pass updated");
+        } else {
+          changeStatus(false, res.data ? res.data.msg : "Error", "error");
         }
       });
     } else alert("err");
