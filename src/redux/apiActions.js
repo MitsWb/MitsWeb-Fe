@@ -45,10 +45,6 @@ export const getUserPasses = (body) => {
   return fireRequest("getUserPasses", [], body);
 };
 
-export const getUserRequests = (department) => {
-  return fireRequest("getUserRequests", [department]);
-};
-
 export const getAlladmins = () => {
   return fireRequest("getAlladmins");
 };

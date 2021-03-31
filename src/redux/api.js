@@ -66,11 +66,6 @@ export default {
     noAuth: false,
   },
 
-  getUserRequests: {
-    path: "/gatepass/userrequests",
-    method: "get",
-    noAuth: false,
-  },
   cancelGatepass: {
     path: "/gatepass/cancel",
     method: "post",
