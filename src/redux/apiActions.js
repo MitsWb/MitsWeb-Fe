@@ -62,6 +62,6 @@ export const editGatepass = (body) => {
   return fireRequest("editGatepass", [], body);
 };
 
-export const getCurrentFaculty = () => {
-  return fireRequest("getCurrentFaculty");
+export const getGatepasses = () => {
+  return fireRequest("getGatepasses");
 };

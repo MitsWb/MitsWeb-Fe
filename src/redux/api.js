@@ -76,16 +76,16 @@ export default {
     method: "post",
     noAuth: false,
   },
-  //faculty api's
-  getCurrentFaculty: {
-    path: "/user/faculty",
-    method: "get",
-    noAuth: false,
-  },
-
   editGatepass: {
     path: "/gatepass/edit",
     method: "post",
+    noAuth: false,
+  },
+  //faculty api's
+
+  getGatepasses: {
+    path: "/faculty/gatepass",
+    method: "get",
     noAuth: false,
   },
 };
