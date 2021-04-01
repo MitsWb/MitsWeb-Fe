@@ -42,7 +42,7 @@ export default function ConfirmationBox({
               STATUS :{" "}
               {data.status === 0
                 ? "PENDING"
-                : data.status === "-1"
+                : data.status === -1
                 ? "REJECTED"
                 : "APPROVED"}
               <br></br>
