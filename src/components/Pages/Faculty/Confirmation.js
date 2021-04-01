@@ -19,7 +19,6 @@ export default function ConfirmationBox({
   data,
   handleConfirm,
 }) {
-  console.log(data);
   return (
     <div>
       <Dialog
@@ -32,8 +31,22 @@ export default function ConfirmationBox({
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Gatepass requested by <span className="bold"> {data.name}</span>
+            <span className="bold truncate ">
+              {" "}
+              {data.name} {" ("}
+              {data.email}
+              {")"}
+            </span>
             <br></br>
+            <span className="bold truncate ">
+              STATUS :{" "}
+              {data.status === 0
+                ? "PENDING"
+                : data.status === "-1"
+                ? "REJECTED"
+                : "APPROVED"}
+              <br></br>
+            </span>
             REASON : {data.description}
             <p>
               <span className="bold mr-2">Date:</span>

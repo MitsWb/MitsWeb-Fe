@@ -10,7 +10,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import { Typography } from "@material-ui/core";
+import { Typography, Card } from "@material-ui/core";
 import Loader from "../../../utils/Loader";
 import useHeading from "../useHeading";
 import Confirmation from "./Confirmation";
@@ -139,9 +139,39 @@ function GetGatePassRequests() {
                             const value = row[column.id];
                             return (
                               <TableCell key={column.id} align={column.align}>
-                                {column.format && typeof value === "number"
-                                  ? column.format(value)
-                                  : value}
+                                {column.id === "status" ? (
+                                  <>
+                                    {value === 0 && (
+                                      <>
+                                        <Card
+                                          className="h-4 w-4 "
+                                          style={{ backgroundColor: "yellow" }}
+                                        ></Card>
+                                      </>
+                                    )}
+                                    {value === 1 && (
+                                      <>
+                                        <Card
+                                          className="h-4 w-4 "
+                                          style={{ backgroundColor: "green" }}
+                                        ></Card>
+                                      </>
+                                    )}
+                                    {value === -1 && (
+                                      <>
+                                        <Card
+                                          className="h-4 w-4"
+                                          style={{ backgroundColor: "red" }}
+                                        ></Card>
+                                      </>
+                                    )}
+                                  </>
+                                ) : column.format &&
+                                  typeof value === "number" ? (
+                                  column.format(value)
+                                ) : (
+                                  value
+                                )}
                               </TableCell>
                             );
                           })}
