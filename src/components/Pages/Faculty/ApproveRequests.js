@@ -13,6 +13,8 @@ import TableRow from "@material-ui/core/TableRow";
 import { Typography } from "@material-ui/core";
 import Loader from "../../../utils/Loader";
 import useHeading from "../useHeading";
+import Confirmation from "./Confirmation";
+import Notify from "../../../utils/Notify";
 
 const columns = [
   { id: "onDate", label: "On\u00a0Date", minWidth: 100 },
@@ -43,7 +45,10 @@ function GetGatePassRequests() {
   const dispatch = useDispatch();
   const [rows, setRows] = useState([]);
   const [Loading, setLoading] = useState(false);
-
+  const [Data, setData] = useState("");
+  const [notify, setnotify] = useState({ msg: "", popup: false, type: "" });
+  const [open, setopen] = useState(false);
+  const [rerender, setrerender] = useState(false);
   useEffect(() => {
     setLoading(true);
     dispatch(getGatepasses()).then((res) => {
@@ -52,8 +57,19 @@ function GetGatePassRequests() {
       }
       setLoading(false);
     });
-  }, [dispatch]);
+  }, [dispatch, rerender]);
 
+  const getDetails = (passId) => {
+    setLoading(true);
+    dispatch(getGatepasses(passId)).then((res) => {
+      if (res && res.data && res.data.data) {
+        setData(res.data.data);
+        setopen(true);
+      }
+
+      setLoading(false);
+    });
+  };
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -62,9 +78,30 @@ function GetGatePassRequests() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
+  const handleConfirm = (status) => {
+    setopen(false);
+    setLoading(true);
+    dispatch(getGatepasses(Data._id + "/" + status)).then((res) => {
+      if (res && res.data && res.data.success) {
+        setnotify({ msg: res.data.msg, popup: true, type: "success" });
+        setrerender(!rerender);
+      } else {
+        setnotify({ msg: "Error", popup: true, type: "error" });
+      }
+      setLoading(false);
+    });
+  };
   return (
     <>
+      <Notify props={notify} closeAlert={() => setnotify({ popup: false })} />
+      <Confirmation
+        open={open}
+        data={Data}
+        handleClose={() => {
+          setopen(false);
+        }}
+        handleConfirm={handleConfirm}
+      />
       {Loading ? (
         <Loader />
       ) : (
@@ -95,6 +132,8 @@ function GetGatePassRequests() {
                           role="checkbox"
                           tabIndex={-1}
                           key={row._id}
+                          className={"cursor-pointer"}
+                          onClick={() => getDetails(row._id)}
                         >
                           {columns.map((column) => {
                             const value = row[column.id];
