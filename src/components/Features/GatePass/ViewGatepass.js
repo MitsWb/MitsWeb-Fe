@@ -6,9 +6,13 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 //import Button from "@material-ui/core/Button";
+import QRCode from "./QRcode";
+import CropFreeIcon from "@material-ui/icons/CropFree";
 import Typography from "@material-ui/core/Typography";
 import Loader from "../../../utils/Loader";
 import useHeading from "../../Pages/useHeading";
+import IconButton from "@material-ui/core/IconButton";
+const Link = { url: process.env.REACT_APP_MAIN_URL };
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -37,17 +41,22 @@ const ViewGatepass = (id) => {
   const [loading, setloading] = useState(false);
   const [Data, setData] = useState(null);
   const dispatch = useDispatch();
+  const [open, setopen] = useState(false);
+  const [link, setlink] = useState("");
+
   useEffect(() => {
     setloading(true);
     dispatch(viewGatepass(id.id)).then((res) => {
       if (res && res.data && res.data.success) {
         setData(res.data.data);
+        setlink(Link.url + "/gatepass/view/" + id.id);
       }
       setloading(false);
     });
   }, [id, dispatch]);
   return (
     <div>
+      <QRCode open={open} handleClose={() => setopen(false)} link={link} />
       {loading ? (
         <Loader />
       ) : (
@@ -66,6 +75,16 @@ const ViewGatepass = (id) => {
               title="Contemplative Reptile"
             />
             <CardContent>
+              <IconButton
+                style={{ outline: "none", backgroundColor: "orange" }}
+                color="primary"
+                aria-label="add to shopping cart"
+                onClick={() => {
+                  setopen(true);
+                }}
+              >
+                <CropFreeIcon />
+              </IconButton>
               <Typography gutterBottom variant="h5" component="h2">
                 {Data.name}
               </Typography>
