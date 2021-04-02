@@ -14,6 +14,13 @@ const useStyles = makeStyles({
     maxWidth: 345,
     margin: "0px auto",
   },
+  notfound: {
+    maxWidth: 345,
+    margin: "0px auto",
+    textAlign: "center",
+    fontSize: 25,
+    padding: 10,
+  },
   media: {
     height: 200,
     width: 200,
@@ -28,7 +35,7 @@ const ViewGatepass = (id) => {
   useHeading("View Gatepass");
   const classes = useStyles();
   const [loading, setloading] = useState(false);
-  const [Data, setData] = useState([]);
+  const [Data, setData] = useState(null);
   const dispatch = useDispatch();
   useEffect(() => {
     setloading(true);
@@ -38,42 +45,50 @@ const ViewGatepass = (id) => {
       }
       setloading(false);
     });
-    setData(String(id));
   }, [id, dispatch]);
   return (
     <div>
       {loading ? (
         <Loader />
       ) : (
-        <Card className={classes.root}>
-          <CardMedia
-            className={classes.media}
-            image={Data.photo}
-            title="Contemplative Reptile"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {Data.name}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              DATE : {Data.onDate}
-              <br></br>
-              TIME : {Data.onTime}
-            </Typography>
-            <Card
-              style={{
-                backgroundColor: "green",
-                width: "50%",
-                color: "white",
-                textAlign: "center",
-                padding: 2,
-                marginTop: 4,
-              }}
-            >
-              APPROVED
-            </Card>
-          </CardContent>
-        </Card>
+        (Data === null && (
+          <>
+            <div className="m-0 m-auto w-full">
+              <Card className={classes.notfound}>GATEPASS NOT FOUND!!!</Card>
+            </div>
+          </>
+        )) ||
+        (Data !== null && (
+          <Card className={classes.root}>
+            <CardMedia
+              className={classes.media}
+              image={Data.photo}
+              title="Contemplative Reptile"
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                {Data.name}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                DATE : {Data.onDate}
+                <br></br>
+                TIME : {Data.onTime}
+              </Typography>
+              <Card
+                style={{
+                  backgroundColor: "green",
+                  width: "50%",
+                  color: "white",
+                  textAlign: "center",
+                  padding: 2,
+                  marginTop: 4,
+                }}
+              >
+                APPROVED
+              </Card>
+            </CardContent>
+          </Card>
+        ))
       )}
     </div>
   );
