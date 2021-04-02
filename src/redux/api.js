@@ -88,4 +88,9 @@ export default {
     method: "get",
     noAuth: false,
   },
+  verifyGatepass: {
+    path: "/security/verify",
+    method: "post",
+    noAuth: false,
+  },
 };

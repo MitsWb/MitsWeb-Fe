@@ -9,12 +9,14 @@ import Loader from "../utils/Loader";
 import AdminRouter from "./AdminRouter";
 import Notify from "../utils/Notify";
 import FacultyRouter from "./FacultyRouter";
+import SecurityRouter from "./SecurityRouter";
 
 const Router = () => {
   const [user, setUser] = useState();
   const [loggedinAs, setloggedinAs] = useState({
     faculty: false,
     admin: false,
+    security: false,
   });
   const dispatch = useDispatch();
   const state = useSelector((reduxState) => reduxState);
@@ -31,12 +33,16 @@ const Router = () => {
           if (res.data) {
             if (
               res.data.data.type === "owner" ||
-              res.data.data.type === "admin"
+              res.data.data.type === "admin" ||
+              res.data.data.type === "security"
             )
               if (res.data.data.type === "admin")
-                setloggedinAs({ faculty: false, admin: true });
+                setloggedinAs({ faculty: false, admin: true, security: false });
             if (res.data.data.type === "faculty")
-              setloggedinAs({ faculty: true, admin: false });
+              setloggedinAs({ faculty: true, admin: false, security: false });
+            if (res.data.data.type === "security") {
+              setloggedinAs({ faculty: false, admin: false, security: true });
+            }
             setUser(res.data.data);
           } else {
             setnotify({
@@ -75,6 +81,8 @@ const Router = () => {
           <AdminRouter />
         ) : loggedinAs.faculty ? (
           <FacultyRouter />
+        ) : loggedinAs.security ? (
+          <SecurityRouter />
         ) : (
           <AuthenticatedRouter />
         )

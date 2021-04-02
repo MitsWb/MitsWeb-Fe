@@ -176,7 +176,7 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error, loading }) => {
                   labelPlacement="end"
                 />
                 <FormControlLabel
-                  value="admin"
+                  value="security"
                   control={<Radio color="secondary" />}
                   label="Admin"
                 />

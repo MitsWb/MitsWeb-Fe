@@ -65,3 +65,7 @@ export const getGatepasses = (id) => {
 export const viewGatepass = (id) => {
   return fireRequest("viewGatepass", [id]);
 };
+
+export const verifyGatepass = (body) => {
+  return fireRequest("verifyGatepass", [], body);
+};

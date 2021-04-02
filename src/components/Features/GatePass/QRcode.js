@@ -14,13 +14,18 @@ export default function Qrcode({ open, handleClose, link }) {
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">SCAN TO CONFIRM</DialogTitle>
-        <DialogContent>
+        <DialogTitle
+          style={{ backgroundColor: "white", text: "black" }}
+          id="responsive-dialog-title"
+        >
+          <p className="text-black"> SCAN TO CONFIRM</p>
+        </DialogTitle>
+        <DialogContent style={{ backgroundColor: "white" }}>
           <DialogContentText>
             <QRCode size="200" value={link} />
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
+        <DialogActions style={{ backgroundColor: "white" }}>
           <Button
             style={{ outline: "none" }}
             onClick={handleClose}

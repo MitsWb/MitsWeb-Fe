@@ -5,8 +5,8 @@ const Logout = () => {
   useEffect(() => {
     if (localStorage.getItem("mitsweb-access-token")) {
       localStorage.removeItem("mitsweb-access-token");
-      navigate("/");
       window.location.reload();
+      navigate("/");
     } else {
       navigate("/");
     }
