@@ -185,7 +185,7 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
 const GetUserRequests = () => {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(2);
+  const [rowsPerPage, setRowsPerPage] = React.useState(4);
   const dispatch = useDispatch();
   const [rows, setRows] = useState([]);
   const [Loading, setLoading] = useState(false);
