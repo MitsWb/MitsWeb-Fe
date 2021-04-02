@@ -12,8 +12,8 @@ function Copyright() {
       style={{ textAlign: "center" }}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://skosh.netlify.app/">
-        {"SKOSH "}
+      <Link color="inherit" href="https://mitsweb.netlify.app/">
+        {"MITSWEB "}
       </Link>
       {new Date().getFullYear()}
       {"."}

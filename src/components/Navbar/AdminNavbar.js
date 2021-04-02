@@ -22,9 +22,7 @@ const AdminNavbar = ({ page }) => {
     { divider: true },
     {
       fn: async () => {
-        localStorage.removeItem("mitsweb-access-token");
-        navigate("/");
-        window.location.reload();
+        navigate("/logout");
       },
       text: "Logout",
       icon: <VpnKeyIcon />,

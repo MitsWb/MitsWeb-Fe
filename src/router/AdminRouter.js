@@ -5,11 +5,13 @@ import AdminDashboard from "../components/Pages/Admin/AdminDashboard";
 import AdminNavbar from "../components/Navbar/AdminNavbar";
 import AddUser from "../components/Pages/Admin/AddUser/AddUser";
 import ViewGatePass from "../components/Features/GatePass/ViewGatepass";
+import Logout from "../components/Common/Logout";
 
 const routes = {
   "/": () => <AdminDashboard />,
   "/adduser": () => <AddUser />,
   "/gatepass/view/:id": ({ id }) => <ViewGatePass id={id} />,
+  "/logout": () => <Logout />,
 };
 
 const AdminRouter = () => {

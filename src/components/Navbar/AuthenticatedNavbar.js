@@ -34,9 +34,9 @@ const AuthenticatedNavbar = ({ page }) => {
     { divider: true },
     {
       fn: async () => {
-        localStorage.removeItem("mitsweb-access-token");
-        navigate("/");
-        window.location.reload();
+        // localStorage.removeItem("mitsweb-access-token");
+        navigate("/logout");
+        //  window.location.reload();
       },
       text: "Logout",
       icon: <VpnKeyIcon />,

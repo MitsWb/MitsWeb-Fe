@@ -9,6 +9,7 @@ import PublicNavbar from "../components/Navbar/PublicNavbar";
 import ErrorPage from "../components/Pages/ErrorPage";
 import ForgotPassword from "../components/Pages/ForgotPassword";
 import ViewGatePass from "../components/Features/GatePass/ViewGatepass";
+import Logout from "../components/Common/Logout";
 
 const routes = {
   "/": () => <HomePage />,
@@ -18,6 +19,7 @@ const routes = {
   "/error": () => <ErrorPage />,
   "/reset-password": () => <ForgotPassword />,
   "/gatepass/view/:id": ({ id }) => <ViewGatePass id={id} />,
+  "/logout": () => <Logout />,
 };
 
 const PublicRouter = () => {

@@ -9,6 +9,7 @@ import RequestGatePass from "../components/Features/GatePass/RequestGatePass";
 import UpdateProfile from "../components/Pages/UpdateProfile";
 import NewGatepass from "../components/Features/GatePass/NewGatpass";
 import ViewGatePass from "../components/Features/GatePass/ViewGatepass";
+import Logout from "../components/Common/Logout";
 const routes = {
   "/": () => <Dashboard />,
   "/user/:user": ({ user }) => <ProfilePage user={user} />,
@@ -17,6 +18,7 @@ const routes = {
   "/gatepass": () => <RequestGatePass />,
   "/gatepass/new": () => <NewGatepass />,
   "/gatepass/view/:id": ({ id }) => <ViewGatePass id={id} />,
+  "/logout": () => <Logout />,
 };
 
 const AuthenticatedRouter = () => {
