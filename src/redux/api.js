@@ -76,6 +76,11 @@ export default {
     method: "post",
     noAuth: false,
   },
+  viewGatepass: {
+    path: "/gatepass/view",
+    method: "get",
+    noAuth: false,
+  },
   //faculty api's
 
   getGatepasses: {

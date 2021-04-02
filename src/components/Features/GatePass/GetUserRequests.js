@@ -6,6 +6,7 @@ import {
   Dialog,
   Button,
   DialogContent,
+  Card,
 } from "@material-ui/core";
 import moment from "moment";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
@@ -27,6 +28,7 @@ import { Typography } from "@material-ui/core";
 import Loader from "../../../utils/Loader";
 import Notify from "../../../utils/Notify";
 import GatePassForm from "./GatePassForm";
+import { navigate } from "hookrouter";
 const columns = [
   { id: "onDate", label: "On\u00a0Date", minWidth: 100 },
   { id: "onTime", label: "On\u00a0Time", minWidth: 100 },
@@ -224,6 +226,14 @@ const GetUserRequests = () => {
   const closeAlert = () => {
     setnotify({ popup: false });
   };
+  const handleGatepassclick = (row) => {
+    if (row["status"] !== 1) {
+      setOpen(true);
+      setdata(row);
+    } else {
+      navigate(`/gatepass/view/${row._id}`);
+    }
+  };
   return (
     <>
       <Notify props={notify} closeAlert={closeAlert} />
@@ -262,8 +272,7 @@ const GetUserRequests = () => {
                           hover
                           role="checkbox"
                           onClick={() => {
-                            setOpen(true);
-                            setdata(row);
+                            handleGatepassclick(row);
                           }}
                           tabIndex={-1}
                           key={row._id}
@@ -272,9 +281,39 @@ const GetUserRequests = () => {
                             const value = row[column.id];
                             return (
                               <TableCell key={column.id} align={column.align}>
-                                {column.format && typeof value === "number"
-                                  ? column.format(value)
-                                  : value}
+                                {column.id === "status" ? (
+                                  <>
+                                    {value === 0 && (
+                                      <>
+                                        <Card
+                                          className="h-4 w-4 "
+                                          style={{ backgroundColor: "yellow" }}
+                                        ></Card>
+                                      </>
+                                    )}
+                                    {value === 1 && (
+                                      <>
+                                        <Card
+                                          className="h-4 w-4 "
+                                          style={{ backgroundColor: "green" }}
+                                        ></Card>
+                                      </>
+                                    )}
+                                    {value === -1 && (
+                                      <>
+                                        <Card
+                                          className="h-4 w-4"
+                                          style={{ backgroundColor: "red" }}
+                                        ></Card>
+                                      </>
+                                    )}
+                                  </>
+                                ) : column.format &&
+                                  typeof value === "number" ? (
+                                  column.format(value)
+                                ) : (
+                                  value
+                                )}
                               </TableCell>
                             );
                           })}

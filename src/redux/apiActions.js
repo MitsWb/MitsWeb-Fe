@@ -61,3 +61,7 @@ export const editGatepass = (body) => {
 export const getGatepasses = (id) => {
   return fireRequest("getGatepasses", [id]);
 };
+
+export const viewGatepass = (id) => {
+  return fireRequest("viewGatepass", [id]);
+};

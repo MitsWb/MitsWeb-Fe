@@ -8,7 +8,7 @@ import RequestLeave from "../components/Features/LeaveApplication/RequestLeave";
 import RequestGatePass from "../components/Features/GatePass/RequestGatePass";
 import UpdateProfile from "../components/Pages/UpdateProfile";
 import NewGatepass from "../components/Features/GatePass/NewGatpass";
-
+import ViewGatePass from "../components/Features/GatePass/ViewGatepass";
 const routes = {
   "/": () => <Dashboard />,
   "/user/:user": ({ user }) => <ProfilePage user={user} />,
@@ -16,6 +16,7 @@ const routes = {
   "/leave": () => <RequestLeave />,
   "/gatepass": () => <RequestGatePass />,
   "/gatepass/new": () => <NewGatepass />,
+  "/gatepass/view/:id": ({ id }) => <ViewGatePass id={id} />,
 };
 
 const AuthenticatedRouter = () => {
