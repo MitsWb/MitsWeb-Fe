@@ -5,6 +5,7 @@ import moment from "moment";
 import { useDispatch } from "react-redux";
 import { requestLeave } from "../../../redux/apiActions";
 import Notify from "../../../utils/Notify";
+import BackButton from "../../buttons/BackButton";
 
 export default function RequestLeave() {
   useHeading("Request Leave");
@@ -104,6 +105,7 @@ export default function RequestLeave() {
 
   return (
     <>
+      <BackButton />
       <Notify props={notify} closeAlert={closeAlert} />
       <LeaveForm
         Form={Form}

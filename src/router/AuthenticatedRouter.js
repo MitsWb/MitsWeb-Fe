@@ -9,14 +9,16 @@ import RequestGatePass from "../components/Features/GatePass/RequestGatePass";
 import UpdateProfile from "../components/Pages/UpdateProfile";
 import NewGatepass from "../components/Features/GatePass/NewGatpass";
 import ViewGatePass from "../components/Features/GatePass/ViewGatepass";
+import LeaveDashboard from "../components/Features/LeaveApplication/LeaveDashboard";
 import Logout from "../components/Common/Logout";
 const routes = {
   "/": () => <Dashboard />,
   "/user/:user": ({ user }) => <ProfilePage user={user} />,
   "/updateprofile": () => <UpdateProfile />,
-  "/leave": () => <RequestLeave />,
   "/gatepass": () => <RequestGatePass />,
   "/gatepass/new": () => <NewGatepass />,
+  "/leave": () => <LeaveDashboard />,
+  "/leave/new": () => <RequestLeave />,
   "/gatepass/view/:id": ({ id }) => <ViewGatePass id={id} />,
   "/logout": () => <Logout />,
 };
