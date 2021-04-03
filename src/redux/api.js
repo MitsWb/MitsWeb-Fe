@@ -54,6 +54,12 @@ export default {
     noAuth: false,
   },
 
+  //leave application api's
+  requestLeave: {
+    path: "/leaveapplication/request",
+    method: "post",
+    noAuth: false,
+  },
   //gatepass api's
   requestGatePass: {
     path: "/gatepass/request",

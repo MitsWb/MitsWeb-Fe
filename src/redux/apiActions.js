@@ -49,6 +49,11 @@ export const getAlladmins = () => {
   return fireRequest("getAlladmins");
 };
 
+//leave application api's
+export const requestLeave = (body) => {
+  return fireRequest("requestLeave", [], body);
+};
+
 //faculty api's
 export const getAllfaculties = () => {
   return fireRequest("getAllfaculties");

@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import LeaveForm from "./LeaveForm";
 import useHeading from "../../Pages/useHeading";
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import { requestLeave } from "../../../redux/apiActions";
+import Notify from "../../../utils/Notify";
 
 export default function RequestLeave() {
   useHeading("Request Leave");
@@ -24,13 +27,15 @@ export default function RequestLeave() {
   var tomorrow = new Date();
   tomorrow.setDate(new Date().getDate() + 1);
 
-  // const [notify, setnotify] = useState({ popup: false, msg: "", type: "" });
+  const [notify, setNotify] = useState({ popup: false, msg: "", type: "" });
   const [date, setDate] = useState({
     fromDate: new Date(),
     toDate: tomorrow,
   });
 
   const [Loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setError(initError);
@@ -67,38 +72,39 @@ export default function RequestLeave() {
 
     if (validInputs()) {
       console.log(Form);
-      // dispatch(requestGatePass(Form)).then((res) => {
-      //   if (res && res.data) {
-      //     if (res.data.success) {
-      //       setNotify({
-      //         msg: "Gate pass requested",
-      //         popup: true,
-      //         type: "success",
-      //       });
-      //       setLoading(false);
-      //       setForm(Initform);
-      //     } else {
-      //       setNotify({
-      //         msg: "Gate pass request failed!!",
-      //         popup: true,
-      //         type: "error",
-      //       });
-      //       setLoading(false);
-      //     }
-      //   }
-      //   setLoading(false);
-      // });
+      dispatch(requestLeave(Form)).then((res) => {
+        if (res && res.data) {
+          if (res.data.success) {
+            setNotify({
+              msg: "Leave application submitted",
+              popup: true,
+              type: "success",
+            });
+            setLoading(false);
+            setForm(Initform);
+          } else {
+            setNotify({
+              msg: "Leave application submission failed!!",
+              popup: true,
+              type: "error",
+            });
+            setLoading(false);
+          }
+        }
+        setLoading(false);
+      });
     }
   };
 
-  // const closeAlert = () => {
-  //   setnotify({
-  //     popup: false,
-  //   });
-  // };
+  const closeAlert = () => {
+    setNotify({
+      popup: false,
+    });
+  };
 
   return (
     <>
+      <Notify props={notify} closeAlert={closeAlert} />
       <LeaveForm
         Form={Form}
         handleChange={handleChange}
