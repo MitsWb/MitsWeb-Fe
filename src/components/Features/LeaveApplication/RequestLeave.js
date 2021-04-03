@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-// import moment from "moment";
 import LeaveForm from "./LeaveForm";
 import useHeading from "../../Pages/useHeading";
+import moment from "moment";
 
 export default function RequestLeave() {
   useHeading("Request Leave");
   const Initform = {
     type: "",
     description: "",
+    toDate: moment().format("MMM Do YY"),
+    fromDate: moment().format("MMM Do YY"),
   };
   const initError = {
     type: "",
@@ -18,13 +20,17 @@ export default function RequestLeave() {
 
   const [Form, setForm] = useState(Initform);
   const [Error, setError] = useState(initError);
+
+  var tomorrow = new Date();
+  tomorrow.setDate(new Date().getDate() + 1);
+
   // const [notify, setnotify] = useState({ popup: false, msg: "", type: "" });
   const [date, setDate] = useState({
-    from: new Date("2020-12-30T21:11:54"),
-    to: new Date("2020-12-31T21:11:54"),
+    fromDate: new Date(),
+    toDate: tomorrow,
   });
 
-  // const [Loading, setLoading] = useState(false);
+  const [Loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setError(initError);
@@ -33,33 +39,57 @@ export default function RequestLeave() {
   };
   const handleDatechange = (dateNow, type) => {
     setDate({ ...date, [type]: dateNow });
+    setForm({
+      ...Form,
+      toDate: moment(dateNow).format("MMM Do YY"),
+      fromDate: moment(dateNow).format("MMM Do YY"),
+    });
   };
 
-  // const validInputs = () => {
-  //   let formValid = true;
-  //   let err = Object.assign({}, initError);
-  //   const optionalValues = [""];
+  function validInputs() {
+    let formValid = true;
+    let err = Object.assign({}, initError);
+    Object.keys(Form).forEach((key) => {
+      if (Form[key] === "") {
+        formValid = false;
+        err[key] = "This field is required";
+      }
+    });
+    setError(err);
+    return formValid;
+  }
 
-  //   Object.keys(Form).forEach((key) => {
-  //     if (Form[key] === "" && !optionalValues.includes(key)) {
-  //       formValid = false;
-  //       err[key] = "This field is required";
-  //     }
-  //   });
+  const handleSubmit = () => {
+    let err = Object.assign({}, initError);
 
-  //   if (moment(date.from).isValid() === false) {
-  //     err["fromDate"] = "Invalid From date";
-  //     formValid = false;
-  //   }
+    setError(err);
+    setLoading(true);
 
-  //   if (moment(date.to).isValid() === false) {
-  //     err["toDate"] = "Invalid To Date";
-  //     formValid = false;
-  //   }
-
-  //   setError(err);
-  //   return formValid;
-  // };
+    if (validInputs()) {
+      console.log(Form);
+      // dispatch(requestGatePass(Form)).then((res) => {
+      //   if (res && res.data) {
+      //     if (res.data.success) {
+      //       setNotify({
+      //         msg: "Gate pass requested",
+      //         popup: true,
+      //         type: "success",
+      //       });
+      //       setLoading(false);
+      //       setForm(Initform);
+      //     } else {
+      //       setNotify({
+      //         msg: "Gate pass request failed!!",
+      //         popup: true,
+      //         type: "error",
+      //       });
+      //       setLoading(false);
+      //     }
+      //   }
+      //   setLoading(false);
+      // });
+    }
+  };
 
   // const closeAlert = () => {
   //   setnotify({
@@ -74,8 +104,9 @@ export default function RequestLeave() {
         handleChange={handleChange}
         Error={Error}
         Helper={""}
-        // Loading={Loading}
+        Loading={Loading}
         handleDateChange={handleDatechange}
+        handleSubmit={handleSubmit}
         date={date}
       />
     </>

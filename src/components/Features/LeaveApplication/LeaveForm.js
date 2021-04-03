@@ -99,6 +99,7 @@ const LeaveForm = ({
                 name="type"
                 value={Form.type}
                 onChange={handleChange}
+                error={Error["type"]}
                 label="Leave Type"
                 fullWidth
               />
@@ -113,8 +114,8 @@ const LeaveForm = ({
                     margin="normal"
                     id="fromDate"
                     label="From"
-                    value={date.from}
-                    onChange={(e) => handleDateChange(e, "from")}
+                    value={date.fromDate}
+                    onChange={(e) => handleDateChange(e, "fromDate")}
                     KeyboardButtonProps={{
                       "aria-label": "change date",
                     }}
@@ -128,8 +129,8 @@ const LeaveForm = ({
                     margin="normal"
                     id="toDate"
                     label="To"
-                    value={date.to}
-                    onChange={(e) => handleDateChange(e, "to")}
+                    value={date.toDate}
+                    onChange={(e) => handleDateChange(e, "toDate")}
                     KeyboardButtonProps={{
                       "aria-label": "change date",
                     }}
@@ -147,8 +148,8 @@ const LeaveForm = ({
                 fullWidth
                 onChange={handleChange}
                 autoComplete="Description"
-                error={Error["Description"]}
-                helperText={Error["Description"]}
+                error={Error["description"]}
+                helperText={Error["description"]}
               />
             </Grid>
             <Grid item xs={12}>
