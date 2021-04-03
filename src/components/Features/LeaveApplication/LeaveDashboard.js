@@ -3,6 +3,7 @@ import { A } from "hookrouter";
 import useHeading from "../../Pages/useHeading";
 import CreateIcon from "@material-ui/icons/Create";
 import { Button } from "@material-ui/core";
+import GetUserSubmissions from "./GetUserSubmissions";
 
 export default function LeaveDashboard() {
   useHeading(" Leave Application ");
@@ -21,6 +22,7 @@ export default function LeaveDashboard() {
           </Button>
         </A>
       </div>
+      <GetUserSubmissions />
     </>
   );
 }

@@ -54,6 +54,10 @@ export const requestLeave = (body) => {
   return fireRequest("requestLeave", [], body);
 };
 
+export const getUsersLeave = (body) => {
+  return fireRequest("getUsersLeave", [], body);
+};
+
 //faculty api's
 export const getAllfaculties = () => {
   return fireRequest("getAllfaculties");

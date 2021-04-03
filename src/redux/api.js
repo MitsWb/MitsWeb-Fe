@@ -60,6 +60,11 @@ export default {
     method: "post",
     noAuth: false,
   },
+  getUsersLeave: {
+    path: "/leaveapplication",
+    method: "get",
+    noAuth: false,
+  },
   //gatepass api's
   requestGatePass: {
     path: "/gatepass/request",
