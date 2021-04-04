@@ -4,21 +4,16 @@ import { requestGatePass } from "../../../redux/apiActions";
 import useHeading from "../../Pages/useHeading";
 import GatePassForm from "./GatePassForm";
 import Notify from "../../../utils/Notify";
-import moment from "moment";
 import BackButton from "../../buttons/BackButton";
 export default function RequestGatePass() {
   useHeading("Request Gate Pass");
   const dispatch = useDispatch();
 
   const Initform = {
-    onDate: moment().format("MMM Do YY"),
-    onTime: moment().format("h:mm:ss a"),
     description: "",
     time: new Date(),
   };
   const initError = {
-    onDate: "",
-    onTime: "",
     description: "",
   };
 
@@ -37,8 +32,6 @@ export default function RequestGatePass() {
     setForm({
       ...Form,
       time: dateNow,
-      onDate: moment(dateNow).format("MMM Do YY"),
-      onTime: moment(dateNow).format("h:mm:ss a"),
     });
     setDate(dateNow);
   };

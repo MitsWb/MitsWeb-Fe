@@ -53,10 +53,18 @@ const UpdateProfile = () => {
     password: "",
     confirm: "",
     address: currentUser.address,
-    fatherName: currentUser.parentDetails?currentUser.parentDetails.father.name:"",
-    fatherMobile: currentUser.parentDetails?currentUser.parentDetails.father.mobile:"",
-    motherName: currentUser.parentDetails?currentUser.parentDetails.mother.name:"",
-    motherMobile: currentUser.parentDetails?currentUser.parentDetails.mother.mobile:"",
+    fatherName: currentUser.parentDetails
+      ? currentUser.parentDetails.father.name
+      : "",
+    fatherMobile: currentUser.parentDetails
+      ? currentUser.parentDetails.father.mobile
+      : "",
+    motherName: currentUser.parentDetails
+      ? currentUser.parentDetails.mother.name
+      : "",
+    motherMobile: currentUser.parentDetails
+      ? currentUser.parentDetails.mother.mobile
+      : "",
     dob: currentUser.dob,
     bloodGroup: currentUser.bloodGroup,
   };

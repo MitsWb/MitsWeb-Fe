@@ -30,8 +30,8 @@ import Notify from "../../../utils/Notify";
 import GatePassForm from "./GatePassForm";
 import { navigate } from "hookrouter";
 const columns = [
-  { id: "onDate", label: "On\u00a0Date", minWidth: 100 },
-  { id: "onTime", label: "On\u00a0Time", minWidth: 100 },
+  { id: "time", label: "On\u00a0Date", minWidth: 100 },
+  { id: "time", label: "On\u00a0Time", minWidth: 100 },
 
   {
     id: "status",
@@ -53,14 +53,10 @@ const useStyles = makeStyles({
 const FormDialog = ({ open, handleClose, data, changeStatus }) => {
   const [Data, setData] = useState();
   const initForm = {
-    onDate: moment(data.time).format("MMM Do YY"),
-    onTime: moment(data.time).format("h:mm:ss a"),
     description: "",
   };
   const [gatepassForm, setgatepassForm] = useState(initForm);
   const initError = {
-    onDate: "",
-    onTime: "",
     time: "",
     description: "",
   };
@@ -74,8 +70,6 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
     setDate(data.time);
     setData(data._id);
     setgatepassForm({
-      onDate: moment(data.time).format("MMM Do YY"),
-      onTime: moment(data.time).format("h:mm:ss a"),
       description: data.description,
       _id: data._id,
       time: data.time,
@@ -92,8 +86,6 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
     setgatepassForm({
       ...gatepassForm,
       time: dateNow,
-      onDate: moment(dateNow).format("MMM Do YY"),
-      onTime: moment(dateNow).format("h:mm:ss a"),
     });
     setDate(dateNow);
   };
@@ -308,6 +300,10 @@ const GetUserRequests = () => {
                                       </>
                                     )}
                                   </>
+                                ) : column.label === "On\u00a0Date" ? (
+                                  moment(value).format("h:mm:ss a")
+                                ) : column.label === "On\u00a0Time" ? (
+                                  moment(value).format("MMM Do YY")
                                 ) : column.format &&
                                   typeof value === "number" ? (
                                   column.format(value)
