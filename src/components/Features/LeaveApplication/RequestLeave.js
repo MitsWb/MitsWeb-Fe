@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import LeaveForm from "./LeaveForm";
 import useHeading from "../../Pages/useHeading";
-import moment from "moment";
 import { useDispatch } from "react-redux";
 import { requestLeave } from "../../../redux/apiActions";
 import Notify from "../../../utils/Notify";
@@ -9,31 +8,24 @@ import BackButton from "../../buttons/BackButton";
 
 export default function RequestLeave() {
   useHeading("Request Leave");
+  var tomorrow = new Date();
+  tomorrow.setDate(new Date().getDate() + 1);
   const Initform = {
-    type: "",
     description: "",
-    toDate: moment().format("MMM Do YY"),
-    fromDate: moment().format("MMM Do YY"),
     fromTimestamp: new Date(),
-    toTimestamp: new Date(),
+    toTimestamp: tomorrow,
   };
   const initError = {
     type: "",
     description: "",
-    toDate: "",
-    fromDate: "",
   };
 
   const [Form, setForm] = useState(Initform);
   const [Error, setError] = useState(initError);
-
-  var tomorrow = new Date();
-  tomorrow.setDate(new Date().getDate() + 1);
-
   const [notify, setNotify] = useState({ popup: false, msg: "", type: "" });
   const [date, setDate] = useState({
-    fromDate: new Date(),
-    toDate: tomorrow,
+    fromTimestamp: new Date(),
+    toTimestamp: tomorrow,
   });
 
   const [Loading, setLoading] = useState(false);
@@ -46,19 +38,18 @@ export default function RequestLeave() {
     setForm({ ...Form, [name]: value });
   };
   const handleDatechange = (dateNow, type) => {
+    setError(initError);
     setDate({ ...date, [type]: dateNow });
-    if (type === "fromDate") {
+    if (type === "fromTimestamp") {
       setForm({
         ...Form,
         fromTimestamp: new Date(dateNow),
-        fromDate: moment(dateNow).format("MMM Do YY"),
       });
     }
-    if (type === "toDate") {
+    if (type === "toTimestamp") {
       setForm({
         ...Form,
         toTimestamp: new Date(dateNow),
-        toDate: moment(dateNow).format("MMM Do YY"),
       });
     }
   };
@@ -72,6 +63,10 @@ export default function RequestLeave() {
         err[key] = "This field is required";
       }
     });
+    if (!(Form.toTimestamp > Form.fromTimestamp)) {
+      formValid = false;
+      err["toTimestamp"] = "Cannot set previous dates";
+    }
     setError(err);
     return formValid;
   }
@@ -80,8 +75,7 @@ export default function RequestLeave() {
     let err = Object.assign({}, initError);
 
     setError(err);
-    setLoading(true);
-
+    console.log(Form);
     if (validInputs()) {
       dispatch(requestLeave(Form)).then((res) => {
         if (res && res.data) {

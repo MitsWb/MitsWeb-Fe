@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper, Card } from "@material-ui/core";
 import moment from "moment";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+//import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -15,18 +15,17 @@ import { Typography } from "@material-ui/core";
 import Loader from "../../../utils/Loader";
 import Notify from "../../../utils/Notify";
 import { getUsersLeave } from "../../../redux/apiActions";
-import { navigate } from "hookrouter";
+//import { navigate } from "hookrouter";
 const columns = [
-  { id: "fromDate", label: "On\u00a0Date", minWidth: 100 },
-  { id: "toDate", label: "On\u00a0Time", minWidth: 100 },
+  { id: "fromTimestamp", label: "From", minWidth: 100 },
+  { id: "toTimestamp", label: "To", minWidth: 100 },
 
   {
     id: "status",
     label: "Status",
     minWidth: 100,
   },
-  { id: "type", label: "Type", minWidth: 100 },
-  { id: "description", label: "Description", minWidth: 170 },
+  { id: "description", label: "Reason", minWidth: 170 },
 ];
 
 const useStyles = makeStyles({
@@ -297,6 +296,9 @@ const GetUserSubmissions = () => {
                                       </>
                                     )}
                                   </>
+                                ) : column.label === "From" ||
+                                  column.label === "To" ? (
+                                  moment(value).format("MMM Do YY")
                                 ) : column.format &&
                                   typeof value === "number" ? (
                                   column.format(value)

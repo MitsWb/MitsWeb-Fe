@@ -93,18 +93,6 @@ const LeaveForm = ({
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <TextField
-                required
-                id="type"
-                name="type"
-                value={Form.type}
-                onChange={handleChange}
-                error={Error["type"]}
-                label="Leave Type"
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
                 <div className="mr-0 md:mr-2 lg:mr-2">
                   <KeyboardDatePicker
@@ -112,10 +100,11 @@ const LeaveForm = ({
                     variant="inline"
                     format="MM/dd/yyyy"
                     margin="normal"
-                    id="fromDate"
+                    id="fromTimestamp"
                     label="From"
-                    value={date.fromDate}
-                    onChange={(e) => handleDateChange(e, "fromDate")}
+                    error={Error["fromTimestamp"]}
+                    value={date.fromTimestamp}
+                    onChange={(e) => handleDateChange(e, "fromTimestamp")}
                     KeyboardButtonProps={{
                       "aria-label": "change date",
                     }}
@@ -125,16 +114,22 @@ const LeaveForm = ({
                   <KeyboardDatePicker
                     disableToolbar
                     variant="inline"
+                    error={Error["toTimestamp"]}
                     format="MM/dd/yyyy"
                     margin="normal"
-                    id="toDate"
+                    id="toTimestamp"
                     label="To"
-                    value={date.toDate}
-                    onChange={(e) => handleDateChange(e, "toDate")}
+                    value={date.toTimestamp}
+                    onChange={(e) => handleDateChange(e, "toTimestamp")}
                     KeyboardButtonProps={{
                       "aria-label": "change date",
                     }}
                   />
+                  <Typography
+                    style={{ fontSize: 13, marginTop: -10, color: "red" }}
+                  >
+                    {Error["toTimestamp"] ? Error["toTimestamp"] : ""}
+                  </Typography>
                 </div>
               </div>
             </Grid>
