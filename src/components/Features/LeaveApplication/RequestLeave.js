@@ -14,6 +14,8 @@ export default function RequestLeave() {
     description: "",
     toDate: moment().format("MMM Do YY"),
     fromDate: moment().format("MMM Do YY"),
+    fromTimestamp: new Date(),
+    toTimestamp: new Date(),
   };
   const initError = {
     type: "",
@@ -45,11 +47,20 @@ export default function RequestLeave() {
   };
   const handleDatechange = (dateNow, type) => {
     setDate({ ...date, [type]: dateNow });
-    setForm({
-      ...Form,
-      toDate: moment(dateNow).format("MMM Do YY"),
-      fromDate: moment(dateNow).format("MMM Do YY"),
-    });
+    if (type === "fromDate") {
+      setForm({
+        ...Form,
+        fromTimestamp: new Date(dateNow),
+        fromDate: moment(dateNow).format("MMM Do YY"),
+      });
+    }
+    if (type === "toDate") {
+      setForm({
+        ...Form,
+        toTimestamp: new Date(dateNow),
+        toDate: moment(dateNow).format("MMM Do YY"),
+      });
+    }
   };
 
   function validInputs() {
@@ -72,7 +83,6 @@ export default function RequestLeave() {
     setLoading(true);
 
     if (validInputs()) {
-      console.log(Form);
       dispatch(requestLeave(Form)).then((res) => {
         if (res && res.data) {
           if (res.data.success) {
