@@ -30,7 +30,7 @@ import Notify from "../../../utils/Notify";
 import GatePassForm from "./GatePassForm";
 import { navigate } from "hookrouter";
 const columns = [
-  { id: "time", label: "On\u00a0Date", minWidth: 100 },
+  { id: "date", label: "On\u00a0Date", minWidth: 100 },
   { id: "time", label: "On\u00a0Time", minWidth: 100 },
 
   {
@@ -300,9 +300,9 @@ const GetUserRequests = () => {
                                       </>
                                     )}
                                   </>
-                                ) : column.label === "On\u00a0Date" ? (
-                                  moment(value).format("h:mm a")
                                 ) : column.label === "On\u00a0Time" ? (
+                                  moment(value).format("h:mm a")
+                                ) : column.label === "On\u00a0Date" ? (
                                   moment(value).format("MMM Do YY")
                                 ) : column.format &&
                                   typeof value === "number" ? (
