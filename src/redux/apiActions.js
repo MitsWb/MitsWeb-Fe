@@ -58,6 +58,14 @@ export const getUsersLeave = (body) => {
   return fireRequest("getUsersLeave", [], body);
 };
 
+export const cancelLeave = (body) => {
+  return fireRequest("cancelLeave", [], body);
+};
+
+export const editLeave = (body) => {
+  return fireRequest("editLeave", [], body);
+};
+
 //faculty api's
 export const getAllfaculties = () => {
   return fireRequest("getAllfaculties");

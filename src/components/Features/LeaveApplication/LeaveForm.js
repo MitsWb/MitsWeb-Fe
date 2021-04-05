@@ -94,21 +94,26 @@ const LeaveForm = ({
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
-                <div className="mr-0 md:mr-2 lg:mr-2">
+                <div className="ml-0 md:ml-2 lg:ml-2">
                   <KeyboardDatePicker
                     disableToolbar
                     variant="inline"
+                    error={Error["fromTimestamp"]}
                     format="MM/dd/yyyy"
                     margin="normal"
                     id="fromTimestamp"
                     label="From"
-                    error={Error["fromTimestamp"]}
                     value={date.fromTimestamp}
                     onChange={(e) => handleDateChange(e, "fromTimestamp")}
                     KeyboardButtonProps={{
                       "aria-label": "change date",
                     }}
                   />
+                  <Typography
+                    style={{ fontSize: 13, marginTop: -10, color: "red" }}
+                  >
+                    {Error["fromTimestamp"] ? Error["fromTimestamp"] : ""}
+                  </Typography>
                 </div>
                 <div className="ml-0 md:ml-2 lg:ml-2">
                   <KeyboardDatePicker

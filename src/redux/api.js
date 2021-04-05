@@ -65,6 +65,16 @@ export default {
     method: "get",
     noAuth: false,
   },
+  cancelLeave: {
+    path: "leaveapplication/cancel",
+    method: "post",
+    noAuth: false,
+  },
+  editLeave: {
+    path: "leaveapplication/edit",
+    method: "post",
+    noAuth: false,
+  },
   //gatepass api's
   requestGatePass: {
     path: "/gatepass/request",

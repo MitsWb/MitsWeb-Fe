@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper, Card } from "@material-ui/core";
 import moment from "moment";
-//import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -15,6 +14,7 @@ import { Typography } from "@material-ui/core";
 import Loader from "../../../utils/Loader";
 import Notify from "../../../utils/Notify";
 import { getUsersLeave } from "../../../redux/apiActions";
+import EditLeaveForm from "./EditLeaveForm";
 //import { navigate } from "hookrouter";
 const columns = [
   { id: "fromTimestamp", label: "From", minWidth: 100 },
@@ -36,138 +36,6 @@ const useStyles = makeStyles({
     maxHeight: 440,
   },
 });
-
-// const FormDialog = ({ open, handleClose, data, changeStatus }) => {
-//   const [Data, setData] = useState();
-//   const initForm = {
-//     onDate: moment(data.time).format("MMM Do YY"),
-//     onTime: moment(data.time).format("h:mm:ss a"),
-//     description: "",
-//   };
-//   const [gatepassForm, setgatepassForm] = useState(initForm);
-//   const initError = {
-//     onDate: "",
-//     onTime: "",
-//     time: "",
-//     description: "",
-//   };
-//   const [Error, setError] = useState(initError);
-//   const [date, setDate] = useState(data.time);
-//   const loading = false;
-//   const dispatch = useDispatch();
-//   const [confOpen, setconfOpen] = useState(false);
-
-//   useEffect(() => {
-//     setDate(data.time);
-//     setData(data._id);
-//     setgatepassForm({
-//       onDate: moment(data.time).format("MMM Do YY"),
-//       onTime: moment(data.time).format("h:mm:ss a"),
-//       description: data.description,
-//       _id: data._id,
-//       time: data.time,
-//     });
-//     // eslint-disable-next-line
-//   }, [data.time]);
-
-//   const handleChange = (e) => {
-//     setError(initError);
-//     const { value, name } = e.target;
-//     setgatepassForm({ ...gatepassForm, [name]: value });
-//   };
-//   const handleDatechange = (dateNow) => {
-//     setgatepassForm({
-//       ...gatepassForm,
-//       time: dateNow,
-//       onDate: moment(dateNow).format("MMM Do YY"),
-//       onTime: moment(dateNow).format("h:mm:ss a"),
-//     });
-//     setDate(dateNow);
-//   };
-//   const handleSubmit = () => {
-//     let formValid = true;
-//     const { description } = gatepassForm;
-//     if (!description.replace(/\s/g, "").length) {
-//       formValid = false;
-//       //err["name"] = "This field is required";
-//     }
-//     if (formValid) {
-//       handleClose();
-//       changeStatus(true);
-//       dispatch(editGatepass(gatepassForm)).then((res) => {
-//         if (res && res.data && res.data.success) {
-//           changeStatus(false, "Gate Pass updated");
-//         } else {
-//           changeStatus(false, res.data ? res.data.msg : "Error", "error");
-//         }
-//       });
-//     } else alert("err");
-//   };
-
-//   const handleUserDelete = () => {
-//     setconfOpen(false);
-//     handleClose();
-//     dispatch(cancelGatepass({ deleteId: Data })).then((res) => {
-//       if (res && res.data && res.data.success) {
-//         changeStatus(false, "Deleted");
-//         // handleClose("DELETED", 1);
-//       } else {
-//         changeStatus(false, "An error occured", "error");
-//       }
-//     });
-//   };
-
-//   return (
-//     <>
-//       <ConfirmationBox
-//         open={confOpen}
-//         data={{ _id: "jishnu" }}
-//         handleClose={() => {
-//           setconfOpen(false);
-//         }}
-//         handleConfirm={handleUserDelete}
-//       />
-//       <Dialog
-//         open={open}
-//         onClose={handleClose}
-//         aria-labelledby="form-dialog-title"
-//       >
-//         <DialogContent>
-//           <GatePassForm
-//             Form={gatepassForm}
-//             handleChange={handleChange}
-//             Error={Error}
-//             Helper={""}
-//             title="Edit Gate Pass"
-//             handleDateChange={handleDatechange}
-//             handleSubmit={handleSubmit}
-//             date={date}
-//             loading={loading}
-//           />
-//         </DialogContent>
-//         <DialogActions>
-//           <Button
-//             style={{ outline: "none" }}
-//             onClick={handleClose}
-//             color="primary"
-//           >
-//             Cancel
-//           </Button>
-//           <Button
-//             style={{ outline: "none" }}
-//             color="secondary"
-//             onClick={() => {
-//               setconfOpen(true);
-//             }}
-//           >
-//             <DeleteForeverIcon color="secondary" />
-//             Delete
-//           </Button>
-//         </DialogActions>
-//       </Dialog>
-//     </>
-//   );
-// };
 
 const GetUserSubmissions = () => {
   const classes = useStyles();
@@ -224,12 +92,12 @@ const GetUserSubmissions = () => {
   return (
     <>
       <Notify props={notify} closeAlert={closeAlert} />
-      {/* <FormDialog
+      <EditLeaveForm
         open={open}
         handleClose={handleClose}
         data={data}
         changeStatus={changeStatus}
-      /> */}
+      />
       {Loading ? (
         <Loader />
       ) : (
