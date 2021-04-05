@@ -301,7 +301,7 @@ const GetUserRequests = () => {
                                     )}
                                   </>
                                 ) : column.label === "On\u00a0Date" ? (
-                                  moment(value).format("h:mm:ss a")
+                                  moment(value).format("h:mm a")
                                 ) : column.label === "On\u00a0Time" ? (
                                   moment(value).format("MMM Do YY")
                                 ) : column.format &&

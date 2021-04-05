@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import Loader from "../../../utils/Loader";
 import useHeading from "../../Pages/useHeading";
 import IconButton from "@material-ui/core/IconButton";
+import moment from "moment";
 const Link = { url: process.env.REACT_APP_MAIN_URL };
 const useStyles = makeStyles({
   root: {
@@ -89,9 +90,9 @@ const ViewGatepass = (id) => {
                 {Data.name}
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
-                DATE : {Data.onDate}
+                DATE : {moment(Data.time).format("MMM Do YY")}
                 <br></br>
-                TIME : {Data.onTime}
+                TIME : {moment(Data.time).format("h:mm a")}
               </Typography>
               <Card
                 style={{

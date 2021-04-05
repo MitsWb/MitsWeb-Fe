@@ -185,7 +185,6 @@ const GetUserSubmissions = () => {
     dispatch(getUsersLeave()).then((res) => {
       if (res && res.data && res.data.data) {
         setRows(res.data.data);
-        console.log(res.data.data);
       }
       setLoading(false);
     });
