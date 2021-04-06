@@ -109,7 +109,7 @@ export const DepartmentsList = React.memo(function DepartmentListCard() {
             image={"https://wallpapercave.com/wp/wp8489573.jpg"}
           />
         </Grid>
-        <Grid item xs={12} md={6} lg={4}>
+        <Grid xs={12} md={6} lg={4}>
           <CustomCard
             classes={styles5}
             title={"Civil"}
