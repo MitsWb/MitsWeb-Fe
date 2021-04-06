@@ -30,7 +30,7 @@ import Notify from "../../../utils/Notify";
 import GatePassForm from "./GatePassForm";
 import { navigate } from "hookrouter";
 const columns = [
-  { id: "date", label: "On\u00a0Date", minWidth: 100 },
+  { id: "time", label: "On\u00a0Date", minWidth: 100 },
   { id: "time", label: "On\u00a0Time", minWidth: 100 },
 
   {
