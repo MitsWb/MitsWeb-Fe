@@ -15,10 +15,11 @@ import Loader from "../../../utils/Loader";
 import useHeading from "../useHeading";
 import Confirmation from "./Confirmation";
 import Notify from "../../../utils/Notify";
+import moment from "moment";
 
 const columns = [
-  { id: "onDate", label: "On\u00a0Date", minWidth: 100 },
-  { id: "onTime", label: "On\u00a0Time", minWidth: 100 },
+  { id: "time", label: "On\u00a0Date", minWidth: 100 },
+  { id: "time", label: "On\u00a0Time", minWidth: 100 },
 
   {
     id: "status",
@@ -166,6 +167,10 @@ function GetGatePassRequests() {
                                       </>
                                     )}
                                   </>
+                                ) : column.label === "On\u00a0Date" ? (
+                                  moment(value).format("MMM Do YY")
+                                ) : column.label === "On\u00a0Time" ? (
+                                  moment(value).format("h:mm a")
                                 ) : column.format &&
                                   typeof value === "number" ? (
                                   column.format(value)
