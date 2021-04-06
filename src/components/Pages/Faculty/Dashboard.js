@@ -1,7 +1,12 @@
 import React from "react";
+import DepartmentsList from "../../Departments/DepartmentsList";
 
 function Dashboard() {
-  return <div>faculty</div>;
+  return (
+    <div>
+      <DepartmentsList />
+    </div>
+  );
 }
 
 export default Dashboard;
