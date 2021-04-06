@@ -7,6 +7,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { green } from "@material-ui/core/colors";
+import moment from "moment";
 const theme = createMuiTheme({
   palette: {
     primary: green,
@@ -50,11 +51,11 @@ export default function ConfirmationBox({
             REASON : {data.description}
             <p>
               <span className="bold mr-2">Date:</span>
-              {data.onDate}
+              {moment(data.time).format("MMM Do YY")}
             </p>
             <p>
               <span className="bold mr-2">Time:</span>
-              {data.onTime}
+              {moment(data.time).format("h:mm a")}
             </p>
           </DialogContentText>
         </DialogContent>
