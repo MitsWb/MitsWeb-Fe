@@ -190,7 +190,7 @@ function GetGatePassRequests() {
                       className=" border-b border-gray-200 text-center "
                     >
                       <Typography>
-                        You have not made any gate pass requests!!
+                        Currently no gatepass requests to be displayed!!
                       </Typography>
                     </TableCell>
                   </TableRow>
