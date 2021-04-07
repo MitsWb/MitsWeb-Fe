@@ -8,6 +8,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import { useFourThreeCardMediaStyles } from "@mui-treasury/styles/cardMedia/fourThree";
+import { A } from "hookrouter";
 
 const useGridStyles = makeStyles(({ breakpoints }) => ({
   root: {
@@ -50,19 +51,21 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const CustomCard = ({ classes, image, title }) => {
+const CustomCard = ({ classes, image, title, department }) => {
   const mediaStyles = useFourThreeCardMediaStyles();
   return (
-    <CardActionArea className={classes.actionArea}>
-      <Card className={classes.card}>
-        <CardMedia classes={mediaStyles} image={image} />
-        <CardContent className={classes.content}>
-          <Typography className={classes.title} variant={"h3"}>
-            {title}
-          </Typography>
-        </CardContent>
-      </Card>
-    </CardActionArea>
+    <A href={`/${department}/semesters`}>
+      <CardActionArea className={classes.actionArea}>
+        <Card className={classes.card}>
+          <CardMedia classes={mediaStyles} image={image} />
+          <CardContent className={classes.content}>
+            <Typography className={classes.title} variant={"h3"}>
+              {title}
+            </Typography>
+          </CardContent>
+        </Card>
+      </CardActionArea>
+    </A>
   );
 };
 
@@ -81,7 +84,7 @@ export const DepartmentsList = React.memo(function DepartmentListCard() {
           <CustomCard
             classes={styles}
             title={"Computer Science"}
-            subtitle={"Be a Legend!"}
+            department={"cse"}
             image={"https://wallpapercave.com/wp/wp2700088.jpg"}
           />
         </Grid>
@@ -89,7 +92,7 @@ export const DepartmentsList = React.memo(function DepartmentListCard() {
           <CustomCard
             classes={styles2}
             title={"Mechanical"}
-            subtitle={"Time to choose side!"}
+            department={"me"}
             image={"https://wallpapercave.com/wp/wp7717336.jpg"}
           />
         </Grid>
@@ -97,7 +100,7 @@ export const DepartmentsList = React.memo(function DepartmentListCard() {
           <CustomCard
             classes={styles3}
             title={"Electrical"}
-            subtitle={"What are you waiting?"}
+            department={"eee"}
             image={"https://wallpapercave.com/wp/wp4341645.jpg"}
           />
         </Grid>
@@ -105,7 +108,7 @@ export const DepartmentsList = React.memo(function DepartmentListCard() {
           <CustomCard
             classes={styles4}
             title={"Electronics"}
-            subtitle={"Are you ready?"}
+            department={"ece"}
             image={"https://wallpapercave.com/wp/wp8489573.jpg"}
           />
         </Grid>
@@ -113,7 +116,7 @@ export const DepartmentsList = React.memo(function DepartmentListCard() {
           <CustomCard
             classes={styles5}
             title={"Civil"}
-            subtitle={"Are you ready?"}
+            department={"ce"}
             image={"https://wallpapercave.com/wp/wp7117719.jpg"}
           />
         </Grid>

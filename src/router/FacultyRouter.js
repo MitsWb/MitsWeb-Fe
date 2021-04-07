@@ -6,12 +6,14 @@ import FacultyNavbar from "../components/Navbar/FacultyNavbar";
 import ApproveRequests from "../components/Pages/Faculty/ApproveRequests";
 import ViewGatePass from "../components/Features/GatePass/ViewGatepass";
 import Logout from "../components/Common/Logout";
+import SemestersList from "../components/Departments/SemestersList";
 
 const routes = {
   "/": () => <FacultyDashboard />,
   "/requests": () => <ApproveRequests />,
   "/gatepass/view/:id": ({ id }) => <ViewGatePass id={id} />,
   "/logout": () => <Logout />,
+  "/:department/semesters": () => <SemestersList />,
 };
 
 const FacultyRouter = () => {
