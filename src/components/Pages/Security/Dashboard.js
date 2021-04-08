@@ -3,7 +3,41 @@ import QrReader from "react-qr-reader";
 import Notify from "../../../utils/Notify";
 import { verifyGatepass } from "../../../redux/apiActions";
 import { useDispatch } from "react-redux";
-import { Card, CardContent, Button, Typography } from "@material-ui/core";
+import {
+  Card,
+  CardContent,
+  Button,
+  Typography,
+  Dialog,
+  DialogActions,
+  DialogContent,
+} from "@material-ui/core";
+import ViewGatepass from "./ViewGatepass";
+
+const FormDialog = ({ open, handleClose, data }) => {
+  return (
+    <>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogContent>
+          <ViewGatepass data={data} />
+        </DialogContent>
+        <DialogActions>
+          <Button
+            style={{ outline: "none" }}
+            onClick={handleClose}
+            color="primary"
+          >
+            Back
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  );
+};
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -11,6 +45,8 @@ function Dashboard() {
   const [bgcolor, setcolor] = useState("yellow");
   const [loading, setloading] = useState(false);
   const [scanning, setscanning] = useState(false);
+  const [Data, setData] = useState("");
+  const [open, setopen] = useState(false);
   const handleError = (e) => {
     setnotify({ msg: "Please Allow Permission", popup: true, type: "error" });
   };
@@ -31,6 +67,8 @@ function Dashboard() {
         dispatch(verifyGatepass({ gatepassId })).then((res) => {
           if (res && res.data && res.data.success) {
             setnotify({ msg: res.data.msg, popup: true, type: "success" });
+            setData(res.data.data);
+            setopen(true);
             setcolor("green");
           } else {
             setcolor("red");
@@ -50,6 +88,7 @@ function Dashboard() {
   return (
     <>
       <Notify props={notify} closeAlert={() => setnotify({ popup: false })} />
+      <FormDialog open={open} handleClose={() => setopen(false)} data={Data} />
       <div className="text-center my-2 w-full">
         <Typography variant="h6">Press SCAN to verify QR Code</Typography>
       </div>
