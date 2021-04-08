@@ -39,7 +39,7 @@ const useStyles = makeStyles({
 });
 
 function GetGatePassRequests() {
-  useHeading("GatePass Requests");
+  useHeading("Approve Requests");
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(4);

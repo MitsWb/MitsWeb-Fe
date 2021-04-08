@@ -1,7 +1,9 @@
 import React from "react";
 import DepartmentsList from "../../Departments/DepartmentsList";
+import useHeading from "../useHeading";
 
 function Dashboard() {
+  useHeading("Dashboard");
   return (
     <div>
       <DepartmentsList />
