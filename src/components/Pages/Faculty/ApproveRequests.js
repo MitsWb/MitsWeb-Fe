@@ -50,10 +50,12 @@ function GetGatePassRequests() {
   const [notify, setnotify] = useState({ msg: "", popup: false, type: "" });
   const [open, setopen] = useState(false);
   const [rerender, setrerender] = useState(false);
+  const [display, setDisplay] = useState(false);
   useEffect(() => {
     setLoading(true);
     dispatch(getGatepasses()).then((res) => {
       if (res && res.data && res.data.data) {
+        setDisplay(res.data.success);
         setRows(res.data.data);
       }
       setLoading(false);
@@ -105,7 +107,7 @@ function GetGatePassRequests() {
       />
       {Loading ? (
         <Loader />
-      ) : (
+      ) : display ? (
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>
             <Table stickyHeader aria-label="sticky table">
@@ -208,6 +210,8 @@ function GetGatePassRequests() {
             onChangeRowsPerPage={handleChangeRowsPerPage}
           />
         </Paper>
+      ) : (
+        <h1>Currently no requests to be approved!!</h1>
       )}
     </>
   );
