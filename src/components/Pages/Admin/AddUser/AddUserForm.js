@@ -152,14 +152,14 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error, loading }) => {
           error={Error["email"]}
           helperText={Error["email"]}
           className={classes.textField}
-          margin="dense"
+          margin="normal"
           variant="outlined"
         />
         <TextField
           label="Password"
           id="outlined-margin-dense"
           className={classes.textField}
-          margin="dense"
+          margin="normal"
           variant="outlined"
           name="password"
           value={Form.password}
