@@ -14,6 +14,7 @@ const AddUser = () => {
     email: "",
     type: "student",
     password: "",
+    department: "None",
   };
   const initError = {
     email: "",
@@ -41,12 +42,18 @@ const AddUser = () => {
       err["email"] = "Invalid email";
       validForm = false;
     }
+    if (
+      (Form.type === "student" || Form.type === "faculty") &&
+      Form.department === "None"
+    ) {
+      err["department"] = "Add department";
+      validForm = false;
+    }
     if (Form.password === "") {
       err["password"] = "invalid password";
       validForm = false;
     }
     setError(err);
-
     if (validForm) {
       setLoading(true);
       dispatch(addUser(Form)).then((res) => {
@@ -57,7 +64,7 @@ const AddUser = () => {
             setForm(Initform);
           } else {
             setnotify({
-              msg: "User already exists",
+              msg: res.data.msg,
               popup: true,
               type: "error",
             });
