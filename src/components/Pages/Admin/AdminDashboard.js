@@ -383,32 +383,34 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
                 />
               </Grid>
               <Grid item sx={12} sm={6}>
-                <FormControl
-                  error={Error["department"]}
-                  variant="filled"
-                  //  className={classes.formControl}
-                >
-                  <Select
-                    Error={Error["department"]}
-                    onChange={handleChange}
-                    displayEmpty
-                    id="department"
-                    name="department"
-                    value={form.department}
-                    style={{ minWidth: 150 }}
-                    //  className={classes.selectEmpty}
-                    inputProps={{ "aria-label": "Without label" }}
+                {(form.type === "student" || form.type === "faculty") && (
+                  <FormControl
+                    error={Error["department"]}
+                    variant="filled"
+                    //  className={classes.formControl}
                   >
-                    <MenuItem value={"CE"}>CE</MenuItem>
-                    <MenuItem value={"ME"}>ME</MenuItem>
-                    <MenuItem value={"EEE"}>EEE</MenuItem>
-                    <MenuItem value={"ECE"}>ECE</MenuItem>
-                    <MenuItem value={"CSE"}>CSE</MenuItem>
-                  </Select>
-                  <FormHelperText style={{ fontSize: 13 }}>
-                    Department
-                  </FormHelperText>
-                </FormControl>
+                    <Select
+                      Error={Error["department"]}
+                      onChange={handleChange}
+                      displayEmpty
+                      id="department"
+                      name="department"
+                      value={form.department}
+                      style={{ minWidth: 150 }}
+                      //  className={classes.selectEmpty}
+                      inputProps={{ "aria-label": "Without label" }}
+                    >
+                      <MenuItem value={"CE"}>CE</MenuItem>
+                      <MenuItem value={"ME"}>ME</MenuItem>
+                      <MenuItem value={"EEE"}>EEE</MenuItem>
+                      <MenuItem value={"ECE"}>ECE</MenuItem>
+                      <MenuItem value={"CSE"}>CSE</MenuItem>
+                    </Select>
+                    <FormHelperText style={{ fontSize: 13 }}>
+                      Department
+                    </FormHelperText>
+                  </FormControl>
+                )}
                 {form.type === "faculty" && (
                   <Button
                     variant="contained"
