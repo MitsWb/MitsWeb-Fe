@@ -30,7 +30,7 @@ export default function ConfirmationBox({
             Cancel
           </Button>
           <Button
-            onClick={() => handleConfirm(data.userId)}
+            onClick={() => handleConfirm(data.email)}
             color="secondary"
             autoFocus
           >

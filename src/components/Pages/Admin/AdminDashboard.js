@@ -165,7 +165,6 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
   const [notify, setnotify] = useState({ popup: false, msg: "", type: "" });
   const dispatch = useDispatch();
   const [confOpen, setconfOpen] = useState(false);
-  const [data, setdata] = useState("");
   const [advopen, setadvopen] = useState(false);
   //modal doesn't close after successful updation
   //variable names needs to be improved
@@ -284,10 +283,10 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
       popup: false,
     });
   };
-  const handleUserDelete = (userID) => {
+  const handleUserDelete = (userMail) => {
     setconfOpen(false);
     handleClose("DELETING");
-    dispatch(deleteUser({ deleteId: userID })).then((res) => {
+    dispatch(deleteUser({ email: userMail })).then((res) => {
       if (res && res.data.success) {
         handleClose("DELETED");
       }
@@ -304,7 +303,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
       />
       <ConfirmationBox
         open={confOpen}
-        data={data}
+        data={{ userName: form.name, email: form.email }}
         handleClose={() => {
           setconfOpen(false);
         }}
@@ -356,7 +355,6 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
                 color="secondary"
                 onClick={() => {
                   setconfOpen(true);
-                  setdata({ userId: String(id.id), userName: id.name });
                 }}
                 style={{ outline: "none", borderRadius: "50%" }}
               >
