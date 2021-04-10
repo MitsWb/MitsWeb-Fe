@@ -15,6 +15,8 @@ const AddUser = () => {
     type: "student",
     password: "",
     department: "None",
+    currentYear: "None",
+    passoutYear: "None",
   };
   const initError = {
     email: "",
@@ -42,9 +44,15 @@ const AddUser = () => {
       err["email"] = "Invalid email";
       validForm = false;
     }
+    if (Form.type === "faculty" && Form.department === "None") {
+      err["department"] = "Add department";
+      validForm = false;
+    }
     if (
-      (Form.type === "student" || Form.type === "faculty") &&
-      Form.department === "None"
+      Form.type === "student" &&
+      (Form.department === "None" ||
+        Form.currentYear === "None" ||
+        Form.passoutYear === "None")
     ) {
       err["department"] = "Add department";
       validForm = false;
@@ -56,6 +64,7 @@ const AddUser = () => {
     setError(err);
     if (validForm) {
       setLoading(true);
+      console.log(Form);
       dispatch(addUser(Form)).then((res) => {
         if (res && res.data) {
           if (res.data.success) {

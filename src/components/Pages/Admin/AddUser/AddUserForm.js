@@ -1,26 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {
   Button,
   FormControl,
-  Input,
-  InputAdornment,
-  IconButton,
-  InputLabel,
   Select,
   MenuItem,
   FormHelperText,
+  TextField,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { green } from "@material-ui/core/colors";
-import { Visibility, VisibilityOff } from "@material-ui/icons";
+import { useMinimalSelectStyles } from "@mui-treasury/styles/select/minimal";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const useStyles = makeStyles((theme) => ({
   form: {
-    maxWidth: "500px",
+    maxWidth: "700px",
     margin: "0px auto",
     padding: "20px 30px 20px 30px",
   },
@@ -31,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     margin: "0px auto",
+  },
+  selectMenu: {
+    marginTop: 10,
   },
   buttonProgress: {
     color: green[500],
@@ -53,6 +54,13 @@ const useStyles = makeStyles((theme) => ({
     "&$checked": {
       color: "#FFFF33",
     },
+  },
+  textField: {
+    marginLeft: "10px",
+  },
+  container: {
+    display: "flex",
+    flexWrap: "wrap",
   },
   checked: {},
 }));
@@ -96,7 +104,36 @@ const LoaderButton = ({ Loading, handleSubmit, type }) => {
 
 const AddUserForm = ({ handleChange, handleSubmit, Form, Error, loading }) => {
   const classes = useStyles();
-  const [show, setshow] = useState(false);
+
+  const minimalSelectClasses = useMinimalSelectStyles();
+
+  const iconComponent = (props) => {
+    return (
+      <ExpandMoreIcon
+        className={props.className + " " + minimalSelectClasses.icon}
+      />
+    );
+  };
+
+  // moves the menu below the select input
+  const menuProps = {
+    classes: {
+      paper: minimalSelectClasses.paper,
+      list: minimalSelectClasses.list,
+    },
+    anchorOrigin: {
+      vertical: "bottom",
+      horizontal: "left",
+    },
+    transformOrigin: {
+      vertical: "top",
+      horizontal: "left",
+    },
+    getContentAnchorEl: null,
+  };
+
+  const dateObj = new Date();
+  const presentYear = dateObj.getFullYear();
 
   return (
     <Card className={classes.form}>
@@ -104,111 +141,150 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error, loading }) => {
         Add User
       </Typography>
       <form className={classes.form}>
-        <Grid container spacing={3}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <InputLabel htmlFor="email">Email</InputLabel>
-              <Input
-                required
-                id="email"
-                name="email"
-                label="User Email"
-                value={Form.email}
-                fullWidth
-                onChange={handleChange}
-                autoComplete="email"
-                error={Error["email"]}
-                helperText={Error["email"]}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <InputLabel htmlFor="password">Password</InputLabel>
-              <Input
-                id="password"
-                name="password"
-                type={show ? "text" : "password"}
-                value={Form.password}
-                onChange={handleChange}
-                error={Error["password"]}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={() => setshow(!show)}
-                    >
-                      {show ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </Grid>
-          </Grid>
-          <div className="w-full p-3 mt-3">
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
-                <FormControl variant="filled" className={classes.formControl}>
-                  <Select
-                    value={Form.type}
-                    onChange={handleChange}
-                    displayEmpty
-                    id="type"
-                    name="type"
-                    className={classes.selectEmpty}
-                    inputProps={{ "aria-label": "Without label" }}
-                  >
-                    <MenuItem value={"admin"}>Admin</MenuItem>
-                    <MenuItem value={"student"}>Student</MenuItem>
-                    <MenuItem value={"faculty"}>Faculty</MenuItem>
-                    <MenuItem value={"security"}>Security</MenuItem>
-                    <MenuItem value={"office"}>Office</MenuItem>
-                  </Select>
-                  <FormHelperText>User Type</FormHelperText>
-                </FormControl>
-              </Grid>
+        <TextField
+          required
+          id="outlined-margin-dense"
+          name="email"
+          value={Form.email}
+          label="Email"
+          onChange={handleChange}
+          autoComplete="email"
+          error={Error["email"]}
+          helperText={Error["email"]}
+          className={classes.textField}
+          margin="dense"
+          variant="outlined"
+        />
+        <TextField
+          label="Password"
+          id="outlined-margin-dense"
+          className={classes.textField}
+          margin="dense"
+          variant="outlined"
+          name="password"
+          value={Form.password}
+          onChange={handleChange}
+          error={Error["password"]}
+        />
 
-              {(Form.type === "student" || Form.type === "faculty") && (
-                <Grid item xs={12} sm={6}>
-                  <FormControl
-                    error={Error["department"]}
-                    variant="filled"
-                    className={classes.formControl}
-                  >
-                    <Select
-                      Error={Error["department"]}
-                      onChange={handleChange}
-                      displayEmpty
-                      id="department"
-                      name="department"
-                      value={Form.department}
-                      className={classes.selectEmpty}
-                      inputProps={{ "aria-label": "Without label" }}
-                    >
-                      <MenuItem disabled value="None">
-                        <em>Select</em>
-                      </MenuItem>
-                      <MenuItem value={"CE"}>CE</MenuItem>
-                      <MenuItem value={"ME"}>ME</MenuItem>
-                      <MenuItem value={"EEE"}>EEE</MenuItem>
-                      <MenuItem value={"ECE"}>ECE</MenuItem>
-                      <MenuItem value={"CSE"}>CSE</MenuItem>
-                    </Select>
-                    <FormHelperText style={{ fontSize: 13 }}>
-                      Department
-                    </FormHelperText>
-                  </FormControl>
-                </Grid>
-              )}
-            </Grid>
-          </div>
-          <Grid item xs={12}>
-            <div className="text-center">
-              <LoaderButton
-                type={"Submit"}
-                handleSubmit={handleSubmit}
-                Loading={loading}
-              />
+        <div className={classes.selectMenu}>
+          <FormControl className={classes.formControl}>
+            <Select
+              disableUnderline
+              classes={{ root: minimalSelectClasses.select }}
+              MenuProps={menuProps}
+              IconComponent={iconComponent}
+              value={Form.type}
+              onChange={handleChange}
+              displayEmpty
+              id="type"
+              name="type"
+              className={classes.selectEmpty}
+              inputProps={{ "aria-label": "Without label" }}
+            >
+              <MenuItem value={"admin"}>Admin</MenuItem>
+              <MenuItem value={"student"}>Student</MenuItem>
+              <MenuItem value={"faculty"}>Faculty</MenuItem>
+              <MenuItem value={"security"}>Security</MenuItem>
+              <MenuItem value={"office"}>Office</MenuItem>
+            </Select>
+            <FormHelperText>User Type</FormHelperText>
+          </FormControl>
+          {(Form.type === "student" || Form.type === "faculty") && (
+            <FormControl className={classes.formControl}>
+              <Select
+                disableUnderline
+                classes={{ root: minimalSelectClasses.select }}
+                MenuProps={menuProps}
+                IconComponent={iconComponent}
+                onChange={handleChange}
+                displayEmpty
+                id="department"
+                name="department"
+                value={Form.department}
+                className={classes.selectEmpty}
+                inputProps={{ "aria-label": "Without label" }}
+              >
+                <MenuItem disabled value="None">
+                  <em>Select Department</em>
+                </MenuItem>
+                <MenuItem value={"CE"}>CE</MenuItem>
+                <MenuItem value={"ME"}>ME</MenuItem>
+                <MenuItem value={"EEE"}>EEE</MenuItem>
+                <MenuItem value={"ECE"}>ECE</MenuItem>
+                <MenuItem value={"CSE"}>CSE</MenuItem>
+              </Select>
+              <FormHelperText style={{ fontSize: 13 }}>
+                Department
+              </FormHelperText>
+            </FormControl>
+          )}
+
+          {Form.type === "student" && (
+            <div>
+              <FormControl className={classes.formControl}>
+                <Select
+                  disableUnderline
+                  classes={{ root: minimalSelectClasses.select }}
+                  MenuProps={menuProps}
+                  IconComponent={iconComponent}
+                  onChange={handleChange}
+                  displayEmpty
+                  id="currentYear"
+                  name="currentYear"
+                  value={Form.currentYear}
+                  className={classes.selectEmpty}
+                  inputProps={{ "aria-label": "Without label" }}
+                >
+                  <MenuItem disabled value="None">
+                    <em>Select Current Year</em>
+                  </MenuItem>
+                  <MenuItem value={1}>First</MenuItem>
+                  <MenuItem value={2}>Second</MenuItem>
+                  <MenuItem value={3}>Third</MenuItem>
+                  <MenuItem value={4}>Fourth</MenuItem>
+                </Select>
+                <FormHelperText style={{ fontSize: 13 }}>
+                  Current Year
+                </FormHelperText>
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <Select
+                  disableUnderline
+                  classes={{ root: minimalSelectClasses.select }}
+                  MenuProps={menuProps}
+                  IconComponent={iconComponent}
+                  value={Form.passoutYear}
+                  onChange={handleChange}
+                  displayEmpty
+                  id="passoutYear"
+                  name="passoutYear"
+                  className={classes.selectEmpty}
+                  inputProps={{ "aria-label": "Without label" }}
+                >
+                  <MenuItem disabled value="None">
+                    <em>Select Passout Year</em>
+                  </MenuItem>
+                  <MenuItem value={presentYear}>{presentYear}</MenuItem>
+                  <MenuItem value={presentYear + 1}>{presentYear + 1}</MenuItem>
+                  <MenuItem value={presentYear + 2}>{presentYear + 2}</MenuItem>
+                  <MenuItem value={presentYear + 3}>{presentYear + 3}</MenuItem>
+                  <MenuItem value={presentYear + 4}>{presentYear + 4}</MenuItem>
+                </Select>
+                <FormHelperText>Passout Year</FormHelperText>
+              </FormControl>
             </div>
-          </Grid>
+          )}
+        </div>
+
+        <Grid item xs={12}>
+          <div className="text-center">
+            <LoaderButton
+              type={"Submit"}
+              handleSubmit={handleSubmit}
+              Loading={loading}
+            />
+          </div>
         </Grid>
       </form>
     </Card>
