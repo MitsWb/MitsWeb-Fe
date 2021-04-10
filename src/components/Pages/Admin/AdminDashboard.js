@@ -124,9 +124,19 @@ const CheckBoxDiaog = ({ open, handleClose, data, handleCheckbox }) => {
       onClose={handleClose}
       aria-labelledby="form-dialog-title"
     >
+      <DialogTitle>Select Years</DialogTitle>
       <DialogContent>
         <CheckBoxForm data={data} handleCheckbox={handleCheckbox} />
       </DialogContent>
+      <DialogActions>
+        <Button
+          style={{ outline: "none" }}
+          onClick={handleClose}
+          color="primary"
+        >
+          Back
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 };
@@ -401,7 +411,9 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
                 </FormControl>
                 {form.type === "faculty" && (
                   <Button
-                    variant="filled"
+                    variant="contained"
+                    size="small"
+                    style={{ margin: 3 }}
                     onClick={() => setadvopen(true)}
                     color="primary"
                   >
