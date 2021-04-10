@@ -37,7 +37,7 @@ import {
   MenuItem,
   FormHelperText,
 } from "@material-ui/core";
-
+import CheckBoxForm from "./CheckBoxdialog";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import {
   //makeStyles,
@@ -117,6 +117,20 @@ const IOSSwitch = withStyles((theme) => ({
   );
 });
 
+const CheckBoxDiaog = ({ open, handleClose, data, handleCheckbox }) => {
+  return (
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="form-dialog-title"
+    >
+      <DialogContent>
+        <CheckBoxForm data={data} handleCheckbox={handleCheckbox} />
+      </DialogContent>
+    </Dialog>
+  );
+};
+
 const FormDialog = ({ open, handleClose, id, changeStatus }) => {
   const initForm = {
     name: "",
@@ -126,6 +140,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
     id: "",
     isHOD: "",
     department: "",
+    advisor: "",
   };
   const initError = {
     name: "",
@@ -141,9 +156,16 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
   const dispatch = useDispatch();
   const [confOpen, setconfOpen] = useState(false);
   const [data, setdata] = useState("");
+  const [advopen, setadvopen] = useState(false);
   //modal doesn't close after successful updation
   //variable names needs to be improved
   //the list of users should re render after successful updation
+  const advInit = {
+    y1: "false",
+    y2: "false",
+    y3: "false",
+    y4: "false",
+  };
   useEffect(() => {
     let mount = true;
     if (mount) {
@@ -155,11 +177,13 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
         active: id.active,
         isHOD: id.isHOD,
         department: id.department,
+        advisor: id.advisor ? id.advisor : advInit,
       });
     }
     return () => {
       mount = false;
     };
+    //eslint-disable-next-line
   }, [handleClose, id, id.email, id.name, id.mobile]);
   const handleChange = (e) => {
     setnotify({
@@ -171,7 +195,15 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
   };
 
   const optionalValues = ["email", "type"];
+  const handleCheckbox = (e) => {
+    const { name, value } = e.target;
 
+    const newAdv = {
+      ...form.advisor,
+      [name]: value === "true" ? "false" : "true",
+    };
+    setform({ ...form, advisor: newAdv });
+  };
   const validInputs = () => {
     let formValid = true;
     let err = Object.assign({}, initError);
@@ -251,8 +283,15 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
       }
     });
   };
+
   return (
     <>
+      <CheckBoxDiaog
+        data={form.advisor}
+        handleClose={() => setadvopen(false)}
+        open={advopen}
+        handleCheckbox={handleCheckbox}
+      />
       <ConfirmationBox
         open={confOpen}
         data={data}
@@ -360,6 +399,15 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
                     Department
                   </FormHelperText>
                 </FormControl>
+                {form.type === "faculty" && (
+                  <Button
+                    variant="filled"
+                    onClick={() => setadvopen(true)}
+                    color="primary"
+                  >
+                    advisor
+                  </Button>
+                )}
               </Grid>
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -430,6 +478,7 @@ const AdminDashboard = () => {
     active: "",
     isHOD: "",
     department: "",
+    advisor: "",
   });
   const closeAlert = () => {
     setnotify({
@@ -461,6 +510,7 @@ const AdminDashboard = () => {
       active: e.active,
       isHOD: e.isHOD,
       department: e.department,
+      advisor: e.advisor,
     });
     setOpen(true);
   };
