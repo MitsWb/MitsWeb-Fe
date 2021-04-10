@@ -22,7 +22,7 @@ import {
   TableHead,
   TableContainer,
   Table,
-  // Card,
+  FormControl,
   TableRow,
   DialogTitle,
   DialogContent,
@@ -33,6 +33,9 @@ import {
   Switch,
   ButtonGroup,
   Box,
+  Select,
+  MenuItem,
+  FormHelperText,
 } from "@material-ui/core";
 
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
@@ -40,6 +43,7 @@ import {
   //makeStyles,
   withStyles,
 } from "@material-ui/core/styles";
+
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -121,6 +125,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
     type: "",
     id: "",
     isHOD: "",
+    department: "",
   };
   const initError = {
     name: "",
@@ -149,6 +154,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
         type: id.type,
         active: id.active,
         isHOD: id.isHOD,
+        department: id.department,
       });
     }
     return () => {
@@ -313,18 +319,48 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
         </DialogTitle>
         <DialogContent>
           <Grid container spacing={1}>
-            <Grid item xs={12}>
-              <TextField
-                id="name"
-                name="name"
-                onChange={handleChange}
-                label="User Name"
-                value={form.name}
-                fullWidth
-                error={err["name"]}
-                helperText={err["name"]}
-                autoComplete="new-password"
-              />
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  id="name"
+                  name="name"
+                  onChange={handleChange}
+                  label="User Name"
+                  value={form.name}
+                  fullWidth
+                  error={err["name"]}
+                  helperText={err["name"]}
+                  autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item sx={12} sm={6}>
+                <FormControl
+                  error={Error["department"]}
+                  variant="filled"
+                  //  className={classes.formControl}
+                >
+                  <Select
+                    Error={Error["department"]}
+                    onChange={handleChange}
+                    displayEmpty
+                    id="department"
+                    name="department"
+                    value={form.department}
+                    style={{ minWidth: 150 }}
+                    //  className={classes.selectEmpty}
+                    inputProps={{ "aria-label": "Without label" }}
+                  >
+                    <MenuItem value={"CE"}>CE</MenuItem>
+                    <MenuItem value={"ME"}>ME</MenuItem>
+                    <MenuItem value={"EEE"}>EEE</MenuItem>
+                    <MenuItem value={"ECE"}>ECE</MenuItem>
+                    <MenuItem value={"CSE"}>CSE</MenuItem>
+                  </Select>
+                  <FormHelperText style={{ fontSize: 13 }}>
+                    Department
+                  </FormHelperText>
+                </FormControl>
+              </Grid>
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -350,19 +386,6 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
                 error={err["email"]}
                 helperText={err["email"]}
                 autoComplete="new-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                id="type"
-                name="type"
-                label="type"
-                value={form.type}
-                type="text"
-                fullWidth
-                error={err["type"]}
-                helperText={err["type"]}
-                autoComplete="type"
               />
             </Grid>
             <Notify props={notify} closeAlert={closeAlert} />
@@ -406,6 +429,7 @@ const AdminDashboard = () => {
     type: "",
     active: "",
     isHOD: "",
+    department: "",
   });
   const closeAlert = () => {
     setnotify({
@@ -436,6 +460,7 @@ const AdminDashboard = () => {
       type: typeNow,
       active: e.active,
       isHOD: e.isHOD,
+      department: e.department,
     });
     setOpen(true);
   };
@@ -540,7 +565,7 @@ const AdminDashboard = () => {
                 className="items-center"
                 color={e.isHOD ? "primary" : "default"}
               >
-                <div className="ml-2">{e.type}</div>
+                <div className="ml-2">{e.department}</div>
               </Typography>
             </TableCell>
           </TableRow>
@@ -656,7 +681,7 @@ const AdminDashboard = () => {
                       <StyledTableCell>Index</StyledTableCell>
                       <StyledTableCell>Name</StyledTableCell>
                       <StyledTableCell>Email</StyledTableCell>
-                      <StyledTableCell>Type</StyledTableCell>
+                      <StyledTableCell>Department</StyledTableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody className={"cursor-pointer"}>
