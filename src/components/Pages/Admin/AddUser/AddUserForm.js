@@ -4,14 +4,13 @@ import Typography from "@material-ui/core/Typography";
 import {
   Button,
   FormControl,
-  FormControlLabel,
-  FormLabel,
-  Radio,
-  RadioGroup,
   Input,
   InputAdornment,
   IconButton,
   InputLabel,
+  Select,
+  MenuItem,
+  FormHelperText,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card } from "@material-ui/core";
@@ -30,7 +29,9 @@ const useStyles = makeStyles((theme) => ({
   wrapper: {
     position: "relative",
   },
-
+  card: {
+    margin: "0px auto",
+  },
   buttonProgress: {
     color: green[500],
     position: "absolute",
@@ -43,6 +44,10 @@ const useStyles = makeStyles((theme) => ({
     "&$checked": {
       color: "#7FFF00",
     },
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
   },
   studentRadio: {
     "&$checked": {
@@ -138,51 +143,63 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error, loading }) => {
               />
             </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <FormControl component="fieldset">
-              <FormLabel component="legend">UserType</FormLabel>
-              <RadioGroup
-                row
-                aria-label="position"
-                name="type"
-                defaultValue="top"
-                onChange={handleChange}
-                value={Form.type}
-              >
-                <FormControlLabel
-                  value="student"
-                  control={
-                    <Radio
-                      classes={{
-                        root: classes.studentRadio,
-                        checked: classes.checked,
-                      }}
-                    />
-                  }
-                  label="Student"
-                  labelPlacement="end"
-                />
-                <FormControlLabel
-                  value="faculty"
-                  control={
-                    <Radio
-                      classes={{
-                        root: classes.facultyRadio,
-                        checked: classes.checked,
-                      }}
-                    />
-                  }
-                  label="Faculty"
-                  labelPlacement="end"
-                />
-                <FormControlLabel
-                  value="security"
-                  control={<Radio color="secondary" />}
-                  label="Admin"
-                />
-              </RadioGroup>
-            </FormControl>
-          </Grid>
+          <div className="w-full p-3 mt-3">
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6}>
+                <FormControl variant="filled" className={classes.formControl}>
+                  <Select
+                    value={Form.type}
+                    onChange={handleChange}
+                    displayEmpty
+                    id="type"
+                    name="type"
+                    className={classes.selectEmpty}
+                    inputProps={{ "aria-label": "Without label" }}
+                  >
+                    <MenuItem value={"admin"}>Admin</MenuItem>
+                    <MenuItem value={"student"}>Student</MenuItem>
+                    <MenuItem value={"faculty"}>Faculty</MenuItem>
+                    <MenuItem value={"security"}>Security</MenuItem>
+                    <MenuItem value={"office"}>Office</MenuItem>
+                  </Select>
+                  <FormHelperText>User Type</FormHelperText>
+                </FormControl>
+              </Grid>
+
+              {(Form.type === "student" || Form.type === "faculty") && (
+                <Grid item xs={12} sm={6}>
+                  <FormControl
+                    error={Error["department"]}
+                    variant="filled"
+                    className={classes.formControl}
+                  >
+                    <Select
+                      Error={Error["department"]}
+                      onChange={handleChange}
+                      displayEmpty
+                      id="department"
+                      name="department"
+                      value={Form.department}
+                      className={classes.selectEmpty}
+                      inputProps={{ "aria-label": "Without label" }}
+                    >
+                      <MenuItem disabled value="None">
+                        <em>Select</em>
+                      </MenuItem>
+                      <MenuItem value={"CE"}>CE</MenuItem>
+                      <MenuItem value={"ME"}>ME</MenuItem>
+                      <MenuItem value={"EEE"}>EEE</MenuItem>
+                      <MenuItem value={"ECE"}>ECE</MenuItem>
+                      <MenuItem value={"CSE"}>CSE</MenuItem>
+                    </Select>
+                    <FormHelperText style={{ fontSize: 13 }}>
+                      Department
+                    </FormHelperText>
+                  </FormControl>
+                </Grid>
+              )}
+            </Grid>
+          </div>
           <Grid item xs={12}>
             <div className="text-center">
               <LoaderButton
