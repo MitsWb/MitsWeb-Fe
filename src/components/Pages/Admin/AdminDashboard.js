@@ -12,6 +12,7 @@ import {
 import ConfirmationBox from "./Confirmation";
 import Notify from "../../../utils/Notify";
 import Loader from "../../../utils/Loader";
+import { useMinimalSelectStyles } from "@mui-treasury/styles/select/minimal";
 import {
   Button,
   Grid,
@@ -39,6 +40,7 @@ import {
 } from "@material-ui/core";
 import CheckBoxForm from "./CheckBoxdialog";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {
   //makeStyles,
   withStyles,
@@ -117,6 +119,106 @@ const IOSSwitch = withStyles((theme) => ({
   );
 });
 
+const EditYearDialog = ({ open, handleClose, data, handleChange }) => {
+  const minimalSelectClasses = useMinimalSelectStyles();
+  const menuProps = {
+    classes: {
+      paper: minimalSelectClasses.paper,
+      list: minimalSelectClasses.list,
+    },
+    anchorOrigin: {
+      vertical: "bottom",
+      horizontal: "left",
+    },
+    transformOrigin: {
+      vertical: "top",
+      horizontal: "left",
+    },
+    getContentAnchorEl: null,
+  };
+
+  const dateObj = new Date();
+  const presentYear = dateObj.getFullYear();
+  const iconComponent = (props) => {
+    return (
+      <ExpandMoreIcon
+        className={props.className + " " + minimalSelectClasses.icon}
+      />
+    );
+  };
+  return (
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="form-dialog-title"
+    >
+      <DialogTitle>Edit year</DialogTitle>
+      <DialogContent>
+        <div>
+          <FormControl>
+            <Select
+              disableUnderline
+              classes={{ root: minimalSelectClasses.select }}
+              MenuProps={menuProps}
+              IconComponent={iconComponent}
+              onChange={handleChange}
+              displayEmpty
+              id="currentYear"
+              name="currentYear"
+              value={data.currentYear || 1}
+              inputProps={{ "aria-label": "Without label" }}
+            >
+              <MenuItem disabled value="None">
+                <em>Select Current Year</em>
+              </MenuItem>
+              <MenuItem value={1}>First</MenuItem>
+              <MenuItem value={2}>Second</MenuItem>
+              <MenuItem value={3}>Third</MenuItem>
+              <MenuItem value={4}>Fourth</MenuItem>
+            </Select>
+            <FormHelperText style={{ fontSize: 13 }}>
+              Current Year
+            </FormHelperText>
+          </FormControl>
+          <FormControl>
+            <Select
+              disableUnderline
+              classes={{ root: minimalSelectClasses.select }}
+              MenuProps={menuProps}
+              IconComponent={iconComponent}
+              value={data.passoutYear || presentYear}
+              onChange={handleChange}
+              displayEmpty
+              id="passoutYear"
+              name="passoutYear"
+              inputProps={{ "aria-label": "Without label" }}
+            >
+              <MenuItem disabled value="None">
+                <em>Select Passout Year</em>
+              </MenuItem>
+              <MenuItem value={presentYear}>{presentYear}</MenuItem>
+              <MenuItem value={presentYear + 1}>{presentYear + 1}</MenuItem>
+              <MenuItem value={presentYear + 2}>{presentYear + 2}</MenuItem>
+              <MenuItem value={presentYear + 3}>{presentYear + 3}</MenuItem>
+              <MenuItem value={presentYear + 4}>{presentYear + 4}</MenuItem>
+            </Select>
+            <FormHelperText>Passout Year</FormHelperText>
+          </FormControl>
+        </div>
+      </DialogContent>
+      <DialogActions>
+        <Button
+          style={{ outline: "none" }}
+          onClick={handleClose}
+          color="primary"
+        >
+          Done
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
 const CheckBoxDiaog = ({ open, handleClose, data, handleCheckbox }) => {
   return (
     <Dialog
@@ -134,7 +236,7 @@ const CheckBoxDiaog = ({ open, handleClose, data, handleCheckbox }) => {
           onClick={handleClose}
           color="primary"
         >
-          Back
+          Done
         </Button>
       </DialogActions>
     </Dialog>
@@ -151,6 +253,8 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
     isHOD: "",
     department: "",
     advisor: "",
+    currentYear: "",
+    passoutYear: "",
   };
   const initError = {
     name: "",
@@ -166,6 +270,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
   const dispatch = useDispatch();
   const [confOpen, setconfOpen] = useState(false);
   const [advopen, setadvopen] = useState(false);
+  const [openEdityear, setopenEdityear] = useState(false);
   //modal doesn't close after successful updation
   //variable names needs to be improved
   //the list of users should re render after successful updation
@@ -187,6 +292,8 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
         isHOD: id.isHOD,
         department: id.department,
         advisor: id.advisor ? id.advisor : advInit,
+        currentYear: id.currentYear,
+        passoutYear: id.passoutYear,
       });
     }
     return () => {
@@ -301,6 +408,12 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
         open={advopen}
         handleCheckbox={handleCheckbox}
       />
+      <EditYearDialog
+        open={openEdityear}
+        handleClose={() => setopenEdityear(false)}
+        data={form}
+        handleChange={handleChange}
+      />
       <ConfirmationBox
         open={confOpen}
         data={{ userName: form.name, email: form.email }}
@@ -413,11 +526,22 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
                   <Button
                     variant="contained"
                     size="small"
-                    style={{ margin: 3 }}
+                    style={{ margin: 3, outline: "none" }}
                     onClick={() => setadvopen(true)}
                     color="primary"
                   >
                     advisor
+                  </Button>
+                )}
+                {form.type === "student" && (
+                  <Button
+                    size="small"
+                    variant="contained"
+                    color="primary"
+                    style={{ margin: 3, outline: "none" }}
+                    onClick={() => setopenEdityear(true)}
+                  >
+                    Edit year
                   </Button>
                 )}
               </Grid>
@@ -523,6 +647,8 @@ const AdminDashboard = () => {
       isHOD: e.isHOD,
       department: e.department,
       advisor: e.advisor,
+      currentYear: e.currentYear,
+      passoutYear: e.passoutYear,
     });
     setOpen(true);
   };
@@ -652,8 +778,10 @@ const AdminDashboard = () => {
             size="large"
             color="primary"
             aria-label="large outlined primary button group"
+            style={{ outline: "none" }}
           >
             <Button
+              style={{ outline: "none" }}
               variant="outlined"
               size="large"
               color={showType === "student" ? "primary" : "default"}
@@ -667,6 +795,7 @@ const AdminDashboard = () => {
             <Button
               variant="outlined"
               size="large"
+              style={{ outline: "none" }}
               color={showType === "faculty" ? "primary" : "default"}
               onClick={() => {
                 setshowType("faculty");
@@ -676,6 +805,7 @@ const AdminDashboard = () => {
               Faculty
             </Button>
             <Button
+              style={{ outline: "none" }}
               variant="outlined"
               size="large"
               color={showType === "admin" ? "primary" : "default"}
