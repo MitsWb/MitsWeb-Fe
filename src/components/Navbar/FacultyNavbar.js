@@ -5,6 +5,7 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import DoneAllIcon from "@material-ui/icons/DoneAll";
 import Navbar from "./Navbar";
 import { navigate } from "hookrouter";
+import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
 
 const FacultyNavbar = ({ page }) => {
   const drawer = [
@@ -16,8 +17,14 @@ const FacultyNavbar = ({ page }) => {
     { divider: true },
     {
       path: "/requests",
-      text: "Approve Requests",
+      text: "Gatepass Requests",
       icon: <DoneAllIcon />,
+    },
+    { divider: true },
+    {
+      path: "/leave",
+      text: "Leave Requests",
+      icon: <DirectionsWalkIcon />,
     },
     { divider: true },
     {

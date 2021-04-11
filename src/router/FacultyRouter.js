@@ -7,10 +7,11 @@ import ApproveRequests from "../components/Pages/Faculty/ApproveRequests";
 import ViewGatePass from "../components/Features/GatePass/ViewGatepass";
 import Logout from "../components/Common/Logout";
 import SemestersList from "../components/Departments/SemestersList";
-
+import Leave from "../components/Pages/Faculty/LeaveApplications";
 const routes = {
   "/": () => <FacultyDashboard />,
   "/requests": () => <ApproveRequests />,
+  "/leave": () => <Leave />,
   "/gatepass/view/:id": ({ id }) => <ViewGatePass id={id} />,
   "/logout": () => <Logout />,
   "/:department/semesters": () => <SemestersList />,

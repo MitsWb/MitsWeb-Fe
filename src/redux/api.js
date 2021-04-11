@@ -109,6 +109,13 @@ export default {
     method: "get",
     noAuth: false,
   },
+
+  getLeaves: {
+    path: "/faculty/leaves",
+    method: "get",
+    noAuth: false,
+  },
+  //security apis
   verifyGatepass: {
     path: "/security/verify",
     method: "post",
