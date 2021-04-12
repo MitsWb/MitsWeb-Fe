@@ -38,6 +38,11 @@ export default {
     method: "get",
     noAuth: false,
   },
+  getAllsubjects: {
+    path: "/admin/subject",
+    method: "get",
+    noAuth: false,
+  },
   adminUpdateuser: {
     path: "/admin/updateuser",
     method: "post",

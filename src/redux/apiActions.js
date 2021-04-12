@@ -18,6 +18,11 @@ export const loginGoogle = (body) => {
   return fireRequest("loginGoogle", [], body);
 };
 
+//admin apis
+
+export const getAllsubjects = () => {
+  return fireRequest("getAllsubjects");
+};
 export const getAllusers = () => {
   return fireRequest("getAllusers");
 };

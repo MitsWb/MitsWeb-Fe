@@ -1,17 +1,19 @@
 import React from "react";
 import { useRoutes } from "hookrouter";
 import NotFoundPage from "../components/Pages/NotFoundPage";
-import AdminDashboard from "../components/Pages/Admin/AdminDashboard";
+import AdminDashboard from "../components/Pages/Admin/Admin";
 import AdminNavbar from "../components/Navbar/AdminNavbar";
 import AddUser from "../components/Pages/Admin/AddUser/AddUser";
+import Subjects from "../components/Pages/Admin/Subjects";
 import ViewGatePass from "../components/Features/GatePass/ViewGatepass";
 import Logout from "../components/Common/Logout";
 
 const routes = {
   "/": () => <AdminDashboard />,
-  "/adduser": () => <AddUser />,
+  "/user/new": () => <AddUser />,
   "/gatepass/view/:id": ({ id }) => <ViewGatePass id={id} />,
   "/logout": () => <Logout />,
+  "/subjects": () => <Subjects />,
 };
 
 const AdminRouter = () => {

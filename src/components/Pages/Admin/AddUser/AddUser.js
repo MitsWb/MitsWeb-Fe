@@ -5,6 +5,7 @@ import { validateEmailAddress } from "../../../../utils/validation";
 import { addUser } from "../../../../redux/apiActions";
 import { useDispatch } from "react-redux";
 import Notify from "../../../../utils/Notify";
+import BackButton from "../../../buttons/BackButton";
 
 const AddUser = () => {
   useHeading("Add User");
@@ -91,6 +92,7 @@ const AddUser = () => {
   };
   return (
     <>
+      <BackButton />
       <Notify props={notify} closeAlert={closeAlert} />
       <AddUserForm
         Form={Form}
