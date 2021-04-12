@@ -5,10 +5,6 @@ import useHeading from "../useHeading";
 import Loader from "../../../utils/Loader";
 import {
   Paper,
-  // DialogActions,
-  // Dialog,
-  // Button,
-  // DialogContent,
   Card,
   Table,
   TableCell,
@@ -188,7 +184,7 @@ function LeaveApplications() {
                       className=" border-b border-gray-200 text-center "
                     >
                       <Typography>
-                        You have not made any gate pass requests!!
+                        Currently there are no leave requests!!
                       </Typography>
                     </TableCell>
                   </TableRow>
