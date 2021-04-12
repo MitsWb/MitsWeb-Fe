@@ -7,6 +7,7 @@ import AddUser from "../components/Pages/Admin/AddUser/AddUser";
 import Subjects from "../components/Pages/Admin/Subjects";
 import ViewGatePass from "../components/Features/GatePass/ViewGatepass";
 import Logout from "../components/Common/Logout";
+import AddSubject from "../components/Pages/Admin/AddSubject";
 
 const routes = {
   "/": () => <AdminDashboard />,
@@ -14,6 +15,7 @@ const routes = {
   "/gatepass/view/:id": ({ id }) => <ViewGatePass id={id} />,
   "/logout": () => <Logout />,
   "/subjects": () => <Subjects />,
+  "/subject/new": () => <AddSubject />,
 };
 
 const AdminRouter = () => {

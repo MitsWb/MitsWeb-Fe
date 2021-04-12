@@ -38,11 +38,6 @@ export default {
     method: "get",
     noAuth: false,
   },
-  getAllsubjects: {
-    path: "/admin/subject",
-    method: "get",
-    noAuth: false,
-  },
   adminUpdateuser: {
     path: "/admin/updateuser",
     method: "post",
@@ -55,6 +50,11 @@ export default {
   },
   addUser: {
     path: "/admin/adduser",
+    method: "post",
+    noAuth: false,
+  },
+  addSubject: {
+    path: "/admin/subject",
     method: "post",
     noAuth: false,
   },
@@ -124,6 +124,13 @@ export default {
   verifyGatepass: {
     path: "/security/verify",
     method: "post",
+    noAuth: false,
+  },
+
+  //subjects
+  getAllsubjects: {
+    path: "/shared/subject",
+    method: "get",
     noAuth: false,
   },
 };

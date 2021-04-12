@@ -129,8 +129,11 @@ const Register = () => {
     let formValid = true;
     let err = Object.assign({}, initError);
     const { password, confirm, email, number } = form;
+    const isNullOrWhiteSpace = (str) => {
+      return !str || str.length === 0 || /^\s*$/.test(str);
+    };
     Object.keys(form).forEach((key) => {
-      if (form[key] === "") {
+      if (isNullOrWhiteSpace(form[key])) {
         formValid = false;
         err[key] = "This field is required";
       }
