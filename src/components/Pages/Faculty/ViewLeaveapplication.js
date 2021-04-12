@@ -40,6 +40,8 @@ export default function ConfirmationBox({
             </span>
             <br></br>
             REASON : {data.description}
+            <br></br>
+            CLASS : {"Year " + data.currentYear + " " + data.department}
             <p>
               <span className="bold mr-2">from Date:</span>
               {moment(data.fromTimestamp).format("MMM Do YY")}
