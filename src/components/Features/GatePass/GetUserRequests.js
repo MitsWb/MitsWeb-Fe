@@ -7,24 +7,24 @@ import {
   Button,
   DialogContent,
   Card,
+  Table,
+  TableCell,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  Typography,
 } from "@material-ui/core";
 import moment from "moment";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import ConfirmationBox from "./ConfirmPage";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
 import { useDispatch } from "react-redux";
 import {
   getUserPasses,
   editGatepass,
   cancelGatepass,
 } from "../../../redux/apiActions";
-import { Typography } from "@material-ui/core";
 import Loader from "../../../utils/Loader";
 import Notify from "../../../utils/Notify";
 import GatePassForm from "./GatePassForm";
