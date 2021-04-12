@@ -58,6 +58,11 @@ export default {
     method: "post",
     noAuth: false,
   },
+  editSubject: {
+    path: "/admin/subject",
+    method: "put",
+    noAuth: false,
+  },
 
   //leave application api's
   requestLeave: {

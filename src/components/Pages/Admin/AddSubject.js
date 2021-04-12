@@ -55,7 +55,7 @@ const AddSubject = () => {
           if (res.data.success) {
             setnotify({ msg: "Subject created", popup: true, type: "success" });
             setLoading(false);
-            setForm(Initform);
+            setForm({ ...Form, name: "", code: "" });
           } else {
             setnotify({
               msg: res.data.msg,

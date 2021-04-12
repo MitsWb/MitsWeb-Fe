@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useHeading from "../useHeading";
-import { getAllsubjects } from "../../../redux/apiActions";
+import { getAllsubjects, editSubject } from "../../../redux/apiActions";
 import { useDispatch } from "react-redux";
+import Notify from "../../../utils/Notify";
 import {
   Paper,
   Table,
@@ -12,9 +13,14 @@ import {
   TablePagination,
   TableRow,
   Typography,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  Button,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Loader from "../../../utils/Loader";
+import SubjectForm from "./SubjectForm";
 const useStyles = makeStyles({
   root: {
     width: "100%",
@@ -23,6 +29,46 @@ const useStyles = makeStyles({
     maxHeight: 440,
   },
 });
+
+const EditSubject = ({
+  open,
+  handleClose,
+  data,
+  handleChange,
+  handleSubmit,
+  loading,
+  Error,
+}) => {
+  return (
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="form-dialog-title"
+    >
+      <DialogContent>
+        <SubjectForm
+          Form={data}
+          handleChange={handleChange}
+          Error={Error}
+          handleSubmit={handleSubmit}
+          Helper={""}
+          title={"Edit Subject"}
+          loading={loading}
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button
+          style={{ outline: "none" }}
+          onClick={handleClose}
+          color="primary"
+        >
+          Back
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
 const Subjects = () => {
   useHeading("Subjects");
 
@@ -37,10 +83,23 @@ const Subjects = () => {
     },
   ];
 
+  const initError = {
+    name: "",
+    code: "",
+    semester: "",
+    courseType: "",
+    department: "",
+  };
+  const [Error, setError] = useState(initError);
+
   const dispatch = useDispatch();
   const classes = useStyles();
   const [rows, setrows] = useState([]);
   const [loading, setloading] = useState(false);
+  const [Data, setData] = useState("");
+  const [open, setopen] = useState(false);
+  const [notify, setnotify] = useState({ popup: false, msg: "", type: "" });
+  const [rerender, setrerender] = useState(false);
   useEffect(() => {
     setloading(true);
     dispatch(getAllsubjects()).then((res) => {
@@ -49,7 +108,7 @@ const Subjects = () => {
       }
       setloading(false);
     });
-  }, [dispatch]);
+  }, [dispatch, rerender]);
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(4);
@@ -60,8 +119,59 @@ const Subjects = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData({ ...Data, [name]: value });
+  };
+
+  const handleSubmit = () => {
+    let err = Object.assign({}, initError);
+    var validForm = true;
+    const isNullOrWhiteSpace = (str) => {
+      return !str || str.length === 0 || /^\s*$/.test(str);
+    };
+    Object.keys(Data).forEach((key) => {
+      if (isNullOrWhiteSpace(Data[key]) && key !== "__v") {
+        validForm = false;
+        err[key] = "This field is required";
+      }
+    });
+    setError(err);
+    if (validForm) {
+      const { _id, name, code, department, semester, courseType } = Data;
+      setopen(false);
+      setloading(true);
+      dispatch(
+        editSubject({ _id, name, code, department, semester, courseType })
+      ).then((res) => {
+        if (res && res.data) {
+          if (res.data.success) {
+            setnotify({ msg: "Subject updated", popup: true, type: "success" });
+            setrerender(!rerender);
+          } else {
+            setnotify({
+              msg: res.data.msg,
+              popup: true,
+              type: "error",
+            });
+            setloading(false);
+          }
+        }
+      });
+    }
+  };
   return (
     <div>
+      <Notify props={notify} closeAlert={() => setnotify({ popup: false })} />
+      <EditSubject
+        handleChange={handleChange}
+        data={Data}
+        open={open}
+        handleSubmit={handleSubmit}
+        Error={Error}
+        handleClose={() => setopen(false)}
+      />
       {loading ? (
         <Loader />
       ) : (
@@ -91,7 +201,8 @@ const Subjects = () => {
                           hover
                           role="checkbox"
                           onClick={() => {
-                            //  handleLeaveclick(row);
+                            setData(row);
+                            setopen(true);
                           }}
                           tabIndex={-1}
                           key={row._id}

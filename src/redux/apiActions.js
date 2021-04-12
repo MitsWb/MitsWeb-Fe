@@ -41,6 +41,10 @@ export const addUser = (body) => {
 export const addSubject = (body) => {
   return fireRequest("addSubject", [], body);
 };
+
+export const editSubject = (body) => {
+  return fireRequest("editSubject", [], body);
+};
 //gatepass api's
 export const requestGatePass = (body) => {
   return fireRequest("requestGatePass", [], body);
