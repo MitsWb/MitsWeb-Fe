@@ -20,7 +20,9 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import ViewLeave from "./ViewLeaveapplication";
 import moment from "moment";
+import Notify from "../../../utils/Notify";
 const columns = [
   { id: "fromTimestamp", label: "From\u00a0Date", minWidth: 100 },
   { id: "toTimestamp", label: "To\u00a0Date", minWidth: 100 },
@@ -47,7 +49,11 @@ function LeaveApplications() {
   const classes = useStyles();
   const [rows, setRows] = useState([]);
   const dispatch = useDispatch();
+  const [open, setopen] = useState(false);
   const [loading, setloading] = useState(false);
+  const [Data, setData] = useState([]);
+  const [notify, setnotify] = useState({ msg: "", popup: false, type: "" });
+  const [rerender, setrerender] = useState(false);
   useEffect(() => {
     setloading(true);
     dispatch(getLeaves()).then((res) => {
@@ -56,20 +62,45 @@ function LeaveApplications() {
       }
       setloading(false);
     });
-  }, [dispatch]);
+  }, [dispatch, rerender]);
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(4);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-
+  const handleLeaveclick = (row) => {
+    setData(row);
+    setopen(true);
+  };
+  const handleConfirm = (action) => {
+    setopen(false);
+    setloading(true);
+    dispatch(getLeaves(Data._id + "/" + action)).then((res) => {
+      if (res && res.data && res.data.success) {
+        setnotify({ msg: res.data.msg, popup: true, type: "success" });
+        setrerender(Math.random());
+      } else {
+        setnotify({ msg: "Error", popup: true, type: "error" });
+      }
+      setloading(false);
+    });
+  };
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
   return (
     <div>
+      <Notify props={notify} closeAlert={() => setnotify({ popup: false })} />
+      <ViewLeave
+        open={open}
+        data={Data}
+        handleClose={() => {
+          setopen(false);
+        }}
+        handleConfirm={handleConfirm}
+      />
       {loading ? (
         <Loader />
       ) : (
@@ -98,9 +129,9 @@ function LeaveApplications() {
                         <TableRow
                           hover
                           role="checkbox"
-                          //      onClick={() => {
-                          //      handleGatepassclick(row);
-                          //  }}
+                          onClick={() => {
+                            handleLeaveclick(row);
+                          }}
                           tabIndex={-1}
                           key={row._id}
                         >

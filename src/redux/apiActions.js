@@ -83,8 +83,8 @@ export const viewGatepass = (id) => {
   return fireRequest("viewGatepass", [id]);
 };
 
-export const getLeaves = () => {
-  return fireRequest("getLeaves");
+export const getLeaves = (id) => {
+  return fireRequest("getLeaves", [id]);
 };
 //security apis
 
