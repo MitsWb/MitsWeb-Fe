@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import useHeading from "../useHeading";
-import { getAllsubjects, editSubject } from "../../../redux/apiActions";
+import {
+  getAllsubjects,
+  editSubject,
+  deleteSubject,
+} from "../../../redux/apiActions";
+import DeleteSubject from "./DeleteSubjectConfirm";
 import { useDispatch } from "react-redux";
 import Notify from "../../../utils/Notify";
 import {
@@ -38,34 +43,56 @@ const EditSubject = ({
   handleSubmit,
   loading,
   Error,
+  handleDeleteSubject,
 }) => {
+  const [delOpen, setdelOpen] = useState(false);
   return (
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="form-dialog-title"
-    >
-      <DialogContent>
-        <SubjectForm
-          Form={data}
-          handleChange={handleChange}
-          Error={Error}
-          handleSubmit={handleSubmit}
-          Helper={""}
-          title={"Edit Subject"}
-          loading={loading}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button
-          style={{ outline: "none" }}
-          onClick={handleClose}
-          color="primary"
-        >
-          Back
-        </Button>
-      </DialogActions>
-    </Dialog>
+    <>
+      <DeleteSubject
+        open={delOpen}
+        handleClose={() => setdelOpen(false)}
+        subjectName={data.name}
+        handleConfirm={() => {
+          setdelOpen(false);
+          handleDeleteSubject();
+        }}
+      />
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogContent>
+          <SubjectForm
+            Form={data}
+            handleChange={handleChange}
+            Error={Error}
+            handleSubmit={handleSubmit}
+            Helper={""}
+            title={"Edit Subject"}
+            loading={loading}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button
+            style={{ outline: "none" }}
+            onClick={() => setdelOpen(true)}
+            color="secondary"
+          >
+            Delete
+          </Button>
+          <Button
+            style={{ outline: "none" }}
+            onClick={() => {
+              handleClose();
+            }}
+            color="primary"
+          >
+            Back
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 };
 
@@ -125,6 +152,16 @@ const Subjects = () => {
     setData({ ...Data, [name]: value });
   };
 
+  const handleDeleteSubject = () => {
+    setopen(false);
+    setloading(true);
+    dispatch(deleteSubject(Data._id)).then((res) => {
+      if (res && res.data && res.data.success) {
+        setnotify({ msg: res.data.msg, popup: true, type: "success" });
+        setrerender(!rerender);
+      }
+    });
+  };
   const handleSubmit = () => {
     let err = Object.assign({}, initError);
     var validForm = true;
@@ -171,6 +208,7 @@ const Subjects = () => {
         handleSubmit={handleSubmit}
         Error={Error}
         handleClose={() => setopen(false)}
+        handleDeleteSubject={handleDeleteSubject}
       />
       {loading ? (
         <Loader />

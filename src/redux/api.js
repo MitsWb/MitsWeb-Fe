@@ -58,6 +58,11 @@ export default {
     method: "post",
     noAuth: false,
   },
+  deleteSubject: {
+    path: "/admin/subject",
+    method: "delete",
+    noAuth: false,
+  },
   editSubject: {
     path: "/admin/subject",
     method: "put",

@@ -45,6 +45,9 @@ export const addSubject = (body) => {
 export const editSubject = (body) => {
   return fireRequest("editSubject", [], body);
 };
+export const deleteSubject = (id) => {
+  return fireRequest("deleteSubject", [id]);
+};
 //gatepass api's
 export const requestGatePass = (body) => {
   return fireRequest("requestGatePass", [], body);
