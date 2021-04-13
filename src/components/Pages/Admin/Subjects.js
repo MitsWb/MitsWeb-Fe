@@ -6,7 +6,7 @@ import { Button } from "@material-ui/core";
 import ViewSubject from "./ViewSubjects";
 
 export default function RequestGatePass() {
-  useHeading("Users");
+  useHeading("Subjects");
 
   return (
     <>
