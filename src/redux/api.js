@@ -130,6 +130,12 @@ export default {
     method: "get",
     noAuth: false,
   },
+
+  getStudents: {
+    path: "/faculty/students",
+    method: "get",
+    noAuth: false,
+  },
   //security apis
   verifyGatepass: {
     path: "/security/verify",

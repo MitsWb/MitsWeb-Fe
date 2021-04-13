@@ -14,10 +14,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const myclasses = [
-  { semester: "S1", department: "CSE" },
-  { semester: "s2", department: "ME" },
-  { semester: "s4", department: "EEE" },
-  { semester: "s8", department: "CE" },
+  { semester: "1", department: "CE" },
+  { semester: "2", department: "ME" },
+  { semester: "3", department: "EEE" },
+  { semester: "8", department: "CSE" },
 ];
 function MyClasses() {
   useHeading("My classes");
@@ -29,11 +29,11 @@ function MyClasses() {
           return (
             <>
               <Grid item xs={6} sm={3}>
-                <A href={`/class/${value.semester}-${value.department}`}>
+                <A href={`/class/S${value.semester}-${value.department}`}>
                   <Card className={classes.paper}>
                     <CardContent>
                       <Typography>
-                        {value.semester + " " + value.department}
+                        {"S" + value.semester + " " + value.department}
                       </Typography>
                     </CardContent>
                   </Card>

@@ -100,6 +100,10 @@ export const viewGatepass = (id) => {
 export const getLeaves = (id) => {
   return fireRequest("getLeaves", [id]);
 };
+
+export const getStudents = (params) => {
+  return fireRequest("getStudents", [params]);
+};
 //security apis
 
 export const verifyGatepass = (body) => {
