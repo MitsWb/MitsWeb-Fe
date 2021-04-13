@@ -16,6 +16,12 @@ const FacultyNavbar = ({ page }) => {
     },
     { divider: true },
     {
+      path: "/class",
+      text: "My Classes",
+      icon: <DashboardIcon />,
+    },
+    { divider: true },
+    {
       path: "/requests",
       text: "Gatepass Requests",
       icon: <DoneAllIcon />,

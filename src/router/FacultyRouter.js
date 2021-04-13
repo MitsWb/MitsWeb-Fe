@@ -8,6 +8,8 @@ import ViewGatePass from "../components/Features/GatePass/ViewGatepass";
 import Logout from "../components/Common/Logout";
 import SemestersList from "../components/Departments/SemestersList";
 import Leave from "../components/Pages/Faculty/LeaveApplications";
+import MyClasses from "../components/Pages/Faculty/Class/MyClasses";
+import ViewClass from "../components/Pages/Faculty/Class/ViewClass";
 const routes = {
   "/": () => <FacultyDashboard />,
   "/requests": () => <ApproveRequests />,
@@ -15,6 +17,8 @@ const routes = {
   "/gatepass/view/:id": ({ id }) => <ViewGatePass id={id} />,
   "/logout": () => <Logout />,
   "/:department/semesters": () => <SemestersList />,
+  "/class": () => <MyClasses />,
+  "/class/:className": ({ className }) => <ViewClass className={className} />,
 };
 
 const FacultyRouter = () => {

@@ -262,9 +262,7 @@ const Subjects = () => {
                       colSpan={4}
                       className=" border-b border-gray-200 text-center "
                     >
-                      <Typography>
-                        Currently there are no leave requests!!
-                      </Typography>
+                      <Typography>No Subjects!!!</Typography>
                     </TableCell>
                   </TableRow>
                 )}
