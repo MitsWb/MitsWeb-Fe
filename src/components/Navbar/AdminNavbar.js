@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import DashboardIcon from "@material-ui/icons/Dashboard";
+import TableChartIcon from "@material-ui/icons/TableChart";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import { BookOutlined } from "@material-ui/icons";
 import Navbar from "./Navbar";
@@ -18,6 +19,12 @@ const AdminNavbar = ({ page }) => {
       path: "/subjects",
       text: "Subjects ",
       icon: <BookOutlined />,
+    },
+    { divider: true },
+    {
+      path: "/timetable",
+      text: "Timetable ",
+      icon: <TableChartIcon />,
     },
     { divider: true },
     {
