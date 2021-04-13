@@ -8,6 +8,7 @@ import Subjects from "../components/Pages/Admin/Subjects";
 import ViewGatePass from "../components/Features/GatePass/ViewGatepass";
 import Logout from "../components/Common/Logout";
 import AddSubject from "../components/Pages/Admin/AddSubject";
+import TimetableDashboard from "../components/Pages/Admin/Timetable/TimetableDashboard";
 
 const routes = {
   "/": () => <AdminDashboard />,
@@ -16,6 +17,7 @@ const routes = {
   "/logout": () => <Logout />,
   "/subjects": () => <Subjects />,
   "/subject/new": () => <AddSubject />,
+  "/timetable": () => <TimetableDashboard />,
 };
 
 const AdminRouter = () => {
