@@ -9,7 +9,7 @@ import Logout from "../components/Common/Logout";
 import SemestersList from "../components/Departments/SemestersList";
 import Leave from "../components/Pages/Faculty/LeaveApplications";
 import MyClasses from "../components/Pages/Faculty/Class/MyClasses";
-import ViewClass from "../components/Pages/Faculty/Class/ViewClass";
+import Steps from "../components/Pages/Faculty/Class/Steps";
 const routes = {
   "/": () => <FacultyDashboard />,
   "/requests": () => <ApproveRequests />,
@@ -18,7 +18,7 @@ const routes = {
   "/logout": () => <Logout />,
   "/:department/semesters": () => <SemestersList />,
   "/class": () => <MyClasses />,
-  "/class/:className": ({ className }) => <ViewClass className={className} />,
+  "/class/:className": ({ className }) => <Steps className={className} />,
 };
 
 const FacultyRouter = () => {

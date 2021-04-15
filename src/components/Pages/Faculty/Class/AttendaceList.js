@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Accordion from "@material-ui/core/Accordion";
 import { AccordionDetails, Grid } from "@material-ui/core";
@@ -13,8 +13,8 @@ import {
   Checkbox,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { getStudents } from "../../../../redux/apiActions";
-import { useDispatch } from "react-redux";
+import moment from "moment";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -31,41 +31,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ControlledAccordions({ className }) {
+export default function ControlledAccordions({
+  Data = [],
+  date,
+  checked = true,
+  setchecked,
+}) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const dispatch = useDispatch();
-  const [Data, setData] = useState([]);
-  const [checked, setchecked] = useState(true);
-  useEffect(() => {
-    dispatch(getStudents(className[0][1] + "/" + className[1])).then((res) => {
-      if (res && res.data && res.data.data) {
-        setData(res.data.data);
-      }
-    });
-  }, [dispatch, className]);
+
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  const periods = [
-    { name: "Data Stucture", time: "9.00-10.00" },
-    { name: "Computer", time: "10.00-11.00" },
-    { name: "Maths", time: "11.10-12.00" },
-    { name: "Chemistry", time: "12.45-1.30" },
-    { name: "Physics", time: "1.30-2.30" },
-  ];
+  const periods = [{ time: "9.00-10.00" }, { time: "12.00-1.00" }];
 
   return (
     <div className={classes.root}>
+      <div className="text-center w-full ">
+        <Typography>
+          Attendace for date : {moment(date).format("MMM Do YY")}
+        </Typography>
+      </div>
+
       {periods.length === 0 ? (
         <Card>NO PERIODS ADDED</Card>
       ) : (
         periods.map((value, key) => {
           return (
             <Accordion
-              expanded={expanded === value.name}
-              onChange={handleChange(value.name)}
+              expanded={expanded === value.time}
+              onChange={handleChange(value.time)}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -74,12 +70,7 @@ export default function ControlledAccordions({ className }) {
               >
                 <div className={classes.column}>
                   <Typography className={classes.heading}>
-                    {value.name + " Time: " + value.time}
-                  </Typography>
-                </div>
-                <div className={classes.column}>
-                  <Typography className={classes.secondaryHeading}>
-                    Student Attendance
+                    {" Time: " + value.time}
                   </Typography>
                 </div>
               </AccordionSummary>
@@ -90,12 +81,16 @@ export default function ControlledAccordions({ className }) {
                       <Grid xs={6} sm={3}>
                         <Card>
                           <CardContent>
-                            {value.name}
-                            <Checkbox
-                              checked={checked}
-                              onChange={() => setchecked(!checked)}
-                              inputProps={{ "aria-label": "primary checkbox" }}
-                            />
+                            <div className="flex flex-row">
+                              <div className="truncate"> {value.name}</div>
+                              <Checkbox
+                                checked={checked.email}
+                                onChange={() => setchecked(value.email)}
+                                inputProps={{
+                                  "aria-label": "primary checkbox",
+                                }}
+                              />
+                            </div>
                           </CardContent>
                         </Card>
                       </Grid>
