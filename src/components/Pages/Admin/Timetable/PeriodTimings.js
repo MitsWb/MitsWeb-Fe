@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
@@ -39,30 +39,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PeriodTimings() {
+export default function PeriodTimings({
+  inputFields,
+  setInputFields,
+  handleInputChange,
+}) {
   const classes = useStyles();
-
-  const [inputFields, setInputFields] = useState([
-    {
-      day: "Monday",
-      timings: [{ subject: "", startTime: new Date(), endTime: new Date() }],
-    },
-  ]);
-
-  const handleInputChange = (index, timingIndex, event, type) => {
-    const values = [...inputFields];
-    if (type === "startTime") {
-      values[index].timings[timingIndex].startTime = event;
-    } else if (type === "endTime") {
-      values[index].timings[timingIndex].endTime = event;
-    } else if (type === "day") {
-      values[index].day = event.target.value;
-    } else {
-      values[index].timings[timingIndex].subject = event.target.value;
-    }
-    console.log(values);
-    setInputFields(values);
-  };
 
   const handleAddFields = (index) => {
     const values = [...inputFields];

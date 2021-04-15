@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Stepper from "@material-ui/core/Stepper";
@@ -6,7 +6,7 @@ import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-// import Review from "./Review";
+import Review from "./Review";
 import DepartmentSemesterForm from "./DepartmentSemesterForm";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import PeriodTimings from "./PeriodTimings";
@@ -47,22 +47,77 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ["Department & Semester", "Period timings", "Review timetable"];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <DepartmentSemesterForm />;
-    case 1:
-      return <PeriodTimings />;
-    // case 2:
-    //   return <Review />;
-    default:
-      throw new Error("Unknown step");
-  }
-}
-
 export default function CreateTimeTableForm() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+
+  //for department semester form
+  const [state, setState] = React.useState({
+    department: "CSE",
+    semester: 1,
+  });
+
+  const handleChange = (event) => {
+    const name = event.target.name;
+    setState({
+      ...state,
+      [name]: event.target.value,
+    });
+  };
+
+  //for period timings
+  const [inputFields, setInputFields] = useState([
+    {
+      day: "Monday",
+      timings: [
+        {
+          subject: "",
+          startTime: new Date(),
+          endTime: new Date(),
+        },
+      ],
+    },
+  ]);
+
+  const handleInputChange = (index, timingIndex, event, type) => {
+    const values = [...inputFields];
+    if (type === "startTime") {
+      values[index].timings[timingIndex].startTime = event;
+    } else if (type === "endTime") {
+      values[index].timings[timingIndex].endTime = event;
+    } else if (type === "day") {
+      values[index].day = event.target.value;
+    } else {
+      values[index].timings[timingIndex].subject = event.target.value;
+    }
+    setInputFields(values);
+  };
+
+  const finalData = {
+    periodTimings: [...inputFields],
+    semesterDepartment: { ...state },
+  };
+
+  const getStepContent = (step) => {
+    switch (step) {
+      case 0:
+        return (
+          <DepartmentSemesterForm state={state} handleChange={handleChange} />
+        );
+      case 1:
+        return (
+          <PeriodTimings
+            inputFields={inputFields}
+            setInputFields={setInputFields}
+            handleInputChange={handleInputChange}
+          />
+        );
+      case 2:
+        return <Review Data={finalData} />;
+      default:
+        throw new Error("Unknown step");
+    }
+  };
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -82,7 +137,9 @@ export default function CreateTimeTableForm() {
           </Typography>
           <Stepper
             activeStep={activeStep}
-            style={{ margin: "30px 0 15px" }}
+            style={{
+              margin: "30px 0 15px",
+            }}
             alternativeLabel
           >
             {steps.map((label) => (

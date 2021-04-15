@@ -13,20 +13,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DepartmentSemesterForm = () => {
+const DepartmentSemesterForm = ({ state, handleChange }) => {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    department: "",
-    semester: "",
-  });
 
-  const handleChange = (event) => {
-    const name = event.target.name;
-    setState({
-      ...state,
-      [name]: event.target.value,
-    });
-  };
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
