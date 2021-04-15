@@ -10,6 +10,7 @@ import Review from "./Review";
 import DepartmentSemesterForm from "./DepartmentSemesterForm";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import PeriodTimings from "./PeriodTimings";
+import useHeading from "../../useHeading";
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -48,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 const steps = ["Department & Semester", "Period timings", "Review timetable"];
 
 export default function CreateTimeTableForm() {
+  useHeading("Timetable");
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 

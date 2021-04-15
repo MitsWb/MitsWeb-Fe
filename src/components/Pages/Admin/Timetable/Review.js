@@ -49,13 +49,14 @@ export default function Review({ Data }) {
             <Typography
               variant="subtitle1"
               className={classes.value}
-              color={"secondary"}
+              color={"primary"}
               style={{
-                fontWeight: 200,
+                fontSize: "20px",
                 textDecoration: "underline",
               }}
             >
-              {weekday.day}
+              {weekday.day &&
+                weekday.day.charAt(0).toUpperCase() + weekday.day.slice(1)}
             </Typography>
             {weekday.timings.map((period) => (
               <ListItem className={classes.listItem} key={period.subject}>

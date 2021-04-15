@@ -82,7 +82,7 @@ export default function PeriodTimings({
       style={{
         color: color,
         backgroundColor: color,
-        height: 5,
+        height: 2,
       }}
     />
   );
@@ -184,7 +184,7 @@ export default function PeriodTimings({
               </Fragment>
             ))}
           </Grid>
-          <ColoredLine color="blue" />
+          <ColoredLine color="#b0bec5" />
           <label>Add next day subjects</label>
           <Grid item xs={12} className={classes.buttonGroup}>
             <ButtonGroup
