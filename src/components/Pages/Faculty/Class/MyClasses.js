@@ -17,7 +17,7 @@ const myclasses = [
   { semester: "1", department: "CE", subjectCode: "ce100" },
   { semester: "2", department: "ME", subjectCode: "me100" },
   { semester: "3", department: "EEE", subjectCode: "ee100" },
-  { semester: "8", department: "CSE", subjectCode: "ec100" },
+  { semester: "8", department: "CSE", subjectCode: "cs100" },
 ];
 function MyClasses() {
   useHeading("My classes");
