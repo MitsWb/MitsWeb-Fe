@@ -104,6 +104,10 @@ export const getLeaves = (id) => {
 export const getStudents = (params) => {
   return fireRequest("getStudents", [params]);
 };
+
+export const addAttendance = (body) => {
+  return fireRequest("addAttendance", [], body);
+};
 //security apis
 
 export const verifyGatepass = (body) => {

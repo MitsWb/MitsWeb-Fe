@@ -136,6 +136,12 @@ export default {
     method: "get",
     noAuth: false,
   },
+
+  addAttendance: {
+    path: "/faculty/attendance",
+    method: "post",
+    noAuth: false,
+  },
   //security apis
   verifyGatepass: {
     path: "/security/verify",

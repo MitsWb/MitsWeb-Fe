@@ -17,7 +17,7 @@ const myclasses = [
   { semester: "1", department: "CE" },
   { semester: "2", department: "ME" },
   { semester: "3", department: "EEE" },
-  { semester: "8", department: "CSE" },
+  { semester: "8", department: "CSE", subjectCode: "cs100" },
 ];
 function MyClasses() {
   useHeading("My classes");
@@ -29,7 +29,9 @@ function MyClasses() {
           return (
             <>
               <Grid item xs={6} sm={3}>
-                <A href={`/class/S${value.semester}-${value.department}`}>
+                <A
+                  href={`/class/S${value.semester}-${value.department}-${value.subjectCode}`}
+                >
                   <Card className={classes.paper}>
                     <CardContent>
                       <Typography>

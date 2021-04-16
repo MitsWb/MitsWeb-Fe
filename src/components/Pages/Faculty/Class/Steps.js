@@ -11,7 +11,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import DateFnsUtils from "@date-io/date-fns";
 import AttendaceList from "./AttendaceList";
-import { getStudents } from "../../../../redux/apiActions";
+import { getStudents /*, addAttendance*/ } from "../../../../redux/apiActions";
 import { useDispatch } from "react-redux";
 import Loader from "../../../../utils/Loader";
 import useHeading from "../../useHeading";
@@ -138,7 +138,8 @@ function getStepContent(
   setDate,
   className,
   checked,
-  setchecked
+  setchecked,
+  handleAttendance
 ) {
   switch (step) {
     case 0:
@@ -175,6 +176,7 @@ function getStepContent(
             className={className}
             checked={checked}
             setchecked={setchecked}
+            handleAttendance={handleAttendance}
           />
         </>
       );
@@ -183,24 +185,40 @@ function getStepContent(
   }
 }
 
+const semesters = [1, 2, 3, 4, 5, 6, 7, 8];
+const branches = ["CE", "ME", "EEE", "ECE", "CSE"];
 export default function CustomizedSteppers({ className }) {
   const classes = useStyles();
   useHeading("Attendance");
+  const classDetails = className.split("-");
   const dispatch = useDispatch();
   const [Data, setData] = useState([]);
+  const [linkValid, setlinkValid] = useState(true);
   const [mystep, setmystep] = useState(0);
   const [activeStep, setActiveStep] = React.useState(1);
   const steps = getSteps();
   const [date, setDate] = useState(new Date());
   const [loading, setloading] = useState(false);
   const [checked, setchecked] = useState({});
+
+  useEffect(() => {
+    var validLink = true;
+    setActiveStep(0);
+    if (
+      !semesters.find((e) => e === Number(classDetails[0][1])) ||
+      !classDetails[0][0].toLowerCase() === "s" ||
+      !classDetails[0].length === 2 ||
+      !branches.find((e) => e === classDetails[1].toUpperCase())
+    ) {
+      validLink = false;
+    }
+    setlinkValid(validLink);
+    //eslint-disable-next-line
+  }, []);
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setmystep(1);
   };
-  useEffect(() => {
-    setActiveStep(0);
-  }, []);
 
   function ColorlibStepIcon(props) {
     const classes = useColorlibStepIconStyles();
@@ -237,18 +255,23 @@ export default function CustomizedSteppers({ className }) {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+  const periods = [{ time: "9.00-10.00" }, { time: "12.00-1.00" }];
 
   if (mystep === 1) {
     setmystep(0);
     setloading(true);
-    const classDetails = className.split("-");
     dispatch(getStudents(classDetails[0][1] + "/" + classDetails[1])).then(
       (res) => {
         if (res && res.data && res.data.data) {
           const studentData = res.data.data;
           let check = {};
-          for (var i = 0; i < studentData.length; i++) {
-            check = { ...check, [studentData[i].email]: true };
+          for (let j = 0; j < periods.length; j++) {
+            for (var i = 0; i < studentData.length; i++) {
+              check = {
+                ...check,
+                [periods[j].time + "---" + studentData[i].email]: "true",
+              };
+            }
           }
           setchecked(check);
           setData(res.data.data);
@@ -257,12 +280,48 @@ export default function CustomizedSteppers({ className }) {
       }
     );
   }
-  const handleCheck = (email) => {
-    setchecked({ ...checked, [email]: !checked.email });
+  const handleAttendance = (selectedDate) => {
+    const keys = Object.keys(checked);
+    let result = [];
+    for (let i = 0; i < keys.length; i++) {
+      var arr = keys[i].split("---");
+      if (arr[0] === selectedDate) {
+        result = result.concat({ email: arr[1], present: checked[keys[i]] });
+      }
+    }
+    const timeArr = selectedDate.split("-");
+    const finalData = {
+      startTime: timeArr[0],
+      timestamp: date,
+      endTime: timeArr[1],
+      department: classDetails[1].toUpperCase(),
+      semester: Number(classDetails[0][1]),
+      period: classDetails[2],
+      attendanceList: result,
+    };
+    console.log(finalData);
+    // dispatch(addAttendance()).then((res) => {
+    //   console.log(res);
+    // });
+  };
+  const handleCheck = (time, email) => {
+    setchecked({
+      ...checked,
+      [time + "---" + email]:
+        checked[time + "---" + email] === "true" ? "false" : "true",
+    });
   };
   return (
     <div className={classes.root}>
-      {loading ? (
+      {!linkValid ? (
+        <>
+          <div className="w-full">
+            <Card style={{ padding: 6, width: 200, margin: "0px auto" }}>
+              Invalid Link!!!
+            </Card>
+          </div>
+        </>
+      ) : loading ? (
         <Loader />
       ) : (
         <Card>
@@ -290,7 +349,8 @@ export default function CustomizedSteppers({ className }) {
                     setDate,
                     className,
                     checked,
-                    handleCheck
+                    handleCheck,
+                    handleAttendance
                   )}
                 </Typography>
                 <div className="m-6">

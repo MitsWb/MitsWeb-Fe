@@ -34,8 +34,10 @@ const useStyles = makeStyles((theme) => ({
 export default function ControlledAccordions({
   Data = [],
   date,
-  checked = true,
+  checked,
   setchecked,
+  className,
+  handleAttendance,
 }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
@@ -57,11 +59,11 @@ export default function ControlledAccordions({
       {periods.length === 0 ? (
         <Card>NO PERIODS ADDED</Card>
       ) : (
-        periods.map((value, key) => {
+        periods.map((periodValue, key) => {
           return (
             <Accordion
-              expanded={expanded === value.time}
-              onChange={handleChange(value.time)}
+              expanded={expanded === periodValue.time}
+              onChange={handleChange(periodValue.time)}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -70,7 +72,7 @@ export default function ControlledAccordions({
               >
                 <div className={classes.column}>
                   <Typography className={classes.heading}>
-                    {" Time: " + value.time}
+                    {" Time: " + periodValue.time}
                   </Typography>
                 </div>
               </AccordionSummary>
@@ -84,8 +86,16 @@ export default function ControlledAccordions({
                             <div className="flex flex-row">
                               <div className="truncate"> {value.name}</div>
                               <Checkbox
-                                checked={checked.email}
-                                onChange={() => setchecked(value.email)}
+                                checked={
+                                  checked[
+                                    periodValue.time + "---" + value.email
+                                  ] === "true"
+                                    ? true
+                                    : false
+                                }
+                                onChange={() =>
+                                  setchecked(periodValue.time, value.email)
+                                }
                                 inputProps={{
                                   "aria-label": "primary checkbox",
                                 }}
@@ -101,7 +111,11 @@ export default function ControlledAccordions({
               <Divider />
               <AccordionActions>
                 <Button size="small">Cancel</Button>
-                <Button size="small" color="primary">
+                <Button
+                  onClick={() => handleAttendance(periodValue.time)}
+                  size="small"
+                  color="primary"
+                >
                   Save
                 </Button>
               </AccordionActions>
