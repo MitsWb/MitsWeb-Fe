@@ -158,7 +158,8 @@ export default function CreateTimeTableForm() {
                 </Typography>
                 <Typography variant="subtitle1">
                   Timetable has been created successfully and it can be viewed
-                  by students and faculty. You have the privilege to edit it.
+                  by students and faculty. You have the privilege to edit and
+                  delete it.
                 </Typography>
               </React.Fragment>
             ) : (
