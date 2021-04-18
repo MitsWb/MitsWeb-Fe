@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Review({ Data }) {
   const classes = useStyles();
-  console.log(Data);
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>

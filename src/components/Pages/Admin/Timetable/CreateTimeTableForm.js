@@ -139,7 +139,6 @@ export default function CreateTimeTableForm() {
   const [success, setSuccess] = useState(false);
 
   function submitHandler(e) {
-    console.log("called");
     e.preventDefault();
     if (true) {
       setLoading(true);
