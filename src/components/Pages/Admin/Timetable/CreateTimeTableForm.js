@@ -11,6 +11,10 @@ import DepartmentSemesterForm from "./DepartmentSemesterForm";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import PeriodTimings from "./PeriodTimings";
 import useHeading from "../../useHeading";
+import { useDispatch } from "react-redux";
+import { createTimetable } from "../../../../redux/apiActions";
+import LoaderButton from "../../../../utils/LoaderButton";
+import Notify from "../../../../utils/Notify";
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -129,64 +133,122 @@ export default function CreateTimeTableForm() {
     setActiveStep(activeStep - 1);
   };
 
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  const [notify, setnotify] = useState({ popup: false, msg: "", type: "" });
+  const [success, setSuccess] = useState(false);
+
+  function submitHandler(e) {
+    console.log("called");
+    e.preventDefault();
+    if (true) {
+      setLoading(true);
+      dispatch(createTimetable(finalData)).then((res) => {
+        if (res && res.data) {
+          setLoading(false);
+          if (res.data.success === true) {
+            setSuccess(true);
+            setnotify({
+              msg: "Timetable creation success",
+              type: "success",
+              popup: true,
+            });
+          } else {
+            setLoading(false);
+            setnotify({
+              msg: res.data.msg,
+              type: "error",
+              popup: true,
+            });
+          }
+        }
+        setLoading(false);
+      });
+    }
+  }
+
+  const closeAlert = () => {
+    setnotify({
+      popup: false,
+    });
+  };
+
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <main className={classes.layout}>
-        <Paper className={classes.paper}>
-          <Typography component="h1" variant="h4" align="center">
-            Timetable
-          </Typography>
-          <Stepper
-            activeStep={activeStep}
-            style={{
-              margin: "30px 0 15px",
-            }}
-            alternativeLabel
-          >
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          <React.Fragment>
-            {activeStep === steps.length ? (
-              <React.Fragment>
-                <Typography variant="h5" gutterBottom>
-                  Thank you for creating timetable.
-                </Typography>
-                <Typography variant="subtitle1">
-                  Timetable has been created successfully and it can be viewed
-                  by students and faculty. You have the privilege to edit and
-                  delete it.
-                </Typography>
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                {getStepContent(activeStep)}
-                <div className={classes.buttons}>
-                  {activeStep !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
-                      Back
-                    </Button>
+    <>
+      <React.Fragment>
+        <CssBaseline />
+        <main className={classes.layout}>
+          <Paper className={classes.paper}>
+            <Typography component="h1" variant="h4" align="center">
+              Timetable
+            </Typography>
+            <Stepper
+              activeStep={activeStep}
+              style={{
+                margin: "30px 0 15px",
+              }}
+              alternativeLabel
+            >
+              {steps.map((label) => (
+                <Step key={label}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+            <React.Fragment>
+              {activeStep === steps.length ? (
+                <React.Fragment>
+                  {success === false ? (
+                    <LoaderButton
+                      Loading={loading}
+                      handleSubmit={submitHandler}
+                      text={"Confirm"}
+                    />
+                  ) : (
+                    ""
                   )}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1
-                      ? "Create Timetable"
-                      : "Next"}
-                  </Button>
-                </div>
-              </React.Fragment>
-            )}
-          </React.Fragment>
-        </Paper>
-      </main>
-    </React.Fragment>
+                  {success === true ? (
+                    <>
+                      <Typography variant="h5" gutterBottom>
+                        Thank you for creating timetable.
+                      </Typography>
+                      <Typography variant="subtitle1">
+                        Timetable has been created successfully and it can be
+                        viewed by students and faculty. You have the privilege
+                        to edit and delete it.
+                      </Typography>
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  {getStepContent(activeStep)}
+                  <div className={classes.buttons}>
+                    {activeStep !== 0 && (
+                      <Button onClick={handleBack} className={classes.button}>
+                        Back
+                      </Button>
+                    )}
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleNext}
+                      className={classes.button}
+                    >
+                      {activeStep === steps.length - 1
+                        ? "Create Timetable"
+                        : "Next"}
+                    </Button>
+                  </div>
+                </React.Fragment>
+              )}
+            </React.Fragment>
+          </Paper>
+        </main>
+      </React.Fragment>
+      <Notify props={notify} closeAlert={closeAlert} />
+    </>
   );
 }

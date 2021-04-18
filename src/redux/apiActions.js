@@ -80,6 +80,11 @@ export const editLeave = (body) => {
   return fireRequest("editLeave", [], body);
 };
 
+//time table api's
+export const createTimetable = (body) => {
+  return fireRequest("createTimetable", [], body);
+};
+
 //faculty api's
 export const getAllfaculties = () => {
   return fireRequest("getAllfaculties");

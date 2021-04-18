@@ -155,4 +155,11 @@ export default {
     method: "get",
     noAuth: false,
   },
+
+  //time table
+  createTimetable: {
+    path: "admin/timetable",
+    method: "post",
+    noAuth: false,
+  },
 };
