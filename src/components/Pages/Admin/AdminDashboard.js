@@ -338,7 +338,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
         err[key] = "This field is required";
       }
     });
-    if (!name.replace(/\s/g, "").length) {
+    if (name && !name.replace(/\s/g, "").length) {
       formValid = false;
       err["name"] = "This field is required";
     }
@@ -357,7 +357,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
   const handleSubmit = () => {
     if (validInputs()) {
       let Result;
-
+      delete form.studentId;
       Result = {
         ...form,
       };
