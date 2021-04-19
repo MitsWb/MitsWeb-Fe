@@ -75,23 +75,7 @@ const AddUser = () => {
     setError(err);
     if (validForm) {
       setLoading(true);
-      var finalrollNo = "None";
-      var zeros = "";
-      if (Form.type === "student") {
-        for (var i = 0; i < 3 - String(Number(Form.rollNo)).length; i++) {
-          zeros += "0";
-        }
-        finalrollNo =
-          Number(Form.passoutYear) -
-          4 -
-          2000 +
-          Form.department +
-          zeros +
-          Number(Form.rollNo);
-      }
-      const finalForm = { ...Form, rollNo: finalrollNo };
-
-      dispatch(addUser(finalForm)).then((res) => {
+      dispatch(addUser(Form)).then((res) => {
         if (res && res.data) {
           if (res.data.success) {
             setnotify({ msg: "User created", popup: true, type: "success" });

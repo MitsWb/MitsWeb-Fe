@@ -297,6 +297,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
         currentYear: id.currentYear,
         passoutYear: id.passoutYear,
         rollNo: id.rollNo,
+        studentId: id.studentId,
       });
     }
     return () => {
@@ -313,7 +314,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
     setform({ ...form, [name]: value });
   };
 
-  const optionalValues = ["email", "type"];
+  const optionalValues = ["email", "type", "rollNo"];
   const handleCheckbox = (e) => {
     const { name, value } = e.target;
 
@@ -322,6 +323,9 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
       [name]: value === "true" ? "false" : "true",
     };
     setform({ ...form, advisor: newAdv });
+  };
+  const isNullOrWhiteSpace = (str) => {
+    return !str || str.length === 0 || /^\s*$/.test(str);
   };
   const validInputs = () => {
     let formValid = true;
@@ -340,26 +344,11 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
     }
     if (
       form.type === "student" &&
-      (isNaN(form.rollNo) || !form.rollNo.replace(/\s/g, "").length)
+      (isNaN(rollNo) || isNullOrWhiteSpace(String(rollNo)))
     ) {
       err["rollNo"] = "Enter a number";
       formValid = false;
-    } // if (!phonePreg(mobile)) {
-    //   formValid = false;
-    //   err["mobile"] = "Enter Valid phone number";
-    // }
-    // if (type !== "") {
-    //   if (isNaN(type) || type === "") {
-    //     formValid = false;
-    //     err["type"] = "Enter a number";
-    //   }
-    // }
-    // if (email !== "") {
-    //   if (!validateEmailAddress(email)) {
-    //     err["email"] = "Enter a valid email";
-    //     formValid = false;
-    //   }
-    // }
+    }
 
     seterr(err);
     return formValid;
@@ -380,6 +369,12 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
             changeStatus(false, {
               msg: "Updated user",
               type: "success",
+              popup: true,
+            });
+          } else {
+            changeStatus(false, {
+              msg: res.data.msg,
+              type: "error",
               popup: true,
             });
           }
@@ -452,7 +447,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
                       name="checkedB"
                     />
                   }
-                  label={form.active ? "Active" : "disabled"}
+                  label={form.active ? "Active" : "Active"}
                 />
                 {form.type && form.type === "faculty" && (
                   <FormControlLabel
@@ -465,11 +460,13 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
                         name="checkedB"
                       />
                     }
-                    label={form.isHOD ? "HOD" : "Not HOD"}
+                    label={form.isHOD ? "HOD" : "HOD"}
                   />
                 )}
               </div>
-              <div className="truncate text-sm">{form.email}</div>
+              <div className="truncate shadow-md h-6 p-1 text-sm">
+                {form.type === "student" ? form.studentId : form.email}
+              </div>
             </div>
             <div className="w-full md:w-1/4 lg:w-1/4 text-right">
               <Button
@@ -568,36 +565,21 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
                 autoComplete="new-password"
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <Grid container>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    id="email"
-                    name="email"
-                    onChange={handleChange}
-                    label="Email"
-                    value={form.email}
-                    fullWidth
-                    error={err["email"]}
-                    helperText={err["email"]}
-                    autoComplete="new-password"
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    id="email"
-                    name="email"
-                    onChange={handleChange}
-                    label="Email"
-                    value={form.email}
-                    fullWidth
-                    error={err["email"]}
-                    helperText={err["email"]}
-                    autoComplete="new-password"
-                  />
-                </Grid>
+            {form.type === "student" && (
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  id="rollNo"
+                  name="rollNo"
+                  onChange={handleChange}
+                  label="Roll No"
+                  value={form.rollNo}
+                  fullWidth
+                  error={err["rollNo"]}
+                  helperText={err["rollNo"]}
+                  autoComplete="roll-number"
+                />
               </Grid>
-            </Grid>
+            )}
             <Notify props={notify} closeAlert={closeAlert} />
           </Grid>
         </DialogContent>
@@ -641,6 +623,8 @@ const AdminDashboard = () => {
     isHOD: "",
     department: "",
     advisor: "",
+    rollNo: "",
+    studentId: "",
   });
   const closeAlert = () => {
     setnotify({
@@ -675,6 +659,8 @@ const AdminDashboard = () => {
       advisor: e.advisor,
       currentYear: e.currentYear,
       passoutYear: e.passoutYear,
+      rollNo: e.rollNo,
+      studentId: e.studentId,
     });
     setOpen(true);
   };
