@@ -255,6 +255,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
     advisor: "",
     currentYear: "",
     passoutYear: "",
+    rollNo: "",
   };
   const initError = {
     name: "",
@@ -263,6 +264,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
     id: "",
     type: "",
     isHOD: "",
+    rollNo: "",
   };
   const [form, setform] = useState(initForm);
   const [err, seterr] = useState(initError);
@@ -294,6 +296,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
         advisor: id.advisor ? id.advisor : advInit,
         currentYear: id.currentYear,
         passoutYear: id.passoutYear,
+        rollNo: id.rollNo,
       });
     }
     return () => {
@@ -324,7 +327,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
     let formValid = true;
     let err = Object.assign({}, initError);
     //const { mobile, email, name, type } = form;
-    const { name } = form;
+    const { name, rollNo } = form;
     Object.keys(form).forEach((key) => {
       if (form[key] === "" && !optionalValues.includes(key)) {
         formValid = false;
@@ -335,8 +338,13 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
       formValid = false;
       err["name"] = "This field is required";
     }
-
-    // if (!phonePreg(mobile)) {
+    if (
+      form.type === "student" &&
+      (isNaN(form.rollNo) || !form.rollNo.replace(/\s/g, "").length)
+    ) {
+      err["rollNo"] = "Enter a number";
+      formValid = false;
+    } // if (!phonePreg(mobile)) {
     //   formValid = false;
     //   err["mobile"] = "Enter Valid phone number";
     // }
@@ -461,6 +469,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
                   />
                 )}
               </div>
+              <div className="truncate text-sm">{form.email}</div>
             </div>
             <div className="w-full md:w-1/4 lg:w-1/4 text-right">
               <Button
@@ -560,17 +569,34 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                id="email"
-                name="email"
-                onChange={handleChange}
-                label="Email"
-                value={form.email}
-                fullWidth
-                error={err["email"]}
-                helperText={err["email"]}
-                autoComplete="new-password"
-              />
+              <Grid container>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    id="email"
+                    name="email"
+                    onChange={handleChange}
+                    label="Email"
+                    value={form.email}
+                    fullWidth
+                    error={err["email"]}
+                    helperText={err["email"]}
+                    autoComplete="new-password"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    id="email"
+                    name="email"
+                    onChange={handleChange}
+                    label="Email"
+                    value={form.email}
+                    fullWidth
+                    error={err["email"]}
+                    helperText={err["email"]}
+                    autoComplete="new-password"
+                  />
+                </Grid>
+              </Grid>
             </Grid>
             <Notify props={notify} closeAlert={closeAlert} />
           </Grid>

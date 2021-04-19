@@ -140,34 +140,37 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error, loading }) => {
       <Typography variant="h6" gutterBottom>
         Add User
       </Typography>
-      <form className={classes.form}>
-        <TextField
-          required
-          id="outlined-margin-dense"
-          name="email"
-          value={Form.email}
-          label="Email"
-          onChange={handleChange}
-          autoComplete="email"
-          error={Error["email"]}
-          helperText={Error["email"]}
-          className={classes.textField}
-          margin="normal"
-          variant="outlined"
-        />
-        <TextField
-          label="Password"
-          id="outlined-margin-dense"
-          className={classes.textField}
-          margin="normal"
-          variant="outlined"
-          name="password"
-          value={Form.password}
-          onChange={handleChange}
-          error={Error["password"]}
-        />
-
-        <div className={classes.selectMenu}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="outlined-margin-dense"
+            name="email"
+            value={Form.email}
+            label="Email"
+            onChange={handleChange}
+            autoComplete="email"
+            error={Error["email"]}
+            helperText={Error["email"]}
+            className={classes.textField}
+            margin="normal"
+            variant="outlined"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="Password"
+            id="outlined-margin-dense"
+            className={classes.textField}
+            margin="normal"
+            variant="outlined"
+            name="password"
+            value={Form.password}
+            onChange={handleChange}
+            error={Error["password"]}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
           <FormControl className={classes.formControl}>
             <Select
               disableUnderline
@@ -190,7 +193,9 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error, loading }) => {
             </Select>
             <FormHelperText>User Type</FormHelperText>
           </FormControl>
-          {(Form.type === "student" || Form.type === "faculty") && (
+        </Grid>
+        {(Form.type === "student" || Form.type === "faculty") && (
+          <Grid item xs={12} sm={6}>
             <FormControl className={classes.formControl}>
               <Select
                 disableUnderline
@@ -218,10 +223,12 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error, loading }) => {
                 Department
               </FormHelperText>
             </FormControl>
-          )}
+          </Grid>
+        )}
 
-          {Form.type === "student" && (
-            <div>
+        {Form.type === "student" && (
+          <>
+            <Grid item xs={12} sm={6}>
               <FormControl className={classes.formControl}>
                 <Select
                   disableUnderline
@@ -248,6 +255,8 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error, loading }) => {
                   Current Year
                 </FormHelperText>
               </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={6}>
               <FormControl className={classes.formControl}>
                 <Select
                   disableUnderline
@@ -273,20 +282,35 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error, loading }) => {
                 </Select>
                 <FormHelperText>Passout Year</FormHelperText>
               </FormControl>
-            </div>
-          )}
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="outlined-margin-dense"
+                name="rollNo"
+                value={Form.rollNo}
+                label="Roll No"
+                onChange={handleChange}
+                autoComplete="rollNo"
+                error={Error["rollNo"]}
+                helperText={Error["rollNo"]}
+                className={classes.textField}
+                margin="normal"
+                variant="outlined"
+              />
+            </Grid>
+          </>
+        )}
+      </Grid>
+      <Grid item xs={12}>
+        <div className="text-center">
+          <LoaderButton
+            type={"Submit"}
+            handleSubmit={handleSubmit}
+            Loading={loading}
+          />
         </div>
-
-        <Grid item xs={12}>
-          <div className="text-center">
-            <LoaderButton
-              type={"Submit"}
-              handleSubmit={handleSubmit}
-              Loading={loading}
-            />
-          </div>
-        </Grid>
-      </form>
+      </Grid>
     </Card>
   );
 };

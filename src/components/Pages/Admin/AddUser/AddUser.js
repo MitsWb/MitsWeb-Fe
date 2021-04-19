@@ -18,6 +18,7 @@ const AddUser = () => {
     department: "None",
     currentYear: "None",
     passoutYear: "None",
+    rollNo: "",
   };
   const initError = {
     email: "",
@@ -37,7 +38,9 @@ const AddUser = () => {
     fieldValue[name] = name === "email" ? value.toLowerCase() : value;
     setForm(fieldValue);
   };
-
+  const isNullOrWhiteSpace = (str) => {
+    return !str || str.length === 0 || /^\s*$/.test(str);
+  };
   const handleSubmit = () => {
     let err = Object.assign({}, initError);
     var validForm = true;
@@ -58,15 +61,37 @@ const AddUser = () => {
       err["department"] = "Add department";
       validForm = false;
     }
-    if (Form.password === "") {
+    if (
+      Form.type === "student" &&
+      (isNaN(Form.rollNo) || isNullOrWhiteSpace(Form.rollNo))
+    ) {
+      err["rollNo"] = "Enter a number";
+      validForm = false;
+    }
+    if (Form.password === "" || isNullOrWhiteSpace(Form.password)) {
       err["password"] = "invalid password";
       validForm = false;
     }
     setError(err);
     if (validForm) {
       setLoading(true);
-      console.log(Form);
-      dispatch(addUser(Form)).then((res) => {
+      var finalrollNo = "None";
+      var zeros = "";
+      if (Form.type === "student") {
+        for (var i = 0; i < 3 - String(Number(Form.rollNo)).length; i++) {
+          zeros += "0";
+        }
+        finalrollNo =
+          Number(Form.passoutYear) -
+          4 -
+          2000 +
+          Form.department +
+          zeros +
+          Number(Form.rollNo);
+      }
+      const finalForm = { ...Form, rollNo: finalrollNo };
+
+      dispatch(addUser(finalForm)).then((res) => {
         if (res && res.data) {
           if (res.data.success) {
             setnotify({ msg: "User created", popup: true, type: "success" });

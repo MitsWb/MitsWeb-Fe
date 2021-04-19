@@ -85,6 +85,10 @@ export const createTimetable = (body) => {
   return fireRequest("createTimetable", [], body);
 };
 
+export const getTimetable = () => {
+  return fireRequest("getTimetable");
+};
+
 //faculty api's
 export const getAllfaculties = () => {
   return fireRequest("getAllfaculties");
