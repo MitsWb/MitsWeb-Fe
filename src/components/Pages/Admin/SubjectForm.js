@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   Typography,
@@ -15,6 +15,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import { green } from "@material-ui/core/colors";
 import { useMinimalSelectStyles } from "@mui-treasury/styles/select/minimal";
 import { ExpandMore } from "@material-ui/icons";
+import { useDispatch } from "react-redux";
+import { getAllfaculties } from "../../../redux/apiActions";
+import Notify from "../../../utils/Notify";
+import Loader from "../../../utils/Loader";
 
 const LoaderButton = ({ Loading, handleSubmit, type }) => {
   const classes = useStyles();
@@ -108,10 +112,16 @@ function SubjectForm({
   Error,
   loading,
   title,
-  faculties,
 }) {
-  console.log(faculties[0]);
   const minimalSelectClasses = useMinimalSelectStyles();
+  const [faculties, setFaculties] = useState([]);
+  const [notify, setnotify] = useState({
+    popup: false,
+    msg: "",
+    type: "",
+  });
+  const dispatch = useDispatch();
+
   const classes = useStyles();
   const menuProps = {
     classes: {
@@ -135,167 +145,200 @@ function SubjectForm({
       />
     );
   };
+
+  const closeAlert = () => {
+    setnotify({
+      popup: false,
+    });
+  };
+
+  useEffect(() => {
+    dispatch(getAllfaculties()).then((res) => {
+      if (res && res.data) {
+        if (res.data.success) {
+          setFaculties(res.data.data);
+        } else {
+          setnotify({
+            msg: res.data.msg,
+            popup: true,
+            type: "error",
+          });
+        }
+      }
+    });
+    // eslint-disable-next-line
+  }, []);
+
   return (
-    <div>
-      <Card className={classes.form}>
-        <Typography variant="h6" gutterBottom>
-          {title}
-        </Typography>
-        <form className={classes.form}>
-          <Grid container spacing={2}>
-            <Grid xs={12} sm={6} item>
-              <TextField
-                required
-                id="outlined-margin-dense"
-                name="name"
-                value={Form.name}
-                label="Subject Name"
-                onChange={handleChange}
-                autoComplete="name"
-                error={Error["name"]}
-                helperText={Error["name"]}
-                margin="normal"
-                variant="outlined"
-              />
-            </Grid>
-            <Grid xs={12} sm={6} item>
-              <TextField
-                label="Subject Code"
-                id="outlined-margin-dense"
-                margin="normal"
-                variant="outlined"
-                name="code"
-                value={Form.code}
-                onChange={handleChange}
-                error={Error["code"]}
-                helperText={Error["code"]}
-              />
-            </Grid>
-          </Grid>
-          <Grid container spacing={2}>
-            <Grid xs={12} sm={6} item>
-              <FormControl className={classes.formControl}>
-                <Select
-                  disableUnderline
-                  classes={{ root: minimalSelectClasses.select }}
-                  MenuProps={menuProps}
-                  IconComponent={iconComponent}
-                  value={Form.semester}
-                  onChange={handleChange}
-                  displayEmpty
-                  id="semester"
-                  name="semester"
-                  className={classes.selectEmpty}
-                  inputProps={{ "aria-label": "Without label" }}
-                >
-                  <MenuItem value={1}>S1</MenuItem>
-                  <MenuItem value={2}>S2</MenuItem>
-                  <MenuItem value={3}>S3</MenuItem>
-                  <MenuItem value={4}>S4</MenuItem>
-                  <MenuItem value={5}>S5</MenuItem>
-                  <MenuItem value={6}>S6</MenuItem>
-                  <MenuItem value={7}>S7</MenuItem>
-                  <MenuItem value={8}>S8</MenuItem>
-                </Select>
-                <FormHelperText>Semester</FormHelperText>
-              </FormControl>
-            </Grid>
-            <Grid xs={12} sm={6} item>
-              <FormControl className={classes.formControl}>
-                <Select
-                  disableUnderline
-                  classes={{ root: minimalSelectClasses.select }}
-                  MenuProps={menuProps}
-                  IconComponent={iconComponent}
-                  value={Form.department}
-                  onChange={handleChange}
-                  displayEmpty
-                  id="department"
-                  name="department"
-                  className={classes.selectEmpty}
-                  inputProps={{ "aria-label": "Without label" }}
-                >
-                  <MenuItem value={"CE"}>CE</MenuItem>
-                  <MenuItem value={"ME"}>ME</MenuItem>
-                  <MenuItem value={"EEE"}>EEE</MenuItem>
-                  <MenuItem value={"ECE"}>ECE</MenuItem>
-                  <MenuItem value={"CSE"}>CSE</MenuItem>
-                </Select>
-                <FormHelperText>Department</FormHelperText>
-              </FormControl>
-            </Grid>
-            <Grid container spacing={2}>
-              <Grid xs={12} sm={6} item>
-                <FormControl className={classes.formControl}>
-                  <Select
-                    disableUnderline
-                    classes={{ root: minimalSelectClasses.select }}
-                    MenuProps={menuProps}
-                    IconComponent={iconComponent}
-                    onChange={handleChange}
-                    displayEmpty
-                    id="courseType"
-                    name="courseType"
-                    value={Form.courseType}
-                    className={classes.selectEmpty}
-                    inputProps={{ "aria-label": "Without label" }}
-                  >
-                    <MenuItem disabled value="None">
-                      <em>Select type</em>
-                    </MenuItem>
-                    <MenuItem value={"lab"}>Lab</MenuItem>
-                    <MenuItem value={"theory"}>Theory</MenuItem>
-                  </Select>
-                  <FormHelperText style={{ fontSize: 13 }}>
-                    Subject type
-                  </FormHelperText>
-                </FormControl>
-              </Grid>
-              <Grid xs={12} sm={6} item>
-                <FormControl className={classes.formControl}>
-                  <Select
-                    disableUnderline
-                    classes={{ root: minimalSelectClasses.select }}
-                    MenuProps={menuProps}
-                    IconComponent={iconComponent}
-                    onChange={handleChange}
-                    displayEmpty
-                    id="taughtBy"
-                    name="taughtBy"
-                    value={Form.taughtBy}
-                    className={classes.selectEmpty}
-                    inputProps={{ "aria-label": "Without label" }}
-                  >
-                    <MenuItem disabled value="None">
-                      <em>Select faculty</em>
-                    </MenuItem>
-                    {faculties.map((faculty) => {
-                      return (
-                        <MenuItem value={faculty}>
-                          {`${faculty.name} (${faculty.department})`}
-                        </MenuItem>
-                      );
-                    })}
-                  </Select>
-                  <FormHelperText style={{ fontSize: 13 }}>
-                    Subject Faculty
-                  </FormHelperText>
-                </FormControl>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <div className="text-center">
-              <LoaderButton
-                type={"Submit"}
-                handleSubmit={handleSubmit}
-                Loading={loading}
-              />
-            </div>
-          </Grid>
-        </form>
-      </Card>
-    </div>
+    <>
+      {faculties.length > 0 ? (
+        <div>
+          <Notify props={notify} closeAlert={closeAlert} />
+          <div>
+            <Card className={classes.form}>
+              <Typography variant="h6" gutterBottom>
+                {title}
+              </Typography>
+              <form className={classes.form}>
+                <Grid container spacing={2}>
+                  <Grid xs={12} sm={6} item>
+                    <TextField
+                      required
+                      id="outlined-margin-dense"
+                      name="name"
+                      value={Form.name}
+                      label="Subject Name"
+                      onChange={handleChange}
+                      autoComplete="name"
+                      error={Error["name"]}
+                      helperText={Error["name"]}
+                      margin="normal"
+                      variant="outlined"
+                    />
+                  </Grid>
+                  <Grid xs={12} sm={6} item>
+                    <TextField
+                      label="Subject Code"
+                      id="outlined-margin-dense"
+                      margin="normal"
+                      variant="outlined"
+                      name="code"
+                      value={Form.code}
+                      onChange={handleChange}
+                      error={Error["code"]}
+                      helperText={Error["code"]}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container spacing={2}>
+                  <Grid xs={12} sm={6} item>
+                    <FormControl className={classes.formControl}>
+                      <Select
+                        disableUnderline
+                        classes={{ root: minimalSelectClasses.select }}
+                        MenuProps={menuProps}
+                        IconComponent={iconComponent}
+                        value={Form.semester}
+                        onChange={handleChange}
+                        displayEmpty
+                        id="semester"
+                        name="semester"
+                        className={classes.selectEmpty}
+                        inputProps={{ "aria-label": "Without label" }}
+                      >
+                        <MenuItem value={1}>S1</MenuItem>
+                        <MenuItem value={2}>S2</MenuItem>
+                        <MenuItem value={3}>S3</MenuItem>
+                        <MenuItem value={4}>S4</MenuItem>
+                        <MenuItem value={5}>S5</MenuItem>
+                        <MenuItem value={6}>S6</MenuItem>
+                        <MenuItem value={7}>S7</MenuItem>
+                        <MenuItem value={8}>S8</MenuItem>
+                      </Select>
+                      <FormHelperText>Semester</FormHelperText>
+                    </FormControl>
+                  </Grid>
+                  <Grid xs={12} sm={6} item>
+                    <FormControl className={classes.formControl}>
+                      <Select
+                        disableUnderline
+                        classes={{ root: minimalSelectClasses.select }}
+                        MenuProps={menuProps}
+                        IconComponent={iconComponent}
+                        value={Form.department}
+                        onChange={handleChange}
+                        displayEmpty
+                        id="department"
+                        name="department"
+                        className={classes.selectEmpty}
+                        inputProps={{ "aria-label": "Without label" }}
+                      >
+                        <MenuItem value={"CE"}>CE</MenuItem>
+                        <MenuItem value={"ME"}>ME</MenuItem>
+                        <MenuItem value={"EEE"}>EEE</MenuItem>
+                        <MenuItem value={"ECE"}>ECE</MenuItem>
+                        <MenuItem value={"CSE"}>CSE</MenuItem>
+                      </Select>
+                      <FormHelperText>Department</FormHelperText>
+                    </FormControl>
+                  </Grid>
+                  <Grid container spacing={2}>
+                    <Grid xs={12} sm={6} item>
+                      <FormControl className={classes.formControl}>
+                        <Select
+                          disableUnderline
+                          classes={{ root: minimalSelectClasses.select }}
+                          MenuProps={menuProps}
+                          IconComponent={iconComponent}
+                          onChange={handleChange}
+                          displayEmpty
+                          id="courseType"
+                          name="courseType"
+                          value={Form.courseType}
+                          className={classes.selectEmpty}
+                          inputProps={{ "aria-label": "Without label" }}
+                        >
+                          <MenuItem disabled value="None">
+                            <em>Select type</em>
+                          </MenuItem>
+                          <MenuItem value={"lab"}>Lab</MenuItem>
+                          <MenuItem value={"theory"}>Theory</MenuItem>
+                        </Select>
+                        <FormHelperText style={{ fontSize: 13 }}>
+                          Subject type
+                        </FormHelperText>
+                      </FormControl>
+                    </Grid>
+                    <Grid xs={12} sm={6} item>
+                      <FormControl className={classes.formControl}>
+                        <Select
+                          disableUnderline
+                          classes={{ root: minimalSelectClasses.select }}
+                          MenuProps={menuProps}
+                          IconComponent={iconComponent}
+                          onChange={handleChange}
+                          displayEmpty
+                          id="taughtBy"
+                          name="taughtBy"
+                          value={Form.taughtBy}
+                          className={classes.selectEmpty}
+                          inputProps={{ "aria-label": "Without label" }}
+                        >
+                          <MenuItem disabled value="None">
+                            <em>Select faculty</em>
+                          </MenuItem>
+                          {faculties.map((faculty) => {
+                            return (
+                              <MenuItem value={faculty}>
+                                {`${faculty.name} (${faculty.department})`}
+                              </MenuItem>
+                            );
+                          })}
+                        </Select>
+                        <FormHelperText style={{ fontSize: 13 }}>
+                          Subject Faculty
+                        </FormHelperText>
+                      </FormControl>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid item xs={12}>
+                  <div className="text-center">
+                    <LoaderButton
+                      type={"Submit"}
+                      handleSubmit={handleSubmit}
+                      Loading={loading}
+                    />
+                  </div>
+                </Grid>
+              </form>
+            </Card>
+          </div>
+        </div>
+      ) : (
+        <Loader />
+      )}
+    </>
   );
 }
 

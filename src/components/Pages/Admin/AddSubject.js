@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useHeading from "../useHeading";
 import AddSubjectForm from "./SubjectForm";
 import { useDispatch } from "react-redux";
 import Notify from "../../../utils/Notify";
 import BackButton from "../../buttons/BackButton";
-import Loader from "../../../utils/Loader";
-import { addSubject, getAllfaculties } from "../../../redux/apiActions";
+import { addSubject } from "../../../redux/apiActions";
 const AddSubject = () => {
   useHeading("Add Subject");
   const dispatch = useDispatch();
-  const [faculties, setFaculties] = useState({});
 
   const Initform = {
     name: "",
@@ -24,26 +22,6 @@ const AddSubject = () => {
     type: "",
     password: "",
   };
-
-  useEffect(() => {
-    setLoading(true);
-    dispatch(getAllfaculties()).then((res) => {
-      if (res && res.data) {
-        if (res.data.success) {
-          setLoading(false);
-          setFaculties(res.data.data);
-        } else {
-          setnotify({
-            msg: res.data.msg,
-            popup: true,
-            type: "error",
-          });
-          setLoading(false);
-        }
-      }
-    });
-    // eslint-disable-next-line
-  }, []);
 
   const [Form, setForm] = useState(Initform);
   const [Error, setError] = useState(initError);
@@ -106,24 +84,17 @@ const AddSubject = () => {
   };
   return (
     <>
-      {faculties.length > 0 ? (
-        <>
-          <BackButton />
-          <Notify props={notify} closeAlert={closeAlert} />
-          <AddSubjectForm
-            Form={Form}
-            handleChange={handleChange}
-            Error={Error}
-            handleSubmit={handleSubmit}
-            Helper={""}
-            title={"Add Subject"}
-            loading={loading}
-            faculties={faculties}
-          />
-        </>
-      ) : (
-        <Loader />
-      )}
+      <BackButton />
+      <Notify props={notify} closeAlert={closeAlert} />
+      <AddSubjectForm
+        Form={Form}
+        handleChange={handleChange}
+        Error={Error}
+        handleSubmit={handleSubmit}
+        Helper={""}
+        title={"Add Subject"}
+        loading={loading}
+      />
     </>
   );
 };
