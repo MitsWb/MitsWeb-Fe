@@ -25,6 +25,8 @@ const AddUser = () => {
     email: "",
     type: "",
     password: "",
+    rollNo: "",
+    joiningYear: "",
   };
 
   const [Form, setForm] = useState(Initform);
@@ -44,15 +46,18 @@ const AddUser = () => {
   };
   const handleSubmit = () => {
     let err = Object.assign({}, initError);
-    var validForm = true;
+    let validForm = true;
+
     if (!validateEmailAddress(Form.email)) {
       err["email"] = "Invalid email";
       validForm = false;
     }
+
     if (Form.type === "faculty" && Form.department === "None") {
       err["department"] = "Add department";
       validForm = false;
     }
+
     if (
       Form.type === "student" &&
       (Form.department === "None" ||
@@ -62,13 +67,23 @@ const AddUser = () => {
       err["department"] = "Add department";
       validForm = false;
     }
+
     if (
-      Form.type === "student" &&
+      (Form.type === "student" || Form.type === "faculty") &&
       (isNaN(Form.rollNo) || isNullOrWhiteSpace(Form.rollNo))
     ) {
       err["rollNo"] = "Enter a number";
       validForm = false;
     }
+
+    if (
+      Form.type === "faculty" &&
+      (isNaN(Form.joiningYear) || isNullOrWhiteSpace(Form.joiningYear))
+    ) {
+      err["joiningYear"] = "Enter a number";
+      validForm = false;
+    }
+
     if (Form.password === "" || isNullOrWhiteSpace(Form.password)) {
       err["password"] = "invalid password";
       validForm = false;

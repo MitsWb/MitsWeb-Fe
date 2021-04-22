@@ -197,10 +197,11 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error, loading }) => {
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
-                name="internalId"
+                name="rollNo"
                 value={Form.rollNo}
                 onChange={handleChange}
-                error={Error[""]}
+                error={Error["rollNo"]}
+                helperText={Error["rollNo"]}
               />
             </Grid>
           </>
