@@ -112,6 +112,7 @@ function SubjectForm({
   Error,
   loading,
   title,
+  ready,
 }) {
   const minimalSelectClasses = useMinimalSelectStyles();
   const [faculties, setFaculties] = useState([]);
@@ -164,6 +165,7 @@ function SubjectForm({
             type: "error",
           });
         }
+        ready();
       }
     });
     // eslint-disable-next-line

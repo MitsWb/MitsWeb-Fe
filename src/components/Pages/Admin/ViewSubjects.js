@@ -46,6 +46,8 @@ const EditSubject = ({
   handleDeleteSubject,
 }) => {
   const [delOpen, setdelOpen] = useState(false);
+  const [ready, setready] = useState(false);
+
   return (
     <>
       <DeleteSubject
@@ -57,9 +59,14 @@ const EditSubject = ({
           handleDeleteSubject();
         }}
       />
+      {open && !ready && <Loader />}
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={() => {
+          setready(false);
+          handleClose();
+        }}
+        className={ready ? "block" : "hidden"}
         aria-labelledby="form-dialog-title"
       >
         <DialogContent>
@@ -71,6 +78,7 @@ const EditSubject = ({
             Helper={""}
             title={"Edit Subject"}
             loading={loading}
+            ready={() => setready(true)}
           />
         </DialogContent>
         <DialogActions>
@@ -84,6 +92,7 @@ const EditSubject = ({
           <Button
             style={{ outline: "none" }}
             onClick={() => {
+              setready(false);
               handleClose();
             }}
             color="primary"
