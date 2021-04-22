@@ -74,7 +74,10 @@ const EditSubject = ({
             Form={data}
             handleChange={handleChange}
             Error={Error}
-            handleSubmit={handleSubmit}
+            handleSubmit={() => {
+              setready(false);
+              handleSubmit();
+            }}
             Helper={""}
             title={"Edit Subject"}
             loading={loading}
@@ -185,11 +188,31 @@ const Subjects = () => {
     });
     setError(err);
     if (validForm) {
-      const { _id, name, code, department, semester, courseType } = Data;
+      const {
+        _id,
+        name,
+        code,
+        department,
+        semester,
+        courseType,
+        taughtBy,
+      } = Data;
       setopen(false);
       setloading(true);
       dispatch(
-        editSubject({ _id, name, code, department, semester, courseType })
+        editSubject({
+          _id,
+          name,
+          code,
+          department,
+          semester,
+          courseType,
+          taughtBy: {
+            name: taughtBy.name,
+            department: taughtBy.department,
+            _id: taughtBy._id,
+          },
+        })
       ).then((res) => {
         if (res && res.data) {
           if (res.data.success) {

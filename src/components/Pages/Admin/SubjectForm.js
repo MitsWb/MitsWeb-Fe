@@ -306,15 +306,25 @@ function SubjectForm({
                           className={classes.selectEmpty}
                           inputProps={{ "aria-label": "Without label" }}
                         >
-                          <MenuItem disabled value="None">
-                            <em>Select faculty</em>
+                          <MenuItem
+                            disabled={!Form.taughtBy}
+                            value={Form.taughtBy}
+                          >
+                            <em>
+                              {Form.taughtBy["name"] +
+                                " (" +
+                                Form.taughtBy["department"] +
+                                ")" || "Select faculty"}
+                            </em>
                           </MenuItem>
                           {faculties.map((faculty) => {
-                            return (
-                              <MenuItem value={faculty}>
-                                {`${faculty.name} (${faculty.department})`}
-                              </MenuItem>
-                            );
+                            if (faculty._id !== Form.taughtBy["_id"])
+                              return (
+                                <MenuItem value={faculty}>
+                                  {`${faculty.name} (${faculty.department})`}
+                                </MenuItem>
+                              );
+                            else return null;
                           })}
                         </Select>
                         <FormHelperText style={{ fontSize: 13 }}>
