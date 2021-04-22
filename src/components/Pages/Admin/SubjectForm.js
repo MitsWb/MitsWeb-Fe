@@ -108,7 +108,9 @@ function SubjectForm({
   Error,
   loading,
   title,
+  faculties,
 }) {
+  console.log(faculties[0]);
   const minimalSelectClasses = useMinimalSelectStyles();
   const classes = useStyles();
   const menuProps = {
@@ -222,31 +224,64 @@ function SubjectForm({
                 <FormHelperText>Department</FormHelperText>
               </FormControl>
             </Grid>
-            <Grid xs={12} sm={6} item>
-              <FormControl className={classes.formControl}>
-                <Select
-                  disableUnderline
-                  classes={{ root: minimalSelectClasses.select }}
-                  MenuProps={menuProps}
-                  IconComponent={iconComponent}
-                  onChange={handleChange}
-                  displayEmpty
-                  id="courseType"
-                  name="courseType"
-                  value={Form.courseType}
-                  className={classes.selectEmpty}
-                  inputProps={{ "aria-label": "Without label" }}
-                >
-                  <MenuItem disabled value="None">
-                    <em>Select type</em>
-                  </MenuItem>
-                  <MenuItem value={"lab"}>Lab</MenuItem>
-                  <MenuItem value={"theory"}>Theory</MenuItem>
-                </Select>
-                <FormHelperText style={{ fontSize: 13 }}>
-                  Subject type
-                </FormHelperText>
-              </FormControl>
+            <Grid container spacing={2}>
+              <Grid xs={12} sm={6} item>
+                <FormControl className={classes.formControl}>
+                  <Select
+                    disableUnderline
+                    classes={{ root: minimalSelectClasses.select }}
+                    MenuProps={menuProps}
+                    IconComponent={iconComponent}
+                    onChange={handleChange}
+                    displayEmpty
+                    id="courseType"
+                    name="courseType"
+                    value={Form.courseType}
+                    className={classes.selectEmpty}
+                    inputProps={{ "aria-label": "Without label" }}
+                  >
+                    <MenuItem disabled value="None">
+                      <em>Select type</em>
+                    </MenuItem>
+                    <MenuItem value={"lab"}>Lab</MenuItem>
+                    <MenuItem value={"theory"}>Theory</MenuItem>
+                  </Select>
+                  <FormHelperText style={{ fontSize: 13 }}>
+                    Subject type
+                  </FormHelperText>
+                </FormControl>
+              </Grid>
+              <Grid xs={12} sm={6} item>
+                <FormControl className={classes.formControl}>
+                  <Select
+                    disableUnderline
+                    classes={{ root: minimalSelectClasses.select }}
+                    MenuProps={menuProps}
+                    IconComponent={iconComponent}
+                    onChange={handleChange}
+                    displayEmpty
+                    id="taughtBy"
+                    name="taughtBy"
+                    value={Form.taughtBy}
+                    className={classes.selectEmpty}
+                    inputProps={{ "aria-label": "Without label" }}
+                  >
+                    <MenuItem disabled value="None">
+                      <em>Select faculty</em>
+                    </MenuItem>
+                    {faculties.map((faculty) => {
+                      return (
+                        <MenuItem value={faculty}>
+                          {`${faculty.name} (${faculty.department})`}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                  <FormHelperText style={{ fontSize: 13 }}>
+                    Subject Faculty
+                  </FormHelperText>
+                </FormControl>
+              </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12}>
@@ -259,7 +294,7 @@ function SubjectForm({
             </div>
           </Grid>
         </form>
-      </Card>{" "}
+      </Card>
     </div>
   );
 }
