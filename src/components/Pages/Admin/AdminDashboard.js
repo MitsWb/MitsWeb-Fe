@@ -55,16 +55,6 @@ const StyledTableCell = withStyles((theme) => ({
     fontSize: 14,
   },
 }))(TableCell);
-/*const useStyles = makeStyles((theme) => ({
-  link: {
-    textDecoration: "none",
-    color: "inherit",
-    cursor: "pointer",
-  },
-  container: {
-    marginTop: "10px",
-  },
-}));*/
 
 const IOSSwitch = withStyles((theme) => ({
   root: {
@@ -830,47 +820,6 @@ const AdminDashboard = () => {
             </Button>{" "}
           </ButtonGroup>
         </Box>
-        {/* <Card className="flex mt-3 text-center lg:text-md text-sm w-5/6 flex-row  shadow lg:w-1/2 m-0 m-auto "> */}
-        {/* <div className="text-center w-1/3  px-3 py-2 m-1">
-            <Button
-              variant="contained"
-              size="small"
-              color={showType === "student" ? "primary" : "default"}
-              onClick={() => {
-                setshowType("student");
-                setRerender(Math.random());
-              }}
-            >
-              Student
-            </Button>
-          </div> */}
-        {/* <div className=" text-center w-1/3  px-1 py-2 m-1">
-            <Button
-              variant="contained"
-              size="small"
-              color={showType === "faculty" ? "primary" : "default"}
-              onClick={() => {
-                setshowType("faculty");
-                getFaculty();
-              }}
-            >
-              Faculty
-            </Button>
-          </div>
-          <div className=" text-center w-1/3 px-3 py-2 m-1">
-            <Button
-              variant="contained"
-              size="small"
-              color={showType === "admin" ? "primary" : "default"}
-              onClick={() => {
-                setshowType("admin");
-                getAdmin();
-              }}
-            >
-              Admin
-            </Button>
-          </div> */}
-        {/* </Card> */}
         {Loading ? (
           <Loader />
         ) : (
