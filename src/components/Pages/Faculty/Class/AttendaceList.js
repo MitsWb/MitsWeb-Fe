@@ -47,12 +47,12 @@ export default function ControlledAccordions({
   };
 
   const periods = [{ time: "9.00-10.00" }, { time: "12.00-1.00" }];
-
+  const day = moment(date).format("dddd");
   return (
     <div className={classes.root}>
       <div className="text-center w-full ">
         <Typography>
-          Attendace for date : {moment(date).format("MMM Do YY")}
+          Attendace for date : {moment(date).format("MMM Do YY")} : {day}
         </Typography>
       </div>
 

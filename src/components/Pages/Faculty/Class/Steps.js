@@ -15,7 +15,7 @@ import { getStudents /*, addAttendance*/ } from "../../../../redux/apiActions";
 import { useDispatch } from "react-redux";
 import Loader from "../../../../utils/Loader";
 import useHeading from "../../useHeading";
-
+import moment from "moment";
 import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
@@ -259,26 +259,29 @@ export default function CustomizedSteppers({ className }) {
 
   if (mystep === 1) {
     setmystep(0);
+    const day = moment(date).format("dddd");
     setloading(true);
-    dispatch(getStudents(classDetails[0][1] + "/" + classDetails[1])).then(
-      (res) => {
-        if (res && res.data && res.data.data) {
-          const studentData = res.data.data;
-          let check = {};
-          for (let j = 0; j < periods.length; j++) {
-            for (var i = 0; i < studentData.length; i++) {
-              check = {
-                ...check,
-                [periods[j].time + "---" + studentData[i].email]: "true",
-              };
-            }
+    dispatch(
+      getStudents(
+        classDetails[0][1] + "/" + classDetails[1] + "/" + day.toLowerCase()
+      )
+    ).then((res) => {
+      if (res && res.data && res.data.data) {
+        const studentData = res.data.data;
+        let check = {};
+        for (let j = 0; j < periods.length; j++) {
+          for (var i = 0; i < studentData.length; i++) {
+            check = {
+              ...check,
+              [periods[j].time + "---" + studentData[i].email]: "true",
+            };
           }
-          setchecked(check);
-          setData(res.data.data);
         }
-        setloading(false);
+        setchecked(check);
+        setData(res.data.data);
       }
-    );
+      setloading(false);
+    });
   }
   const handleAttendance = (selectedDate) => {
     const keys = Object.keys(checked);

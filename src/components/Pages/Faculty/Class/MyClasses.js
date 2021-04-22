@@ -43,7 +43,7 @@ function MyClasses() {
           {myclasses.map((value, key) => {
             return (
               <>
-                <Grid item xs={6} sm={3}>
+                <Grid key={key} item xs={6} sm={3}>
                   <A
                     href={`/class/S${value.semester}-${value.department}-${value.code}`}
                   >
