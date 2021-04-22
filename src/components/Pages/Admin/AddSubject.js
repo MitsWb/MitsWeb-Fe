@@ -94,6 +94,7 @@ const AddSubject = () => {
         Helper={""}
         title={"Add Subject"}
         loading={loading}
+        ready={() => {}}
       />
     </>
   );

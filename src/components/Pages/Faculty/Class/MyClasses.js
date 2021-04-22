@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Card, Typography, CardContent } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import useHeading from "../../useHeading";
 import { A } from "hookrouter";
+import { getClass } from "../../../../redux/apiActions";
+import { useDispatch } from "react-redux";
+import Loader from "../../../../utils/Loader";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -13,43 +16,56 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
 }));
-const myclasses = [
-  { semester: "1", department: "CE", subjectCode: "ce100" },
-  { semester: "2", department: "ME", subjectCode: "me100" },
-  { semester: "3", department: "EEE", subjectCode: "ee100" },
-  { semester: "8", department: "CSE", subjectCode: "cs100" },
-];
+
 function MyClasses() {
   useHeading("My classes");
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const [myclasses, setmyclasses] = useState([]);
+  const [loading, setloading] = useState(false);
+  useEffect(() => {
+    setloading(true);
+    dispatch(getClass()).then((res) => {
+      if (res && res.data && res.data.success) {
+        setmyclasses(res.data.data);
+      }
+      setloading(false);
+    });
+  }, [dispatch]);
   return (
     <div>
-      <Grid container spacing={3}>
-        {myclasses.map((value, key) => {
-          return (
-            <>
-              <Grid item xs={6} sm={3}>
-                <A
-                  href={`/class/S${value.semester}-${value.department}-${value.subjectCode}`}
-                >
-                  <Card className={classes.paper}>
-                    <CardContent>
-                      <Typography>
-                        {"S" +
-                          value.semester +
-                          " " +
-                          value.department +
-                          " " +
-                          value.subjectCode}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </A>
-              </Grid>
-            </>
-          );
-        })}
-      </Grid>
+      {loading ? (
+        <Loader />
+      ) : myclasses.length === 0 ? (
+        <>No classes found</>
+      ) : (
+        <Grid container spacing={3}>
+          {myclasses.map((value, key) => {
+            return (
+              <>
+                <Grid item xs={6} sm={3}>
+                  <A
+                    href={`/class/S${value.semester}-${value.department}-${value.code}`}
+                  >
+                    <Card className={classes.paper}>
+                      <CardContent>
+                        <Typography>
+                          {"S" +
+                            value.semester +
+                            " " +
+                            value.department +
+                            " " +
+                            value.code}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </A>
+                </Grid>
+              </>
+            );
+          })}
+        </Grid>
+      )}
     </div>
   );
 }

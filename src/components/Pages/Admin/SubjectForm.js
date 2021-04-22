@@ -311,10 +311,12 @@ function SubjectForm({
                             value={Form.taughtBy}
                           >
                             <em>
-                              {Form.taughtBy["name"] +
-                                " (" +
-                                Form.taughtBy["department"] +
-                                ")" || "Select faculty"}
+                              {Form.taughtBy
+                                ? Form.taughtBy["name"] +
+                                  " (" +
+                                  Form.taughtBy["department"] +
+                                  ")"
+                                : "Select faculty"}
                             </em>
                           </MenuItem>
                           {faculties.map((faculty) => {

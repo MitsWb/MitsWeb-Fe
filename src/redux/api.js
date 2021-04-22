@@ -142,6 +142,12 @@ export default {
     method: "post",
     noAuth: false,
   },
+
+  getMyclasses: {
+    path: "/faculty/myclasses",
+    method: "get",
+    noAuth: false,
+  },
   //security apis
   verifyGatepass: {
     path: "/security/verify",

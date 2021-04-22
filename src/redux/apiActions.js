@@ -117,6 +117,10 @@ export const getStudents = (params) => {
 export const addAttendance = (body) => {
   return fireRequest("addAttendance", [], body);
 };
+
+export const getClass = (id) => {
+  return fireRequest("getMyclasses", [id]);
+};
 //security apis
 
 export const verifyGatepass = (body) => {
