@@ -159,6 +159,7 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error, loading }) => {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
+            required
             label="Password"
             id="outlined-margin-dense"
             className={classes.textField}
@@ -170,6 +171,40 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error, loading }) => {
             error={Error["password"]}
           />
         </Grid>
+        {Form.type === "faculty" && (
+          <>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="outlined-margin-dense"
+                name="joiningYear"
+                value={Form.joiningYear}
+                label="Year Of Joining"
+                onChange={handleChange}
+                autoComplete="joiningYear"
+                error={Error["joiningYear"]}
+                helperText={Error["joiningYear"]}
+                className={classes.textField}
+                margin="normal"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                label="Internal ID"
+                id="outlined-margin-dense"
+                className={classes.textField}
+                margin="normal"
+                variant="outlined"
+                name="internalId"
+                value={Form.rollNo}
+                onChange={handleChange}
+                error={Error[""]}
+              />
+            </Grid>
+          </>
+        )}
         <Grid item xs={12} sm={6}>
           <FormControl className={classes.formControl}>
             <Select

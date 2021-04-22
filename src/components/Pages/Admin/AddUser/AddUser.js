@@ -19,6 +19,7 @@ const AddUser = () => {
     currentYear: "None",
     passoutYear: "None",
     rollNo: "",
+    joiningYear: "",
   };
   const initError = {
     email: "",
