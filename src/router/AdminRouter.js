@@ -10,6 +10,7 @@ import Logout from "../components/Common/Logout";
 import AddSubject from "../components/Pages/Admin/AddSubject";
 import TimetableDashboard from "../components/Pages/Admin/Timetable/TimetableDashboard";
 import CreateTimeTableForm from "../components/Pages/Admin/Timetable/CreateTimeTableForm";
+import ExamDashboard from "../components/Pages/Admin/Exam/ExamDashboard";
 
 const routes = {
   "/": () => <AdminDashboard />,
@@ -20,6 +21,7 @@ const routes = {
   "/subject/new": () => <AddSubject />,
   "/timetable": () => <TimetableDashboard />,
   "/timetable/new": () => <CreateTimeTableForm />,
+  "/exam": () => <ExamDashboard />,
 };
 
 const AdminRouter = () => {
