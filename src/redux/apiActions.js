@@ -121,8 +121,13 @@ export const addAttendance = (body) => {
 export const getClass = (id) => {
   return fireRequest("getMyclasses", [id]);
 };
-//security apis
 
+//security apis
 export const verifyGatepass = (body) => {
   return fireRequest("verifyGatepass", [], body);
+};
+
+//exam apis
+export const createExamType = (body) => {
+  return fireRequest("createExamType", [], body);
 };

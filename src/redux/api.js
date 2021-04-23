@@ -173,4 +173,11 @@ export default {
     method: "post",
     noAuth: false,
   },
+
+  //exam
+  createExamType: {
+    path: "admin/examtype",
+    method: "post",
+    noAuth: false,
+  },
 };
