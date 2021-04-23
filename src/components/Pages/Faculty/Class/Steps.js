@@ -11,7 +11,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import DateFnsUtils from "@date-io/date-fns";
 import AttendaceList from "./AttendaceList";
-import { getStudents /*, addAttendance*/ } from "../../../../redux/apiActions";
+import { getStudents, addAttendance } from "../../../../redux/apiActions";
 import { useDispatch } from "react-redux";
 import Loader from "../../../../utils/Loader";
 import Notify from "../../../../utils/Notify";
@@ -312,17 +312,24 @@ export default function CustomizedSteppers({ className }) {
     const timeArr = selectedDate.split("-");
     const finalData = {
       startTime: timeArr[0],
-      timestamp: date,
+      timeStamp: date,
       endTime: timeArr[1],
       department: classDetails[1].toUpperCase(),
       semester: Number(classDetails[0][1]),
       period: classDetails[2],
       attendanceList: result,
     };
-    console.log(finalData);
-    // dispatch(addAttendance()).then((res) => {
-    //   console.log(res);
-    // });
+    setloading(true);
+    dispatch(addAttendance(finalData)).then((res) => {
+      if (res && res.data && res.data.success) {
+        setnotify({ msg: res.data.msg, popup: true, type: "success" });
+      } else {
+        if (res && res.data) {
+          setnotify({ msg: res.data.msg, popup: true, type: "error" });
+        }
+      }
+      setloading(false);
+    });
   };
   const handleCheck = (time, email) => {
     setchecked({
