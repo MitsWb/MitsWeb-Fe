@@ -14,7 +14,9 @@ import AttendaceList from "./AttendaceList";
 import { getStudents /*, addAttendance*/ } from "../../../../redux/apiActions";
 import { useDispatch } from "react-redux";
 import Loader from "../../../../utils/Loader";
+import Notify from "../../../../utils/Notify";
 import useHeading from "../../useHeading";
+import Backbutton from "../../../buttons/BackButton";
 import moment from "moment";
 import {
   KeyboardDatePicker,
@@ -139,7 +141,8 @@ function getStepContent(
   className,
   checked,
   setchecked,
-  handleAttendance
+  handleAttendance,
+  classTimings
 ) {
   switch (step) {
     case 0:
@@ -177,6 +180,7 @@ function getStepContent(
             checked={checked}
             setchecked={setchecked}
             handleAttendance={handleAttendance}
+            classTimings={classTimings}
           />
         </>
       );
@@ -193,14 +197,15 @@ export default function CustomizedSteppers({ className }) {
   const classDetails = className.split("-");
   const dispatch = useDispatch();
   const [Data, setData] = useState([]);
+  const [classTimings, setclassTimings] = useState([]);
   const [linkValid, setlinkValid] = useState(true);
   const [mystep, setmystep] = useState(0);
-  const [activeStep, setActiveStep] = React.useState(1);
+  const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
   const [date, setDate] = useState(new Date());
   const [loading, setloading] = useState(false);
   const [checked, setchecked] = useState({});
-
+  const [notify, setnotify] = useState({ msg: "", popup: "", type: "" });
   useEffect(() => {
     var validLink = true;
     setActiveStep(0);
@@ -255,30 +260,42 @@ export default function CustomizedSteppers({ className }) {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
-  const periods = [{ time: "9.00-10.00" }, { time: "12.00-1.00" }];
 
   if (mystep === 1) {
     setmystep(0);
     const day = moment(date).format("dddd");
     setloading(true);
     dispatch(
-      getStudents(
-        classDetails[0][1] + "/" + classDetails[1] + "/" + day.toLowerCase()
-      )
+      getStudents({
+        semester: classDetails[0][1],
+        department: classDetails[1],
+        day: day.toLowerCase(),
+        subjectCode: classDetails[2],
+      })
     ).then((res) => {
-      if (res && res.data && res.data.data) {
+      if (res && res.data && res.data.success) {
+        const { timings } = res.data;
         const studentData = res.data.data;
         let check = {};
-        for (let j = 0; j < periods.length; j++) {
+        for (let j = 0; j < timings.length; j++) {
           for (var i = 0; i < studentData.length; i++) {
             check = {
               ...check,
-              [periods[j].time + "---" + studentData[i].email]: "true",
+              [moment(timings[j].startTime).format("h:mm a") +
+              "-" +
+              moment(timings[j].endTime).format("h:mm a") +
+              "---" +
+              studentData[i].email]: "true",
             };
           }
         }
         setchecked(check);
+        setclassTimings(timings);
+
         setData(res.data.data);
+      } else {
+        if (res && res.data)
+          setnotify({ msg: res.data.msg, popup: true, type: "error" });
       }
       setloading(false);
     });
@@ -316,6 +333,8 @@ export default function CustomizedSteppers({ className }) {
   };
   return (
     <div className={classes.root}>
+      <Notify props={notify} closeAlert={() => setnotify({ popup: false })} />
+      <Backbutton />
       {!linkValid ? (
         <>
           <div className="w-full">
@@ -353,7 +372,8 @@ export default function CustomizedSteppers({ className }) {
                     className,
                     checked,
                     handleCheck,
-                    handleAttendance
+                    handleAttendance,
+                    classTimings
                   )}
                 </Typography>
                 <div className="m-6">

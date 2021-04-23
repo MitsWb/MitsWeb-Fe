@@ -74,7 +74,7 @@ export default function CreateTimeTableForm() {
   //for period timings
   const [inputFields, setInputFields] = useState([
     {
-      day: "Monday",
+      day: "monday",
       timings: [
         {
           subject: "",

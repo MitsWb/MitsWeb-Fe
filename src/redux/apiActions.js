@@ -110,8 +110,8 @@ export const getLeaves = (id) => {
   return fireRequest("getLeaves", [id]);
 };
 
-export const getStudents = (params) => {
-  return fireRequest("getStudents", [params]);
+export const getStudents = (body) => {
+  return fireRequest("getStudents", [], body);
 };
 
 export const addAttendance = (body) => {

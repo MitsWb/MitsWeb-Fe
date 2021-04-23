@@ -132,8 +132,8 @@ export default {
   },
 
   getStudents: {
-    path: "/faculty/students",
-    method: "get",
+    path: "/faculty/getstudents",
+    method: "post",
     noAuth: false,
   },
 

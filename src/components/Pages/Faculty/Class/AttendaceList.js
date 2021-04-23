@@ -36,8 +36,8 @@ export default function ControlledAccordions({
   date,
   checked,
   setchecked,
-  className,
   handleAttendance,
+  classTimings,
 }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
@@ -46,7 +46,8 @@ export default function ControlledAccordions({
     setExpanded(isExpanded ? panel : false);
   };
 
-  const periods = [{ time: "9.00-10.00" }, { time: "12.00-1.00" }];
+  const periods = classTimings;
+
   const day = moment(date).format("dddd");
   return (
     <div className={classes.root}>
@@ -59,11 +60,12 @@ export default function ControlledAccordions({
       {periods.length === 0 ? (
         <Card>NO PERIODS ADDED</Card>
       ) : (
-        periods.map((periodValue, key) => {
+        periods.map((periodValue, key1) => {
           return (
             <Accordion
-              expanded={expanded === periodValue.time}
-              onChange={handleChange(periodValue.time)}
+              key={key1}
+              expanded={expanded === periodValue._id}
+              onChange={handleChange(periodValue._id)}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -72,15 +74,18 @@ export default function ControlledAccordions({
               >
                 <div className={classes.column}>
                   <Typography className={classes.heading}>
-                    {" Time: " + periodValue.time}
+                    {" Time: " +
+                      moment(periodValue.startTime).format("h:mm a") +
+                      "-" +
+                      moment(periodValue.endTime).format("h:mm a")}
                   </Typography>
                 </div>
               </AccordionSummary>
               <AccordionDetails className={classes.details}>
                 <Grid container spacing={2}>
-                  {Data.map((value, key) => {
+                  {Data.map((value, key2) => {
                     return (
-                      <Grid xs={6} sm={3}>
+                      <Grid key={key2} xs={6} sm={3}>
                         <Card>
                           <CardContent>
                             <div className="flex flex-row">
@@ -88,13 +93,30 @@ export default function ControlledAccordions({
                               <Checkbox
                                 checked={
                                   checked[
-                                    periodValue.time + "---" + value.email
+                                    moment(periodValue.startTime).format(
+                                      "h:mm a"
+                                    ) +
+                                      "-" +
+                                      moment(periodValue.endTime).format(
+                                        "h:mm a"
+                                      ) +
+                                      "---" +
+                                      value.email
                                   ] === "true"
                                     ? true
                                     : false
                                 }
                                 onChange={() =>
-                                  setchecked(periodValue.time, value.email)
+                                  setchecked(
+                                    moment(periodValue.startTime).format(
+                                      "h:mm a"
+                                    ) +
+                                      "-" +
+                                      moment(periodValue.endTime).format(
+                                        "h:mm a"
+                                      ),
+                                    value.email
+                                  )
                                 }
                                 inputProps={{
                                   "aria-label": "primary checkbox",
@@ -112,7 +134,13 @@ export default function ControlledAccordions({
               <AccordionActions>
                 <Button size="small">Cancel</Button>
                 <Button
-                  onClick={() => handleAttendance(periodValue.time)}
+                  onClick={() =>
+                    handleAttendance(
+                      moment(periodValue.startTime).format("h:mm a") +
+                        "-" +
+                        moment(periodValue.endTime).format("h:mm a")
+                    )
+                  }
                   size="small"
                   color="primary"
                 >
