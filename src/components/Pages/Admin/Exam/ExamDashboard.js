@@ -1,12 +1,13 @@
 import React from "react";
+import Addbutton from "../../../buttons/AddButton";
 import useHeading from "../../useHeading";
 
 const ExamDashboard = () => {
   useHeading("Exam");
   return (
-    <div>
-      <h1>ExamDashboard</h1>
-    </div>
+    <>
+      <Addbutton title={"Add Exam Types"} href={"/exam/createtypes"} />
+    </>
   );
 };
 
