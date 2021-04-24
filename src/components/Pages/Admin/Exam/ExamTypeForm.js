@@ -50,7 +50,7 @@ const ExamTypeForm = () => {
         err["passMark"] = "Must be a number";
       }
 
-      if (Form.passMark > Form.maxMark) {
+      if (Number(Form.passMark) > Number(Form.maxMark)) {
         formValid = false;
         err["passMark"] = "Cannot be greater than max mark";
       }

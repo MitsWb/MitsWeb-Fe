@@ -1,7 +1,8 @@
 import { Loader, Notify } from "../../../../utils";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getExamType, editExamType } from "../../../../redux/apiActions";
+import DeleteExam from './DeleteExamConfirm';
+import { getExamType, editExamType,deleteExamType } from "../../../../redux/apiActions";
 import {
   Paper,
   Table,
@@ -46,8 +47,18 @@ const EditExamtypes = ({
   Error,
   handleSubmit,
   loading,
+  handleDeleteExam
 }) => {
+  const [delOpen, setdelOpen] = useState(false);
+
   return (
+    <>
+    <DeleteExam 
+         open={delOpen}
+         handleClose={() => setdelOpen(false)}
+         examType={Form.type}
+         handleConfirm={()=>{setdelOpen(false); handleDeleteExam()}}
+    />
     <Dialog
       open={open}
       onClose={handleClose}
@@ -64,17 +75,27 @@ const EditExamtypes = ({
         />
       </DialogContent>
       <DialogActions>
+      <Button
+          color="secondary"
+          size="small"
+          onClick={()=>setdelOpen(true)}
+          variant="outlined"
+          style={{ outline: "none" }}
+        >
+          Delete
+        </Button>
         <Button
           color="primary"
           size="small"
           onClick={handleClose}
-          variant="contained"
+          variant="outlined"
           style={{ outline: "none" }}
         >
           Back
         </Button>
       </DialogActions>
     </Dialog>
+    </>
   );
 };
 const ListExamtypes = () => {
@@ -178,6 +199,20 @@ const ListExamtypes = () => {
       });
     }
   };
+  const handleDeleteExam=()=>{
+    setopen(false);
+    dispatch(deleteExamType(Form._id)).then((res)=>{
+      if(res&&res.data&&res.data.success){
+        setnotify({msg:res.data.msg,popup:true,type:"success"});
+        setrerender(!rerender);
+      }
+      else{
+        if(res&&res.data){
+          setnotify({msg:res.data.msg,popup:true,type:"error"});
+        }
+      }
+    })
+  }
   return (
     <div>
       <Notify props={notify} closeAlert={() => setnotify({ popup: false })} />
@@ -189,6 +224,7 @@ const ListExamtypes = () => {
         Error={Error}
         handleSubmit={handleSubmit}
         loading={loading}
+        handleDeleteExam={handleDeleteExam}
       />
       {loading ? (
         <Loader msg={"Loading Exam List"} />
