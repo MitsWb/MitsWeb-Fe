@@ -147,8 +147,7 @@ const ListExamtypes = () => {
         formValid = false;
         err["passMark"] = "Must be a number";
       }
-
-      if (Form.passMark > Form.maxMark) {
+      if (Number(Form.passMark) > Number(Form.maxMark)) {
         formValid = false;
         err["passMark"] = "Cannot be greater than max mark";
       }
@@ -163,14 +162,20 @@ const ListExamtypes = () => {
     setError(err);
     if (validInputs()) {
       setopen(false);
+      console.log(Form);
       setloading(true);
       const { _id, type, maxMark, passMark } = Form;
       dispatch(editExamType({ _id, type, maxMark, passMark })).then((res) => {
         if (res && res.data && res.data.success) {
           setnotify({ msg: res.data.msg, popup: true, type: "success" });
           setrerender(!rerender);
+        } else {
+          if (res && res.data) {
+            setnotify({ msg: res.data.msg, popup: true, type: "error" });
+          }
         }
-        setloading(true);
+
+        setloading(false);
       });
     }
   };

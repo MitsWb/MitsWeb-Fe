@@ -163,7 +163,7 @@ const Login = () => {
         } else {
           setloading(false);
           setnotify({
-            msg: "Invalid credentials",
+            msg: "Network Error",
             type: "error",
             popup: true,
           });
