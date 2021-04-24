@@ -1,6 +1,6 @@
 import React from "react";
-import useHeading from "./useHeading";
-import Login from "../Authentication/Login";
+import useHeading from "../Shared/useHeading";
+import Login from "./Authentication/Login";
 
 const LoginPage = () => {
   useHeading("Login");

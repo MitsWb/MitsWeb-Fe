@@ -1,6 +1,6 @@
 import React from "react";
 import { useRoutes } from "hookrouter";
-import NotFoundPage from "../components/Pages/NotFoundPage";
+import NotFoundPage from "../components/Pages/Shared/NotFoundPage";
 import FacultyDashboard from "../components/Pages/Faculty/Dashboard";
 import FacultyNavbar from "../components/Navbar/FacultyNavbar";
 import ApproveRequests from "../components/Pages/Faculty/ApproveRequests";

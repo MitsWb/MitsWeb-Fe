@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import LeaveForm from "./LeaveForm";
-import useHeading from "../../Pages/useHeading";
+import useHeading from "../../Pages/Shared/useHeading";
 import { useDispatch } from "react-redux";
 import { requestLeave } from "../../../redux/apiActions";
 import Notify from "../../../utils/Notify";

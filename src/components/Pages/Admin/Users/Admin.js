@@ -1,6 +1,6 @@
 import React from "react";
 import { A } from "hookrouter";
-import useHeading from "../../Pages/useHeading";
+import useHeading from "../../Pages/Shared/useHeading";
 import { GroupAdd } from "@material-ui/icons";
 import { Button } from "@material-ui/core";
 import AdminDashBoard from "./AdminDashboard";

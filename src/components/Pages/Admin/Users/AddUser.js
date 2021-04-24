@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useHeading from "../../useHeading";
+import useHeading from "../../Shared/useHeading";
 import AddUserForm from "./AddUserForm";
 import { validateEmailAddress } from "../../../../utils/validation";
 import { addUser } from "../../../../redux/apiActions";

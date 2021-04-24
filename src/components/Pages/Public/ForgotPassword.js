@@ -8,10 +8,10 @@ import {
   Typography,
 } from "@material-ui/core";
 import EmailIcon from "@material-ui/icons/Email";
-import UseHeading from "./useHeading";
-import { validateEmailAddress } from "../../utils/validation";
-import Notify from "../../utils/Notify";
-import Back from "../buttons/BackButton";
+import UseHeading from "../Shared/useHeading";
+import { validateEmailAddress } from "../../../utils/validation";
+import Notify from "../../../utils/Notify";
+import Back from "../../buttons/BackButton";
 
 const ForgotPassword = () => {
   UseHeading("Reset Password");

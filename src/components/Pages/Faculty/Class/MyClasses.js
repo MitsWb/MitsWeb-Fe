@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Card, Typography, CardContent } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import useHeading from "../../useHeading";
+import useHeading from "../../Shared/useHeading";
 import { A } from "hookrouter";
 import { getClass } from "../../../../redux/apiActions";
 import { useDispatch } from "react-redux";

@@ -10,7 +10,7 @@ import Review from "./Review";
 import DepartmentSemesterForm from "./DepartmentSemesterForm";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import PeriodTimings from "./PeriodTimings";
-import useHeading from "../../useHeading";
+import useHeading from "../../Shared/useHeading";
 import { useDispatch } from "react-redux";
 import { createTimetable } from "../../../../redux/apiActions";
 import LoaderButton from "../../../../utils/LoaderButton";

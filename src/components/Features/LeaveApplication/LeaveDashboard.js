@@ -1,6 +1,6 @@
 import React from "react";
 import { A } from "hookrouter";
-import useHeading from "../../Pages/useHeading";
+import useHeading from "../../Pages/Shared/useHeading";
 import CreateIcon from "@material-ui/icons/Create";
 import { Button } from "@material-ui/core";
 import GetUserSubmissions from "./GetUserSubmissions";

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import useHeading from "../../useHeading";
+import useHeading from "../../Shared/useHeading";
 import {
   getAllsubjects,
   editSubject,

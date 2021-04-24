@@ -1,6 +1,6 @@
 import React from "react";
 import DepartmentsList from "../../Departments/DepartmentsList";
-import useHeading from "../useHeading";
+import useHeading from "../Shared/useHeading";
 
 function Dashboard() {
   useHeading("Dashboard");

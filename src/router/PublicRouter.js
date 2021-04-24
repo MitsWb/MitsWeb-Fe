@@ -1,13 +1,14 @@
 import React from "react";
 import { useRoutes } from "hookrouter";
-import HomePage from "../components/Pages/HomePage";
-import AboutPage from "../components/Pages/AboutPage";
-import LoginPage from "../components/Pages/LoginPage";
-import RegisterPage from "../components/Pages/RegisterPage";
-import NotFoundPage from "../components/Pages/NotFoundPage";
+import {
+  HomePage,
+  AboutPage,
+  LoginPage,
+  RegisterPage,
+  ForgotPassword,
+} from "../components/Pages/Public";
+import NotFoundPage from "../components/Pages/Shared/NotFoundPage";
 import PublicNavbar from "../components/Navbar/PublicNavbar";
-import ErrorPage from "../components/Pages/ErrorPage";
-import ForgotPassword from "../components/Pages/ForgotPassword";
 import ViewGatePass from "../components/Features/GatePass/ViewGatepass";
 import Logout from "../components/Common/Logout";
 
@@ -16,7 +17,6 @@ const routes = {
   "/about": () => <AboutPage />,
   "/login": () => <LoginPage />,
   "/register": () => <RegisterPage />,
-  "/error": () => <ErrorPage />,
   "/reset-password": () => <ForgotPassword />,
   "/gatepass/view/:id": ({ id }) => <ViewGatePass id={id} />,
   "/logout": () => <Logout />,

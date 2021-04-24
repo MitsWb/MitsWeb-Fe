@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import useHeading from "../useHeading";
+import useHeading from "../../Shared/useHeading";
 import { useDispatch } from "react-redux";
 import {
   getAllusers,
@@ -7,10 +7,9 @@ import {
   adminUpdateuser,
   getAlladmins,
   getAllfaculties,
-} from "../../../redux/apiActions";
-//import { navigate } from "hookrouter";
+} from "../../../../redux/apiActions";
 import ConfirmationBox from "./Confirmation";
-import { Loader, Notify } from "../../../utils";
+import { Loader, Notify } from "../../../../utils";
 import { useMinimalSelectStyles } from "@mui-treasury/styles/select/minimal";
 import {
   Button,

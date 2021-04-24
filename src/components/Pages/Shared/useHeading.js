@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { changeHeading } from "../../redux/actions";
+import { changeHeading } from "../../../redux/actions";
 
 const useHeading = (heading) => {
   const dispatch = useDispatch();

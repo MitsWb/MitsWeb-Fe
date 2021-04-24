@@ -3,7 +3,7 @@ import Box from "@material-ui/core/Box";
 import ListItem from "@material-ui/core/ListItem";
 import { useJupiterListItemStyles } from "@mui-treasury/styles/listItem/jupiter";
 import { makeStyles, Typography } from "@material-ui/core";
-import useHeading from "../Pages/useHeading";
+import useHeading from "../Pages/Shared/useHeading";
 import BackButton from "../buttons/BackButton";
 
 const useStyles = makeStyles(({ breakpoints }) => ({

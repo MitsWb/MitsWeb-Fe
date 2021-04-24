@@ -1,10 +1,10 @@
 import React from "react";
-import useHeading from "./useHeading";
+import useHeading from "../Shared/useHeading";
 import { Grid } from "@material-ui/core";
 
 const NotFoundPage = () => {
   useHeading("Oops! Not Found");
-  const image = require("../../assets/images/notfound.svg");
+  const image = require("../../../assets/images/notfound.svg");
   return (
     <Grid container className="px-3" justify="center">
       <img

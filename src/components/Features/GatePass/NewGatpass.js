@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { requestGatePass } from "../../../redux/apiActions";
-import useHeading from "../../Pages/useHeading";
+import useHeading from "../../Pages/Shared/useHeading";
 import GatePassForm from "./GatePassForm";
 import Notify from "../../../utils/Notify";
 import BackButton from "../../buttons/BackButton";

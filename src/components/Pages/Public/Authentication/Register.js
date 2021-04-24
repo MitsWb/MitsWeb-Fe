@@ -10,14 +10,14 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { A } from "hookrouter";
-import { register } from "../../redux/apiActions";
+import { register } from "../../../../redux/apiActions";
 import { useDispatch } from "react-redux";
 import {
   validateEmailAddress,
   //validatePassword,
   phonePreg,
-} from "../../utils/validation";
-import Notify from "../../utils/Notify";
+} from "../../../../utils/validation";
+import Notify from "../../../../utils/Notify";
 import { CircularProgress } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({

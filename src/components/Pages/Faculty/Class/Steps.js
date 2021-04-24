@@ -14,7 +14,7 @@ import AttendaceList from "./AttendaceList";
 import { getStudents, addAttendance } from "../../../../redux/apiActions";
 import { useDispatch } from "react-redux";
 import { Loader, Notify } from "../../../../utils";
-import useHeading from "../../useHeading";
+import useHeading from "../../Shared/useHeading";
 import Backbutton from "../../../buttons/BackButton";
 import moment from "moment";
 import {

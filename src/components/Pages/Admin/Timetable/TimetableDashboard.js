@@ -1,6 +1,6 @@
 import React from "react";
 import Addbutton from "../../../buttons/AddButton";
-import useHeading from "../../useHeading";
+import useHeading from "../../Shared/useHeading";
 import Timetable from "./ViewTimetable";
 const TimetableDashboard = () => {
   useHeading("Timetable");

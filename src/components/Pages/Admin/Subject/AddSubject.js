@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useHeading from "../../useHeading";
+import useHeading from "../../Shared/useHeading";
 import SubjectForm from "./SubjectForm";
 import { useDispatch } from "react-redux";
 import Notify from "../../../../utils/Notify";

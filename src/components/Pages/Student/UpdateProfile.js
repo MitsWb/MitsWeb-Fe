@@ -6,12 +6,12 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { updateProfile, getCurrentUser } from "../../redux/apiActions";
+import { updateProfile, getCurrentUser } from "../../../redux/apiActions";
 import { useDispatch, useSelector } from "react-redux";
-import { validatePassword, phonePreg } from "../../utils/validation";
-import Notify from "../../utils/Notify";
-import UseHeading from "./useHeading";
-import BackButton from "../buttons/BackButton";
+import { validatePassword, phonePreg } from "../../../utils/validation";
+import Notify from "../../../utils/Notify";
+import UseHeading from "../Shared/useHeading";
+import BackButton from "../../buttons/BackButton";
 
 const useStyles = makeStyles((theme) => ({
   paper: {

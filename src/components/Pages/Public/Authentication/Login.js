@@ -14,10 +14,10 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import GoogleLogin from "react-google-login";
 import { makeStyles } from "@material-ui/core/styles";
 import { A, useQueryParams, navigate } from "hookrouter";
-import { login, loginGoogle } from "../../redux/apiActions";
+import { login, loginGoogle } from "../../../../redux/apiActions";
 import { useDispatch } from "react-redux";
-import { validateEmailAddress } from "../../utils/validation";
-import Notify from "../../utils/Notify";
+import { validateEmailAddress } from "../../../../utils/validation";
+import Notify from "../../../../utils/Notify";
 
 const useStyles = makeStyles((theme) => ({
   paper: {

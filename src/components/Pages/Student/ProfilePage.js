@@ -6,11 +6,11 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import { Button, Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
-import UseHeading from "./useHeading";
+import UseHeading from "../Shared/useHeading";
 import { Avatar } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { A } from "hookrouter";
-import BackButton from "../buttons/BackButton";
+import BackButton from "../../buttons/BackButton";
 
 const useStyles = makeStyles({
   root: {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getLeaves } from "../../../redux/apiActions";
-import useHeading from "../useHeading";
+import useHeading from "../Shared/useHeading";
 import { Loader, Notify } from "../../../utils";
 import {
   Paper,

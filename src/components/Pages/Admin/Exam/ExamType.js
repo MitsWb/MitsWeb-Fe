@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createExamType } from "../../../../redux/apiActions";
 import Notify from "../../../../utils/Notify";
-import useHeading from "../../useHeading";
+import useHeading from "../../Shared/useHeading";
 import ExamTypeForm from "./ExamTypeForm";
 import BackButton from "../../../buttons/BackButton";
 const ExamType = () => {
