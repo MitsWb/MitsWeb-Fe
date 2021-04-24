@@ -73,7 +73,7 @@ function ViewTimetable() {
   return (
     <div>
       {loading ? (
-        <Loader />
+        <Loader msg={"Loading Timetables"} />
       ) : (
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>

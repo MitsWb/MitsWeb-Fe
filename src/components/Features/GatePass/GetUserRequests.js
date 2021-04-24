@@ -235,7 +235,7 @@ const GetUserRequests = () => {
         changeStatus={changeStatus}
       />
       {Loading ? (
-        <Loader />
+        <Loader msg={"Loading Gatepass..."} />
       ) : (
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>

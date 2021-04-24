@@ -187,7 +187,7 @@ const ListExamtypes = () => {
         loading={loading}
       />
       {loading ? (
-        <Loader />
+        <Loader msg={"Loading Exam List"} />
       ) : (
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>

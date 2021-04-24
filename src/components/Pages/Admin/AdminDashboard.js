@@ -820,7 +820,7 @@ const AdminDashboard = () => {
           </ButtonGroup>
         </Box>
         {Loading ? (
-          <Loader />
+          <Loader msg={"Loading Users..."} />
         ) : (
           <div style={{ overflow: "hidden" }}>
             <Paper

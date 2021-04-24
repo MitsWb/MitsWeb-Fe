@@ -97,7 +97,7 @@ function LeaveApplications() {
         handleConfirm={handleConfirm}
       />
       {loading ? (
-        <Loader />
+        <Loader msg={"Loading leaves"} />
       ) : (
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>

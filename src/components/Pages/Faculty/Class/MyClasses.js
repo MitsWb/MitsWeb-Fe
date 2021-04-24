@@ -35,7 +35,7 @@ function MyClasses() {
   return (
     <div>
       {loading ? (
-        <Loader />
+        <Loader msg={"Loading classes"} />
       ) : myclasses.length === 0 ? (
         <>No classes found</>
       ) : (

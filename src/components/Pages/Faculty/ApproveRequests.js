@@ -105,7 +105,7 @@ function GetGatePassRequests() {
         handleConfirm={handleConfirm}
       />
       {Loading ? (
-        <Loader />
+        <Loader msg={"Loading gatepasses..."} />
       ) : display ? (
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>

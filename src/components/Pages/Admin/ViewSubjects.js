@@ -68,7 +68,7 @@ const EditSubject = ({
           handleDeleteSubject();
         }}
       />
-      {open && !ready && <Loader />}
+      {open && !ready && <Loader msg={"Loading Subject"} />}
       <Dialog
         open={open}
         onClose={() => {
