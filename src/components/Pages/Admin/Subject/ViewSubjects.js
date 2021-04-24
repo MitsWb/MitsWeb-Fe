@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import useHeading from "../useHeading";
+import useHeading from "../../useHeading";
 import {
   getAllsubjects,
   editSubject,
   deleteSubject,
-} from "../../../redux/apiActions";
+} from "../../../../redux/apiActions";
 import DeleteSubject from "./DeleteSubjectConfirm";
 import { useDispatch } from "react-redux";
 import {
@@ -22,7 +22,7 @@ import {
   DialogContent,
   Button,
 } from "@material-ui/core";
-import { Loader, Notify } from "../../../utils";
+import { Loader, Notify } from "../../../../utils";
 import SubjectForm from "./SubjectForm";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 const StyledTableCell = withStyles((theme) => ({
@@ -117,7 +117,7 @@ const EditSubject = ({
   );
 };
 
-const Subjects = () => {
+const ViewSubjects = () => {
   useHeading("Subjects");
 
   const columns = [
@@ -325,4 +325,4 @@ const Subjects = () => {
   );
 };
 
-export default Subjects;
+export default ViewSubjects;

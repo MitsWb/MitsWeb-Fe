@@ -1,11 +1,11 @@
 import React from "react";
 import { A } from "hookrouter";
-import useHeading from "../../Pages/useHeading";
+import useHeading from "../../../Pages/useHeading";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { Button } from "@material-ui/core";
-import ViewSubject from "./ViewSubjects";
+import ViewSubjects from "./ViewSubjects";
 
-export default function RequestGatePass() {
+export default function Subjects() {
   useHeading("Subjects");
 
   return (
@@ -22,7 +22,7 @@ export default function RequestGatePass() {
           </Button>
         </A>
       </div>
-      <ViewSubject />
+      <ViewSubjects />
     </>
   );
 }

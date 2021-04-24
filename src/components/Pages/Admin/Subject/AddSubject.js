@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import useHeading from "../useHeading";
-import AddSubjectForm from "./SubjectForm";
+import useHeading from "../../useHeading";
+import SubjectForm from "./SubjectForm";
 import { useDispatch } from "react-redux";
-import Notify from "../../../utils/Notify";
-import BackButton from "../../buttons/BackButton";
-import { addSubject } from "../../../redux/apiActions";
+import Notify from "../../../../utils/Notify";
+import BackButton from "../../../buttons/BackButton";
+import { addSubject } from "../../../../redux/apiActions";
 const AddSubject = () => {
   useHeading("Add Subject");
   const dispatch = useDispatch();
@@ -86,7 +86,7 @@ const AddSubject = () => {
     <>
       <BackButton />
       <Notify props={notify} closeAlert={closeAlert} />
-      <AddSubjectForm
+      <SubjectForm
         Form={Form}
         handleChange={handleChange}
         Error={Error}

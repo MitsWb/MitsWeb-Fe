@@ -16,8 +16,8 @@ import { green } from "@material-ui/core/colors";
 import { useMinimalSelectStyles } from "@mui-treasury/styles/select/minimal";
 import { ExpandMore } from "@material-ui/icons";
 import { useDispatch } from "react-redux";
-import { getAllfaculties } from "../../../redux/apiActions";
-import { Loader, Notify } from "../../../utils";
+import { getAllfaculties } from "../../../../redux/apiActions";
+import { Loader, Notify } from "../../../../utils";
 
 const LoaderButton = ({ Loading, handleSubmit, type }) => {
   const classes = useStyles();
