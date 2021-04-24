@@ -143,5 +143,3 @@ export const editExamType = (body) => {
 export const deleteExamType = (id) => {
   return fireRequest("deleteExamType", [id]);
 };
-
-

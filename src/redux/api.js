@@ -190,9 +190,9 @@ export default {
     method: "put",
     noAuth: false,
   },
-  deleteExamType:{
+  deleteExamType: {
     path: "admin/examtype",
     method: "delete",
     noAuth: false,
-  }
+  },
 };
