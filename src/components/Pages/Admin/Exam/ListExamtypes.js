@@ -23,7 +23,7 @@ import {
   Button,
 } from "@material-ui/core";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import ExamForm from "./ExamForm";
+import ExamTypeForm from "./ExamTypeForm";
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -72,7 +72,7 @@ const EditExamtypes = ({
         aria-labelledby="form-dialog-title"
       >
         <DialogContent>
-          <ExamForm
+          <ExamTypeForm
             Form={Form}
             handleChange={handleChange}
             handleSubmit={handleSubmit}

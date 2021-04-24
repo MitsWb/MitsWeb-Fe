@@ -11,7 +11,7 @@ import AddSubject from "../components/Pages/Admin/AddSubject";
 import TimetableDashboard from "../components/Pages/Admin/Timetable/TimetableDashboard";
 import CreateTimeTableForm from "../components/Pages/Admin/Timetable/CreateTimeTableForm";
 import ExamDashboard from "../components/Pages/Admin/Exam/ExamDashboard";
-import ExamTypeForm from "../components/Pages/Admin/Exam/ExamTypeForm";
+import ExamType from "../components/Pages/Admin/Exam/ExamType";
 
 const routes = {
   "/": () => <AdminDashboard />,
@@ -23,7 +23,7 @@ const routes = {
   "/timetable": () => <TimetableDashboard />,
   "/timetable/new": () => <CreateTimeTableForm />,
   "/exam": () => <ExamDashboard />,
-  "/exam/createtypes": () => <ExamTypeForm />,
+  "/exam/createtypes": () => <ExamType />,
 };
 
 const AdminRouter = () => {
