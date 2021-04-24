@@ -5,7 +5,7 @@ import useHeading from "../../useHeading";
 import { A } from "hookrouter";
 import { getClass } from "../../../../redux/apiActions";
 import { useDispatch } from "react-redux";
-import Loader from "../../../../utils/Loader";
+import { Loader } from "../../../../utils";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,

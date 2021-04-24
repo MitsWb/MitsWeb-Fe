@@ -5,9 +5,8 @@ import { useAbortableEffect } from "../utils/UseAbortableEffect";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "../redux/apiActions";
 import { navigate } from "hookrouter";
-import Loader from "../utils/Loader";
+import { Loader, Notify } from "../utils";
 import AdminRouter from "./AdminRouter";
-import Notify from "../utils/Notify";
 import FacultyRouter from "./FacultyRouter";
 import SecurityRouter from "./SecurityRouter";
 

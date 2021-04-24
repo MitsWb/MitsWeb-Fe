@@ -10,8 +10,7 @@ import {
 } from "../../../redux/apiActions";
 //import { navigate } from "hookrouter";
 import ConfirmationBox from "./Confirmation";
-import Notify from "../../../utils/Notify";
-import Loader from "../../../utils/Loader";
+import { Loader, Notify } from "../../../utils";
 import { useMinimalSelectStyles } from "@mui-treasury/styles/select/minimal";
 import {
   Button,

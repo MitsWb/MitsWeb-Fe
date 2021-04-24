@@ -17,8 +17,7 @@ import { useMinimalSelectStyles } from "@mui-treasury/styles/select/minimal";
 import { ExpandMore } from "@material-ui/icons";
 import { useDispatch } from "react-redux";
 import { getAllfaculties } from "../../../redux/apiActions";
-import Notify from "../../../utils/Notify";
-import Loader from "../../../utils/Loader";
+import { Loader, Notify } from "../../../utils";
 
 const LoaderButton = ({ Loading, handleSubmit, type }) => {
   const classes = useStyles();

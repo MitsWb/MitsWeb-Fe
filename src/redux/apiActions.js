@@ -128,6 +128,14 @@ export const verifyGatepass = (body) => {
 };
 
 //exam apis
+
+export const getExamType = () => {
+  return fireRequest("getExamType");
+};
 export const createExamType = (body) => {
   return fireRequest("createExamType", [], body);
+};
+
+export const editExamType = (body) => {
+  return fireRequest("editExamType", [], body);
 };

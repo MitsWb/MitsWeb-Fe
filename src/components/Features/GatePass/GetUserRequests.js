@@ -25,8 +25,7 @@ import {
   editGatepass,
   cancelGatepass,
 } from "../../../redux/apiActions";
-import Loader from "../../../utils/Loader";
-import Notify from "../../../utils/Notify";
+import { Loader, Notify } from "../../../utils";
 import GatePassForm from "./GatePassForm";
 import { navigate } from "hookrouter";
 const columns = [

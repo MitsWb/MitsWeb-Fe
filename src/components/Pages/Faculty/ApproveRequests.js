@@ -11,10 +11,9 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import { Typography, Card } from "@material-ui/core";
-import Loader from "../../../utils/Loader";
+import { Loader, Notify } from "../../../utils";
 import useHeading from "../useHeading";
 import Confirmation from "./Confirmation";
-import Notify from "../../../utils/Notify";
 import moment from "moment";
 
 const columns = [

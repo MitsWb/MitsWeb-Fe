@@ -7,7 +7,6 @@ import {
 } from "../../../redux/apiActions";
 import DeleteSubject from "./DeleteSubjectConfirm";
 import { useDispatch } from "react-redux";
-import Notify from "../../../utils/Notify";
 import {
   Paper,
   Table,
@@ -23,9 +22,19 @@ import {
   DialogContent,
   Button,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import Loader from "../../../utils/Loader";
+import { Loader, Notify } from "../../../utils";
 import SubjectForm from "./SubjectForm";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+
 const useStyles = makeStyles({
   root: {
     width: "100%",
@@ -251,13 +260,13 @@ const Subjects = () => {
               <TableHead>
                 <TableRow>
                   {columns.map((column) => (
-                    <TableCell
+                    <StyledTableCell
                       key={column.id}
                       align={column.align}
                       style={{ minWidth: column.minWidth }}
                     >
                       {column.label}
-                    </TableCell>
+                    </StyledTableCell>
                   ))}
                 </TableRow>
               </TableHead>

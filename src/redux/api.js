@@ -175,9 +175,19 @@ export default {
   },
 
   //exam
+  getExamType: {
+    path: "admin/examtype",
+    method: "get",
+    noAuth: false,
+  },
   createExamType: {
     path: "admin/examtype",
     method: "post",
+    noAuth: false,
+  },
+  editExamType: {
+    path: "admin/examtype",
+    method: "put",
     noAuth: false,
   },
 };

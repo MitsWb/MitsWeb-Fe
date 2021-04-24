@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getLeaves } from "../../../redux/apiActions";
 import useHeading from "../useHeading";
-import Loader from "../../../utils/Loader";
+import { Loader, Notify } from "../../../utils";
 import {
   Paper,
   Card,
@@ -18,7 +18,6 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import ViewLeave from "./ViewLeaveapplication";
 import moment from "moment";
-import Notify from "../../../utils/Notify";
 const columns = [
   { id: "fromTimestamp", label: "From\u00a0Date", minWidth: 100 },
   { id: "toTimestamp", label: "To\u00a0Date", minWidth: 100 },

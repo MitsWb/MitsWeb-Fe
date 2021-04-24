@@ -1,6 +1,7 @@
+import { Loader, Notify } from "../../../../utils";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getTimetable } from "../../../../redux/apiActions";
+import { getExamType, editExamType } from "../../../../redux/apiActions";
 import {
   Paper,
   Table,
@@ -11,13 +12,13 @@ import {
   TablePagination,
   TableRow,
   Typography,
-  /*Dialog,
+  Dialog,
   DialogActions,
   DialogContent,
-  Button,*/
+  Button,
 } from "@material-ui/core";
-import Loader from "../../../../utils/Loader";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
+import ExamForm from "./ExamForm";
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -36,23 +37,78 @@ const useStyles = makeStyles({
     maxHeight: 440,
   },
 });
-function ViewTimetable() {
+
+const EditExamtypes = ({
+  open,
+  handleClose,
+  Form,
+  handleChange,
+  Error,
+  handleSubmit,
+  loading,
+}) => {
+  return (
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="form-dialog-title"
+    >
+      <DialogContent>
+        <ExamForm
+          Form={Form}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          title={"Edit Exam Type"}
+          loading={loading}
+          Error={Error}
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button
+          color="primary"
+          size="small"
+          onClick={handleClose}
+          variant="contained"
+          style={{ outline: "none" }}
+        >
+          Back
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+const ListExamtypes = () => {
   const dispatch = useDispatch();
   const [rows, setrows] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(4);
   const classes = useStyles();
   const [loading, setloading] = useState(false);
+  const initForm = {
+    type: "",
+    maxMark: "",
+    passMark: "",
+  };
+
+  const initError = {
+    type: "",
+    maxMark: "",
+    passMark: "",
+  };
+  const [Form, setForm] = useState(initForm);
+  const [Error, setError] = useState(initError);
+  const [open, setopen] = useState(false);
+  const [notify, setnotify] = useState({});
+  const [rerender, setrerender] = useState(false);
   useEffect(() => {
     setloading(true);
-    dispatch(getTimetable()).then((res) => {
+    dispatch(getExamType()).then((res) => {
       if (res && res.data && res.data.success) {
-        setrows(res.data.data || []);
+        setrows(res.data.data);
       }
       setloading(false);
     });
-  }, [dispatch]);
-
+  }, [dispatch, rerender]);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -61,17 +117,75 @@ function ViewTimetable() {
     setPage(0);
   };
   const columns = [
-    { id: "department", label: "Dept", minWidth: 100 },
-    { id: "semester", label: "Semester", minWidth: 100 },
+    { id: "type", label: "Type", minWidth: 100 },
+    { id: "maxMark", label: "Max Mark", minWidth: 100 },
+    { id: "passMark", label: "Pass Mark", minWidth: 100 },
   ];
 
-  /*const handleChange = (e) => {
+  const handleChange = (e) => {
+    setError(initError);
     const { name, value } = e.target;
-    setData({ ...Data, [name]: value });
-  };*/
+    setForm({ ...Form, [name]: value });
+  };
 
+  const validInputs = () => {
+    let formValid = true;
+    let err = Object.assign({}, initError);
+
+    Object.keys(Form).forEach((key) => {
+      if (Form[key] === "") {
+        formValid = false;
+        err[key] = "This field is required";
+      }
+
+      if (isNaN(Form.maxMark)) {
+        formValid = false;
+        err["maxMark"] = "Must be a number";
+      }
+
+      if (isNaN(Form.passMark)) {
+        formValid = false;
+        err["passMark"] = "Must be a number";
+      }
+
+      if (Form.passMark > Form.maxMark) {
+        formValid = false;
+        err["passMark"] = "Cannot be greater than max mark";
+      }
+    });
+
+    setError(err);
+
+    return formValid;
+  };
+  const handleSubmit = () => {
+    let err = Object.assign({}, initError);
+    setError(err);
+    if (validInputs()) {
+      setopen(false);
+      setloading(true);
+      const { _id, type, maxMark, passMark } = Form;
+      dispatch(editExamType({ _id, type, maxMark, passMark })).then((res) => {
+        if (res && res.data && res.data.success) {
+          setnotify({ msg: res.data.msg, popup: true, type: "success" });
+          setrerender(!rerender);
+        }
+        setloading(true);
+      });
+    }
+  };
   return (
     <div>
+      <Notify props={notify} closeAlert={() => setnotify({ popup: false })} />
+      <EditExamtypes
+        open={open}
+        handleClose={() => setopen(false)}
+        Form={Form}
+        handleChange={handleChange}
+        Error={Error}
+        handleSubmit={handleSubmit}
+        loading={loading}
+      />
       {loading ? (
         <Loader />
       ) : (
@@ -100,10 +214,10 @@ function ViewTimetable() {
                         <TableRow
                           hover
                           role="checkbox"
-                          /*      onClick={() => {
-                            setData(row);
+                          onClick={() => {
+                            setForm(row);
                             setopen(true);
-                          }}*/
+                          }}
                           tabIndex={-1}
                           key={row._id}
                         >
@@ -124,7 +238,7 @@ function ViewTimetable() {
                       colSpan={4}
                       className=" border-b border-gray-200 text-center "
                     >
-                      <Typography>No Subjects!!!</Typography>
+                      <Typography>No Exam types!!!</Typography>
                     </TableCell>
                   </TableRow>
                 )}
@@ -144,6 +258,6 @@ function ViewTimetable() {
       )}{" "}
     </div>
   );
-}
+};
 
-export default ViewTimetable;
+export default ListExamtypes;
