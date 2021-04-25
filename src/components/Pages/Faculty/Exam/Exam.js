@@ -3,9 +3,11 @@ import { useDispatch } from "react-redux";
 import { createExam } from "../../../../redux/apiActions";
 import { Notify } from "../../../../utils";
 import ExamForm from "./ExamForm";
+import useHeading from "../../Shared/useHeading";
 
 const Exam = () => {
   const dispatch = useDispatch();
+  useHeading("Exam");
 
   const initForm = {
     examType: "",
@@ -41,17 +43,24 @@ const Exam = () => {
     setForm({ ...Form, [name]: value });
   };
 
+  const isNullOrWhiteSpace = (str) => {
+    return !str || str.length === 0 || /^\s*$/.test(str);
+  };
+
   const validInputs = () => {
     let formValid = true;
     let err = Object.assign({}, initError);
 
     Object.keys(Form).forEach((key) => {
-      if (key !== "numberOfQuestions" && Form[key] === "") {
+      if (key !== "numberOfQuestions" && isNullOrWhiteSpace(Form[key])) {
         formValid = false;
         err[key] = "This field is required";
       }
 
-      if (isNaN(Form.numberOfQuestions)) {
+      if (
+        isNaN(Form.numberOfQuestions) ||
+        isNullOrWhiteSpace(Form.numberOfQuestions)
+      ) {
         formValid = false;
         err["numberOfQuestions"] = "Must be a number";
       }
