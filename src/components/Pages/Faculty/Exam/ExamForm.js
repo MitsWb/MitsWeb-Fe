@@ -80,7 +80,10 @@ const ExamForm = ({
     type: "",
   });
 
+  const [dataLoading, setDataLoading] = useState(true);
+
   useEffect(() => {
+    setDataLoading(true);
     dispatch(getAllsubjects()).then((res) => {
       if (res && res.data) {
         if (res.data.success) {
@@ -105,8 +108,10 @@ const ExamForm = ({
             popup: true,
             type: "error",
           });
+          setDataLoading(false);
         }
       }
+      setDataLoading(false);
     });
     // eslint-disable-next-line
   }, []);
@@ -253,8 +258,10 @@ const ExamForm = ({
             {Loading && <LinearProgress />}
           </Card>
         </div>
-      ) : (
+      ) : dataLoading ? (
         <Loader msg={"Loading subjects and exam types"} />
+      ) : (
+        "Some server error occured.Couldn't load form at the moment!!"
       )}
     </>
   );
