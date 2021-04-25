@@ -125,6 +125,12 @@ export default {
     noAuth: false,
   },
 
+  createExam: {
+    path: "/faculty/exam",
+    method: "post",
+    noAuth: false,
+  },
+
   getLeaves: {
     path: "/faculty/leaves",
     method: "get",
@@ -152,13 +158,6 @@ export default {
   verifyGatepass: {
     path: "/security/verify",
     method: "post",
-    noAuth: false,
-  },
-
-  //subjects
-  getAllsubjects: {
-    path: "/shared/subject",
-    method: "get",
     noAuth: false,
   },
 
@@ -193,6 +192,21 @@ export default {
   deleteExamType: {
     path: "admin/examtype",
     method: "delete",
+    noAuth: false,
+  },
+
+  //shared
+
+  getExamTypes: {
+    path: "shared/examtype",
+    method: "get",
+    noAuth: false,
+  },
+
+  //subjects
+  getAllsubjects: {
+    path: "/shared/subject",
+    method: "get",
     noAuth: false,
   },
 };

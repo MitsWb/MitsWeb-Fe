@@ -11,6 +11,7 @@ import SemestersList from "../components/Departments/SemestersList";
 import Leave from "../components/Pages/Faculty/LeaveApplications";
 import MyClasses from "../components/Pages/Faculty/Class/MyClasses";
 import Steps from "../components/Pages/Faculty/Class/Steps";
+import FacultyExamDashboard from "../components/Pages/Faculty/Exam/FacultyExamDashboard";
 const routes = {
   "/": () => <FacultyDashboard />,
   "/requests": () => <ApproveRequests />,
@@ -19,7 +20,8 @@ const routes = {
   "/logout": () => <Logout />,
   "/:department/semesters": () => <SemestersList />,
   "/class": () => <MyClasses />,
-  "/exam": () => <Exam />,
+  "/exam": () => <FacultyExamDashboard />,
+  "/exam/create": () => <Exam />,
   "/class/:className": ({ className }) => <Steps className={className} />,
 };
 

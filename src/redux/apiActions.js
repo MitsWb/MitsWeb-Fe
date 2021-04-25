@@ -20,9 +20,6 @@ export const loginGoogle = (body) => {
 
 //admin apis
 
-export const getAllsubjects = () => {
-  return fireRequest("getAllsubjects");
-};
 export const getAllusers = () => {
   return fireRequest("getAllusers");
 };
@@ -122,6 +119,10 @@ export const getClass = (id) => {
   return fireRequest("getMyclasses", [id]);
 };
 
+export const createExam = (body) => {
+  return fireRequest("createExam", [], body);
+};
+
 //security apis
 export const verifyGatepass = (body) => {
   return fireRequest("verifyGatepass", [], body);
@@ -142,4 +143,14 @@ export const editExamType = (body) => {
 
 export const deleteExamType = (id) => {
   return fireRequest("deleteExamType", [id]);
+};
+
+//shared apis
+
+export const getExamTypes = () => {
+  return fireRequest("getExamTypes");
+};
+
+export const getAllsubjects = () => {
+  return fireRequest("getAllsubjects");
 };
