@@ -124,7 +124,7 @@ const ExamForm = ({
   return (
     <>
       <Notify props={notify} closeAlert={closeAlert} />
-      {subjects.ready && examTypes.ready ? (
+      {subjects.ready && examTypes.ready && (
         <div>
           <Card className={classes.card}>
             <Typography className={classes.title} align="center">
@@ -258,10 +258,10 @@ const ExamForm = ({
             {Loading && <LinearProgress />}
           </Card>
         </div>
-      ) : dataLoading ? (
-        <Loader msg={"Loading subjects and exam types"} />
-      ) : (
-        "Some server error occured.Couldn't load form at the moment!!"
+      )}
+      {dataLoading && <Loader msg={"Loading exam creation form"} />}
+      {!dataLoading && (!subjects.ready || !examTypes.ready) && (
+        <h1>There is some problem loading the form!!</h1>
       )}
     </>
   );
