@@ -123,6 +123,9 @@ export const createExam = (body) => {
   return fireRequest("createExam", [], body);
 };
 
+export const getExams = (id) => {
+  return fireRequest("getExams", [id]);
+};
 //security apis
 export const verifyGatepass = (body) => {
   return fireRequest("verifyGatepass", [], body);

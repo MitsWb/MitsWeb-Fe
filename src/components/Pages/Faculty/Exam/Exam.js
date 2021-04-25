@@ -4,6 +4,7 @@ import { createExam } from "../../../../redux/apiActions";
 import { Notify } from "../../../../utils";
 import ExamForm from "./ExamForm";
 import useHeading from "../../Shared/useHeading";
+import BackButton from "../../../buttons/BackButton";
 
 const Exam = () => {
   const dispatch = useDispatch();
@@ -112,6 +113,7 @@ const Exam = () => {
 
   return (
     <>
+      <BackButton />
       <Notify props={notify} closeAlert={closeAlert} />
       <ExamForm
         Form={Form}

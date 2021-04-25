@@ -206,15 +206,16 @@ export default function CustomizedSteppers({ className }) {
   const [checked, setchecked] = useState({});
   const [notify, setnotify] = useState({ msg: "", popup: "", type: "" });
   useEffect(() => {
-    var validLink = true;
+    var validLink = false;
     setActiveStep(0);
     if (
-      !semesters.find((e) => e === Number(classDetails[0][1])) ||
-      !classDetails[0][0].toLowerCase() === "s" ||
-      !classDetails[0].length === 2 ||
+      classDetails.length === 3 &&
+      classDetails[0][0].toLowerCase() === "s" &&
+      !classDetails[0].length === 2 &&
+      semesters.find((e) => e === Number(classDetails[0][1])) &&
       !branches.find((e) => e === classDetails[1].toUpperCase())
     ) {
-      validLink = false;
+      validLink = true;
     }
     setlinkValid(validLink);
     //eslint-disable-next-line

@@ -124,7 +124,11 @@ export default {
     method: "get",
     noAuth: false,
   },
-
+  getExams: {
+    path: "/faculty/exam",
+    method: "get",
+    noAuth: false,
+  },
   createExam: {
     path: "/faculty/exam",
     method: "post",
