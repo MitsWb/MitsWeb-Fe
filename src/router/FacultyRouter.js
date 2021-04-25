@@ -3,6 +3,7 @@ import { useRoutes } from "hookrouter";
 import NotFoundPage from "../components/Pages/Shared/NotFoundPage";
 import FacultyDashboard from "../components/Pages/Faculty/Dashboard";
 import FacultyNavbar from "../components/Navbar/FacultyNavbar";
+import Exam from "../components/Pages/Faculty/Exam/Exam";
 import ApproveRequests from "../components/Pages/Faculty/ApproveRequests";
 import ViewGatePass from "../components/Features/GatePass/ViewGatepass";
 import Logout from "../components/Common/Logout";
@@ -18,6 +19,7 @@ const routes = {
   "/logout": () => <Logout />,
   "/:department/semesters": () => <SemestersList />,
   "/class": () => <MyClasses />,
+  "/exam": () => <Exam />,
   "/class/:className": ({ className }) => <Steps className={className} />,
 };
 

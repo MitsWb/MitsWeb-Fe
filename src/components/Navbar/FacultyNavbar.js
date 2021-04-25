@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import DoneAllIcon from "@material-ui/icons/DoneAll";
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import Navbar from "./Navbar";
 import { navigate } from "hookrouter";
 import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
@@ -18,7 +20,13 @@ const FacultyNavbar = ({ page }) => {
     {
       path: "/class",
       text: "My Classes",
-      icon: <DashboardIcon />,
+      icon: <SupervisedUserCircleIcon />,
+    },
+    { divider: true },
+    {
+      path: "/exam",
+      text: "Exams",
+      icon: <MenuBookIcon />,
     },
     { divider: true },
     {
