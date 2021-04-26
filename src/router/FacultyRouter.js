@@ -22,10 +22,10 @@ const routes = {
   "/leave": () => <Leave />,
   "/gatepass/view/:id": ({ id }) => <ViewGatePass id={id} />,
   "/logout": () => <Logout />,
-  "/:department/semesters": ({ department }) => (
+  "/departments/:department": ({ department }) => (
     <SemestersList department={department} />
   ),
-  "/:department/:semester": ({ department, semester }) => (
+  "/departments/:department/:semester": ({ department, semester }) => (
     <SemesterInformation department={department} semester={semester} />
   ),
   "/class": () => <MyClasses />,

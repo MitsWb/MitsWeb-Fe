@@ -54,7 +54,7 @@ const useStyles = makeStyles(() => ({
 const CustomCard = ({ classes, image, title, department }) => {
   const mediaStyles = useFourThreeCardMediaStyles();
   return (
-    <A href={`/${department}/semesters`}>
+    <A href={`/departments/${department}`}>
       <CardActionArea className={classes.actionArea}>
         <Card className={classes.card}>
           <CardMedia classes={mediaStyles} image={image} />

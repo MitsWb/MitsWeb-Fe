@@ -36,7 +36,7 @@ const SemestersList = ({ department }) => {
       <Box className={styles.root}>
         {semesters.map((semester) => {
           return (
-            <A href={`${semester}`}>
+            <A href={`/departments/${department}/${semester}`}>
               <ListItem classes={classes} className={styles.items} button>
                 <Typography className={styles.title}>{semester}</Typography>
               </ListItem>
