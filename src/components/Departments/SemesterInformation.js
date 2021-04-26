@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 function SemesterInformation({ department, semester }) {
   useHeading(`${department.toUpperCase()} ${semester.toUpperCase()} Dashboard`);
   const classes = useStyles();
-  const [value, setValue] = React.useState("recents");
+  const [value, setValue] = React.useState("discussions");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
