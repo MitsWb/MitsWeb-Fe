@@ -15,13 +15,19 @@ import {
   Exam,
   ViewExamType,
 } from "../components/Pages/Faculty/Exam";
+import SemesterInformation from "../components/Departments/SemesterInformation";
 const routes = {
   "/": () => <FacultyDashboard />,
   "/requests": () => <ApproveRequests />,
   "/leave": () => <Leave />,
   "/gatepass/view/:id": ({ id }) => <ViewGatePass id={id} />,
   "/logout": () => <Logout />,
-  "/:department/semesters": () => <SemestersList />,
+  "/:department/semesters": ({ department }) => (
+    <SemestersList department={department} />
+  ),
+  "/:department/:semester": ({ department, semester }) => (
+    <SemesterInformation department={department} semester={semester} />
+  ),
   "/class": () => <MyClasses />,
   "/exam": () => <FacultyExamDashboard />,
   "/exam/create": () => <Exam />,

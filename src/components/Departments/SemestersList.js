@@ -5,6 +5,7 @@ import { useJupiterListItemStyles } from "@mui-treasury/styles/listItem/jupiter"
 import { makeStyles, Typography } from "@material-ui/core";
 import useHeading from "../Pages/Shared/useHeading";
 import BackButton from "../buttons/BackButton";
+import { A } from "hookrouter";
 
 const useStyles = makeStyles(({ breakpoints }) => ({
   root: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles(({ breakpoints }) => ({
   },
 }));
 
-const SemestersList = () => {
+const SemestersList = ({ department }) => {
   const classes = useJupiterListItemStyles();
   const styles = useStyles();
   useHeading("Semesters");
@@ -35,9 +36,11 @@ const SemestersList = () => {
       <Box className={styles.root}>
         {semesters.map((semester) => {
           return (
-            <ListItem classes={classes} className={styles.items} button>
-              <Typography className={styles.title}>{semester}</Typography>
-            </ListItem>
+            <A href={`${semester}`}>
+              <ListItem classes={classes} className={styles.items} button>
+                <Typography className={styles.title}>{semester}</Typography>
+              </ListItem>
+            </A>
           );
         })}
       </Box>
