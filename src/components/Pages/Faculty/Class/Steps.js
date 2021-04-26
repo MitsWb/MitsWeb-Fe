@@ -190,7 +190,7 @@ function getStepContent(
 
 const semesters = [1, 2, 3, 4, 5, 6, 7, 8];
 const branches = ["CE", "ME", "EEE", "ECE", "CSE"];
-export default function CustomizedSteppers({ className }) {
+const AddAttendance = ({ className }) => {
   const classes = useStyles();
   useHeading("Attendance");
   const classDetails = className.split("-");
@@ -211,9 +211,9 @@ export default function CustomizedSteppers({ className }) {
     if (
       classDetails.length === 3 &&
       classDetails[0][0].toLowerCase() === "s" &&
-      !classDetails[0].length === 2 &&
+      classDetails[0].length === 2 &&
       semesters.find((e) => e === Number(classDetails[0][1])) &&
-      !branches.find((e) => e === classDetails[1].toUpperCase())
+      branches.find((e) => e === classDetails[1].toUpperCase())
     ) {
       validLink = true;
     }
@@ -410,4 +410,6 @@ export default function CustomizedSteppers({ className }) {
       )}{" "}
     </div>
   );
-}
+};
+
+export default AddAttendance;
