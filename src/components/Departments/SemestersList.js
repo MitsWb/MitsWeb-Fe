@@ -28,34 +28,18 @@ const SemestersList = () => {
   const classes = useJupiterListItemStyles();
   const styles = useStyles();
   useHeading("Semesters");
+  const semesters = ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8"];
   return (
     <>
       <BackButton />
       <Box className={styles.root}>
-        <ListItem classes={classes} className={styles.items} button>
-          <Typography className={styles.title}>S1</Typography>
-        </ListItem>
-        <ListItem classes={classes} className={styles.items} button>
-          <Typography className={styles.title}>S2</Typography>
-        </ListItem>
-        <ListItem classes={classes} className={styles.items} button>
-          <Typography className={styles.title}>S3</Typography>
-        </ListItem>
-        <ListItem classes={classes} className={styles.items} button>
-          <Typography className={styles.title}>S4</Typography>
-        </ListItem>
-        <ListItem classes={classes} className={styles.items} button>
-          <Typography className={styles.title}>S5</Typography>
-        </ListItem>
-        <ListItem classes={classes} className={styles.items} button>
-          <Typography className={styles.title}>S6</Typography>
-        </ListItem>
-        <ListItem classes={classes} className={styles.items} button>
-          <Typography className={styles.title}>S7</Typography>
-        </ListItem>
-        <ListItem classes={classes} className={styles.items} button>
-          <Typography className={styles.title}>S8</Typography>
-        </ListItem>
+        {semesters.map((semester) => {
+          return (
+            <ListItem classes={classes} className={styles.items} button>
+              <Typography className={styles.title}>{semester}</Typography>
+            </ListItem>
+          );
+        })}
       </Box>
     </>
   );
