@@ -40,7 +40,6 @@ const Exam = () => {
   const handleChange = (e) => {
     setError(initError);
     const { name, value } = e.target;
-    console.log(name, value);
     setForm({ ...Form, [name]: value });
   };
 
