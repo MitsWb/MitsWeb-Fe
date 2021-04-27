@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getExams, editExam } from "../../../../redux/apiActions";
+import { getExams, editExam ,deleteExam } from "../../../../redux/apiActions";
 import Edit from "./EditExam";
+import DeleteExam from "./DeleteExam";
 import {
   Paper,
   Table,
@@ -41,8 +42,19 @@ const useStyles = makeStyles({
   },
 });
 
-const EditExam = ({ Data, open, handleClose, handleSubmit }) => {
+const EditExam = ({ Data, open, handleClose, handleSubmit,handleDeleteExam }) => {
+  const [delOpen, setdelOpen] = useState(false);
   return (
+    <>
+    <DeleteExam
+        open={delOpen}
+        handleClose={() => setdelOpen(false)}
+
+        handleConfirm={() => {
+          setdelOpen(false);
+          handleDeleteExam();
+        }}
+      />
     <Dialog
       open={open}
       onClose={() => {
@@ -56,7 +68,7 @@ const EditExam = ({ Data, open, handleClose, handleSubmit }) => {
       <DialogActions>
         <Button
           style={{ outline: "none" }}
-          // onClick={() => setdelOpen(true)}
+           onClick={() => setdelOpen(true)}
           color="secondary"
         >
           Delete
@@ -72,6 +84,7 @@ const EditExam = ({ Data, open, handleClose, handleSubmit }) => {
         </Button>
       </DialogActions>
     </Dialog>
+  </>
   );
 };
 function ViewExamtype({ typeId }) {
@@ -139,6 +152,19 @@ function ViewExamtype({ typeId }) {
       setloading(false);
     });
   };
+  const handleDeleteExam=()=>{
+    setopen(false)
+    dispatch(deleteExam(Data)).then((res)=>{
+    if(res&&res.data&&res.data.success){
+      setnotify({msg:res.data.msg,popup:true,type:"success"})
+    }
+    else if(res&&res.data){
+      setnotify({msg:res.data.msg,popup:true,type:"error"})
+    }      
+    setrerender(!rerender)
+
+    })
+  }
   return (
     <>
       <BackButton />
@@ -147,6 +173,7 @@ function ViewExamtype({ typeId }) {
         Data={Data}
         open={open}
         handleClose={() => setopen(false)}
+        handleDeleteExam={handleDeleteExam}
       />
       <Notify props={notify} closeAlert={() => setnotify({ popup: false })} />
       {loading ? (

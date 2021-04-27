@@ -148,10 +148,15 @@ export const editExamType = (body) => {
   return fireRequest("editExamType", [], body);
 };
 
+
+
 export const deleteExamType = (id) => {
   return fireRequest("deleteExamType", [id]);
 };
 
+export const deleteExam = (id) => {
+  return fireRequest("deleteExam", [id]);
+};
 //shared apis
 
 export const getExamTypes = () => {

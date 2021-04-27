@@ -134,7 +134,11 @@ export default {
     method: "post",
     noAuth: false,
   },
-
+  deleteExam: {
+    path: "/faculty/exam",
+    method: "delete",
+    noAuth: false,
+  },
   editExam: {
     path: "/faculty/exam",
     method: "put",
