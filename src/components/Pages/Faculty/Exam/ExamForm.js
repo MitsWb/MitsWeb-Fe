@@ -143,7 +143,7 @@ const ExamForm = ({
                       size="small"
                       label="Exam Type"
                       variant="outlined"
-                      error={Error["examType"]}
+                      error={Error["examType"] ? true : false}
                       helperText={Error["examType"]}
                     />
                   )}
@@ -165,7 +165,7 @@ const ExamForm = ({
                       label="Subject"
                       name="subject"
                       variant="outlined"
-                      error={Error["subject"]}
+                      error={Error["subject"] ? true : false}
                       helperText={Error["subject"]}
                     />
                   )}
@@ -182,7 +182,7 @@ const ExamForm = ({
                   name="date"
                   value={Form.date}
                   onChange={handleChange}
-                  error={Error["date"]}
+                  error={Error["date"] ? true : false}
                   helperText={Error["date"]}
                 />
               </Grid>
@@ -197,7 +197,7 @@ const ExamForm = ({
                   name="startTimestamp"
                   value={Form.startTimestamp}
                   onChange={handleChange}
-                  error={Error["startTimestamp"]}
+                  error={Error["startTimestamp"] ? true : false}
                   helperText={Error["startTimestamp"]}
                 />
               </Grid>
@@ -212,35 +212,34 @@ const ExamForm = ({
                   name="endTimestamp"
                   value={Form.endTimestamp}
                   onChange={handleChange}
-                  error={Error["endTimestamp"]}
+                  error={Error["endTimestamp"] ? true : false}
                   helperText={Error["endTimestamp"]}
                 />
               </Grid>
-
               <Grid item xs={12} sm={6}>
                 <StepLabel>No of Questions</StepLabel>
                 <TextField
                   size="small"
                   variant="outlined"
                   label="Number Of Questons"
-                  placeholder={5}
+                  placeholder={"5"}
                   className={classes.textField}
                   name="numberOfQuestions"
                   value={Form.numberOfQuestions}
                   onChange={handleChange}
-                  error={Error["numberOfQuestions"]}
+                  error={Error["numberOfQuestions"] ? true : false}
                   helperText={Error["numberOfQuestions"]}
                 />
               </Grid>
+              <Button
+                style={{ margin: "0px auto", outline: "none" }}
+                color="primary"
+                variant="contained"
+                onClick={handleSubmit}
+              >
+                <Typography>Submit</Typography>
+              </Button>
             </Grid>
-            <Button
-              style={{ margin: "0px auto", outline: "none" }}
-              color="primary"
-              variant="contained"
-              onClick={handleSubmit}
-            >
-              <Typography>Submit</Typography>
-            </Button>
             {Loading && <LinearProgress />}
           </Card>
         </div>
