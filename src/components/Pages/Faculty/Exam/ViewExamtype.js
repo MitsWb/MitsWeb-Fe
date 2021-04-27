@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getExams, editExam ,deleteExam } from "../../../../redux/apiActions";
+import { getExams, editExam, deleteExam } from "../../../../redux/apiActions";
 import Edit from "./EditExam";
 import DeleteExam from "./DeleteExam";
 import {
@@ -42,49 +42,54 @@ const useStyles = makeStyles({
   },
 });
 
-const EditExam = ({ Data, open, handleClose, handleSubmit,handleDeleteExam }) => {
+const EditExam = ({
+  Data,
+  open,
+  handleClose,
+  handleSubmit,
+  handleDeleteExam,
+}) => {
   const [delOpen, setdelOpen] = useState(false);
   return (
     <>
-    <DeleteExam
+      <DeleteExam
         open={delOpen}
         handleClose={() => setdelOpen(false)}
-
         handleConfirm={() => {
           setdelOpen(false);
           handleDeleteExam();
         }}
       />
-    <Dialog
-      open={open}
-      onClose={() => {
-        handleClose();
-      }}
-      aria-labelledby="form-dialog-title"
-    >
-      <DialogContent>
-        <Edit handleSubmit={handleSubmit} examId={Data} />
-      </DialogContent>
-      <DialogActions>
-        <Button
-          style={{ outline: "none" }}
-           onClick={() => setdelOpen(true)}
-          color="secondary"
-        >
-          Delete
-        </Button>
-        <Button
-          style={{ outline: "none" }}
-          onClick={() => {
-            handleClose();
-          }}
-          color="primary"
-        >
-          Back
-        </Button>
-      </DialogActions>
-    </Dialog>
-  </>
+      <Dialog
+        open={open}
+        onClose={() => {
+          handleClose();
+        }}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogContent>
+          <Edit handleSubmit={handleSubmit} examId={Data} />
+        </DialogContent>
+        <DialogActions>
+          <Button
+            style={{ outline: "none" }}
+            onClick={() => setdelOpen(true)}
+            color="secondary"
+          >
+            Delete
+          </Button>
+          <Button
+            style={{ outline: "none" }}
+            onClick={() => {
+              handleClose();
+            }}
+            color="primary"
+          >
+            Back
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 };
 function ViewExamtype({ typeId }) {
@@ -152,19 +157,17 @@ function ViewExamtype({ typeId }) {
       setloading(false);
     });
   };
-  const handleDeleteExam=()=>{
-    setopen(false)
-    dispatch(deleteExam(Data)).then((res)=>{
-    if(res&&res.data&&res.data.success){
-      setnotify({msg:res.data.msg,popup:true,type:"success"})
-    }
-    else if(res&&res.data){
-      setnotify({msg:res.data.msg,popup:true,type:"error"})
-    }      
-    setrerender(!rerender)
-
-    })
-  }
+  const handleDeleteExam = () => {
+    setopen(false);
+    dispatch(deleteExam(Data)).then((res) => {
+      if (res && res.data && res.data.success) {
+        setnotify({ msg: res.data.msg, popup: true, type: "success" });
+      } else if (res && res.data) {
+        setnotify({ msg: res.data.msg, popup: true, type: "error" });
+      }
+      setrerender(!rerender);
+    });
+  };
   return (
     <>
       <BackButton />
