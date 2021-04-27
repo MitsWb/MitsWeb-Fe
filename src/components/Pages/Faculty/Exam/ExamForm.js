@@ -13,7 +13,7 @@ import { getAllsubjects, getExamTypes } from "../../../../redux/apiActions";
 import { useDispatch } from "react-redux";
 import { Loader, Notify } from "../../../../utils";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-
+import Dimensions from "../../Shared/Dimensions";
 const useStyles = makeStyles({
   paper: {
     margin: "0px auto",
@@ -51,7 +51,7 @@ const ExamForm = ({
   title = "New exam",
 }) => {
   const dispatch = useDispatch();
-
+  const { width } = Dimensions();
   const classes = useStyles();
 
   const [subjects, setSubjects] = useState({
@@ -120,7 +120,14 @@ const ExamForm = ({
             <Typography className={classes.title} align="center">
               {title}
             </Typography>
-            <Grid container spacing={3} className={classes.grid}>
+            <Grid
+              alignItems="center"
+              justify="center"
+              direction={width < 600 ? "column" : "row"}
+              container
+              spacing={3}
+              className={classes.grid}
+            >
               <Grid item xs={12} sm={6}>
                 <Autocomplete
                   options={examTypes.data}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useHeading from "../Shared/useHeading";
 import { Grid, Typography, Card, CardMedia } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Dimensions from "./Dimensions";
+import Dimensions from "../Shared/Dimensions";
 import Login from "./LoginPage";
 
 const bannerImg = require("../../../assets/images/banner.svg");
