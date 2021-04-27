@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getExams } from "../../../../redux/apiActions";
+import { getExams, editExam } from "../../../../redux/apiActions";
+import Edit from "./EditExam";
 import {
   Paper,
   Table,
@@ -11,16 +12,15 @@ import {
   TablePagination,
   TableRow,
   Typography,
-  /*Dialog,
+  Dialog,
   DialogActions,
   DialogContent,
-  Button,*/
+  Button,
 } from "@material-ui/core";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import useHeading from "../../Shared/useHeading";
 import { Loader, Notify } from "../../../../utils";
 import BackButton from "../../../buttons/BackButton";
-
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -40,14 +40,50 @@ const useStyles = makeStyles({
     maxHeight: 440,
   },
 });
+
+const EditExam = ({ Data, open, handleClose, handleSubmit }) => {
+  return (
+    <Dialog
+      open={open}
+      onClose={() => {
+        handleClose();
+      }}
+      aria-labelledby="form-dialog-title"
+    >
+      <DialogContent>
+        <Edit handleSubmit={handleSubmit} examId={Data} />
+      </DialogContent>
+      <DialogActions>
+        <Button
+          style={{ outline: "none" }}
+          // onClick={() => setdelOpen(true)}
+          color="secondary"
+        >
+          Delete
+        </Button>
+        <Button
+          style={{ outline: "none" }}
+          onClick={() => {
+            handleClose();
+          }}
+          color="primary"
+        >
+          Back
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
 function ViewExamtype({ typeId }) {
   useHeading("Exam List");
   const dispatch = useDispatch();
   const classes = useStyles();
   const [loading, setloading] = useState(false);
   const [notify, setnotify] = useState({});
-  // const [Data, setData] = useState([]);
+  const [Data, setData] = useState([]);
+  const [open, setopen] = useState(false);
   const [rows, setrows] = useState([]);
+  const [rerender, setrerender] = useState(false);
   useEffect(() => {
     setloading(true);
     dispatch(getExams(typeId)).then((res) => {
@@ -60,7 +96,7 @@ function ViewExamtype({ typeId }) {
       }
       setloading(false);
     });
-  }, [dispatch, typeId]);
+  }, [dispatch, typeId, rerender]);
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(4);
@@ -89,9 +125,29 @@ function ViewExamtype({ typeId }) {
   const NoResults = () => {
     return <>No exams found</>;
   };
+
+  const handleEdit = (Form) => {
+    setopen(false);
+    setloading(true);
+    dispatch(editExam(Form)).then((res) => {
+      if (res && res.data && res.data.success) {
+        setnotify({ msg: res.data.msg, popup: true, type: "success" });
+      } else if (res && res.data) {
+        setnotify({ msg: res.data.msg, popup: true, type: "error" });
+      }
+      setrerender(!rerender);
+      setloading(false);
+    });
+  };
   return (
     <>
       <BackButton />
+      <EditExam
+        handleSubmit={handleEdit}
+        Data={Data}
+        open={open}
+        handleClose={() => setopen(false)}
+      />
       <Notify props={notify} closeAlert={() => setnotify({ popup: false })} />
       {loading ? (
         <Loader />
@@ -130,8 +186,8 @@ function ViewExamtype({ typeId }) {
                             hover
                             role="checkbox"
                             onClick={() => {
-                              //setData(row);
-                              //  setopen(true);
+                              setData(row._id);
+                              setopen(true);
                             }}
                             tabIndex={-1}
                             key={row._id}

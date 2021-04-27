@@ -140,6 +140,10 @@ export const createExamType = (body) => {
   return fireRequest("createExamType", [], body);
 };
 
+export const editExam = (body) => {
+  return fireRequest("editExam", [], body);
+};
+
 export const editExamType = (body) => {
   return fireRequest("editExamType", [], body);
 };

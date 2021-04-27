@@ -48,7 +48,7 @@ const ExamForm = ({
   setForm,
   Loading,
   Error,
-  title = "New exam",
+  title,
 }) => {
   const dispatch = useDispatch();
   const { width } = Dimensions();
@@ -73,36 +73,42 @@ const ExamForm = ({
   const [dataLoading, setDataLoading] = useState(true);
 
   useEffect(() => {
-    setDataLoading(true);
-    dispatch(getAllsubjects()).then((res) => {
-      if (res && res.data) {
-        if (res.data.success) {
-          setSubjects({ ready: true, data: res.data.data });
-        } else {
-          setnotify({
-            msg: res.data.msg,
-            popup: true,
-            type: "error",
-          });
+    if (title !== "Edit Exam") {
+      setDataLoading(true);
+      dispatch(getAllsubjects()).then((res) => {
+        if (res && res.data) {
+          if (res.data.success) {
+            setSubjects({ ready: true, data: res.data.data });
+          } else {
+            setnotify({
+              msg: res.data.msg,
+              popup: true,
+              type: "error",
+            });
+          }
         }
-      }
-    });
+      });
 
-    dispatch(getExamTypes()).then((res) => {
-      if (res && res.data) {
-        if (res.data.success) {
-          setExamTypes({ ready: true, data: res.data.data });
-        } else {
-          setnotify({
-            msg: res.data.msg,
-            popup: true,
-            type: "error",
-          });
-          setDataLoading(false);
+      dispatch(getExamTypes()).then((res) => {
+        if (res && res.data) {
+          if (res.data.success) {
+            setExamTypes({ ready: true, data: res.data.data });
+          } else {
+            setnotify({
+              msg: res.data.msg,
+              popup: true,
+              type: "error",
+            });
+            setDataLoading(false);
+          }
         }
-      }
+        setDataLoading(false);
+      });
+    } else {
+      setSubjects({ ready: true });
+      setExamTypes({ ready: true });
       setDataLoading(false);
-    });
+    }
     // eslint-disable-next-line
   }, []);
 
@@ -128,49 +134,52 @@ const ExamForm = ({
               spacing={3}
               className={classes.grid}
             >
-              <Grid item xs={12} sm={6}>
-                <Autocomplete
-                  options={examTypes.data}
-                  getOptionLabel={(option) => option.type}
-                  className={classes.textField}
-                  onChange={(e, value) => {
-                    setForm({ ...Form, examType: value._id });
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      required
-                      size="small"
-                      label="Exam Type"
-                      variant="outlined"
-                      error={Error["examType"] ? true : false}
-                      helperText={Error["examType"]}
-                    />
-                  )}
-                />
-              </Grid>
-
-              <Grid item xs={12} sm={6}>
-                <Autocomplete
-                  options={subjects.data}
-                  getOptionLabel={(option) => option.name}
-                  className={classes.textField}
-                  onChange={(e, value) => {
-                    setForm({ ...Form, subject: value._id });
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      size="small"
-                      label="Subject"
-                      name="subject"
-                      variant="outlined"
-                      error={Error["subject"] ? true : false}
-                      helperText={Error["subject"]}
-                    />
-                  )}
-                />
-              </Grid>
+              {title !== "Edit Exam" && (
+                <Grid item xs={12} sm={6}>
+                  <Autocomplete
+                    options={examTypes.data}
+                    getOptionLabel={(option) => option.type}
+                    className={classes.textField}
+                    onChange={(e, value) => {
+                      setForm({ ...Form, examType: value ? value._id : null });
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        required
+                        size="small"
+                        label="Exam Type"
+                        variant="outlined"
+                        error={Error["examType"] ? true : false}
+                        helperText={Error["examType"]}
+                      />
+                    )}
+                  />
+                </Grid>
+              )}
+              {title !== "Edit Exam" && (
+                <Grid item xs={12} sm={6}>
+                  <Autocomplete
+                    options={subjects.data}
+                    getOptionLabel={(option) => option.name}
+                    className={classes.textField}
+                    onChange={(e, value) => {
+                      setForm({ ...Form, subject: value ? value._id : null });
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        size="small"
+                        label="Subject"
+                        name="subject"
+                        variant="outlined"
+                        error={Error["subject"] ? true : false}
+                        helperText={Error["subject"]}
+                      />
+                    )}
+                  />
+                </Grid>
+              )}
 
               <Grid item xs={12} sm={6}>
                 <StepLabel>On Date</StepLabel>

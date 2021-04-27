@@ -135,6 +135,12 @@ export default {
     noAuth: false,
   },
 
+  editExam: {
+    path: "/faculty/exam",
+    method: "put",
+    noAuth: false,
+  },
+
   getLeaves: {
     path: "/faculty/leaves",
     method: "get",

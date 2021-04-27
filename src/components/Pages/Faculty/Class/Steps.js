@@ -8,7 +8,6 @@ import Check from "@material-ui/icons/Check";
 import { CalendarToday, GroupAdd } from "@material-ui/icons";
 import StepConnector from "@material-ui/core/StepConnector";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import DateFnsUtils from "@date-io/date-fns";
 import AttendaceList from "./AttendaceList";
 import { getStudents, addAttendance } from "../../../../redux/apiActions";
