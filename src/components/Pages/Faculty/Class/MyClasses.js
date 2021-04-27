@@ -42,26 +42,24 @@ function MyClasses() {
         <Grid container spacing={3}>
           {myclasses.map((value, key) => {
             return (
-              <>
-                <Grid key={key} item xs={6} sm={3}>
-                  <A
-                    href={`/class/S${value.semester}-${value.department}-${value.code}`}
-                  >
-                    <Card className={classes.paper}>
-                      <CardContent>
-                        <Typography>
-                          {"S" +
-                            value.semester +
-                            " " +
-                            value.department +
-                            " " +
-                            value.code}
-                        </Typography>
-                      </CardContent>
-                    </Card>
-                  </A>
-                </Grid>
-              </>
+              <Grid key={key} item xs={6} sm={3}>
+                <A
+                  href={`/class/S${value.semester}-${value.department}-${value.code}`}
+                >
+                  <Card className={classes.paper}>
+                    <CardContent>
+                      <Typography>
+                        {"S" +
+                          value.semester +
+                          " " +
+                          value.department +
+                          " " +
+                          value.code}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </A>
+              </Grid>
             );
           })}
         </Grid>

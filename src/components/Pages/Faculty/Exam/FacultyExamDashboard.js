@@ -28,7 +28,6 @@ const FacultyExamDashboard = () => {
   useEffect(() => {
     setloading(true);
     dispatch(getExamTypes()).then((res) => {
-      console.log(res.data);
       if (res && res.data && res.data.success) {
         setexamtypes(res.data.data);
       }
@@ -45,17 +44,15 @@ const FacultyExamDashboard = () => {
         <Grid container spacing={3}>
           {examtypes.map((value, key) => {
             return (
-              <>
-                <Grid key={key} item xs={6} sm={3}>
-                  <A href={`/exam/${value._id}`}>
-                    <Card className={classes.paper}>
-                      <CardContent>
-                        <Typography>{value.type}</Typography>
-                      </CardContent>
-                    </Card>
-                  </A>
-                </Grid>
-              </>
+              <Grid key={key} item xs={6} sm={3}>
+                <A href={`/exam/${value._id}`}>
+                  <Card className={classes.paper}>
+                    <CardContent>
+                      <Typography>{value.type}</Typography>
+                    </CardContent>
+                  </Card>
+                </A>
+              </Grid>
             );
           })}
         </Grid>

@@ -78,7 +78,7 @@ const ExamTypeForm = ({
                     name="type"
                     value={Form.type}
                     onChange={handleChange}
-                    error={Error["type"]}
+                    error={Error["type"] ? true : false}
                     helperText={Error["type"]}
                   />
                 </Grid>
@@ -96,7 +96,7 @@ const ExamTypeForm = ({
                     name="maxMark"
                     value={Form.maxMark}
                     onChange={handleChange}
-                    error={Error["maxMark"]}
+                    error={Error["maxMark"] ? true : false}
                     helperText={Error["maxMark"]}
                   />
                 </Grid>
@@ -114,7 +114,7 @@ const ExamTypeForm = ({
                     name="passMark"
                     value={Form.passMark}
                     onChange={handleChange}
-                    error={Error["passMark"]}
+                    error={Error["passMark"] ? true : false}
                     helperText={Error["passMark"]}
                   />
                 </Grid>

@@ -150,7 +150,7 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error, loading }) => {
             label="Email"
             onChange={handleChange}
             autoComplete="email"
-            error={Error["email"]}
+            error={Error["email"] ? true : false}
             helperText={Error["email"]}
             className={classes.textField}
             margin="normal"
@@ -168,7 +168,7 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error, loading }) => {
             name="password"
             value={Form.password}
             onChange={handleChange}
-            error={Error["password"]}
+            error={Error["password"] ? true : false}
           />
         </Grid>
         {Form.type === "faculty" && (
@@ -182,7 +182,7 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error, loading }) => {
                 label="Year Of Joining"
                 onChange={handleChange}
                 autoComplete="joiningYear"
-                error={Error["joiningYear"]}
+                error={Error["joiningYear"] ? true : false}
                 helperText={Error["joiningYear"]}
                 className={classes.textField}
                 margin="normal"
@@ -200,7 +200,7 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error, loading }) => {
                 name="rollNo"
                 value={Form.rollNo}
                 onChange={handleChange}
-                error={Error["rollNo"]}
+                error={Error["rollNo"] ? true : false}
                 helperText={Error["rollNo"]}
               />
             </Grid>
@@ -328,7 +328,7 @@ const AddUserForm = ({ handleChange, handleSubmit, Form, Error, loading }) => {
                 label="Roll No"
                 onChange={handleChange}
                 autoComplete="rollNo"
-                error={Error["rollNo"]}
+                error={Error["rollNo"] ? true : false}
                 helperText={Error["rollNo"]}
                 className={classes.textField}
                 margin="normal"

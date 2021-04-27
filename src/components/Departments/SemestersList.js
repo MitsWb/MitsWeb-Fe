@@ -34,9 +34,9 @@ const SemestersList = ({ department }) => {
     <>
       <BackButton />
       <Box className={styles.root}>
-        {semesters.map((semester) => {
+        {semesters.map((semester, key) => {
           return (
-            <A href={`/departments/${department}/${semester}`}>
+            <A key={key} href={`/departments/${department}/${semester}`}>
               <ListItem classes={classes} className={styles.items} button>
                 <Typography className={styles.title}>{semester}</Typography>
               </ListItem>

@@ -191,7 +191,7 @@ function SubjectForm({
                       label="Subject Name"
                       onChange={handleChange}
                       autoComplete="name"
-                      error={Error["name"]}
+                      error={Error["name"] ? true : false}
                       helperText={Error["name"]}
                       margin="normal"
                       variant="outlined"
@@ -206,7 +206,7 @@ function SubjectForm({
                       name="code"
                       value={Form.code}
                       onChange={handleChange}
-                      error={Error["code"]}
+                      error={Error["code"] ? true : false}
                       helperText={Error["code"]}
                     />
                   </Grid>

@@ -146,28 +146,26 @@ function getStepContent(
   switch (step) {
     case 0:
       return (
-        <>
-          <div className="m-0 grid grid-cols-1  m-auto">
-            <Card style={{ padding: 6 }} className="m-0  m-auto">
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <KeyboardDatePicker
-                  disableToolbar
-                  variant="inline"
-                  format="MM/dd/yyyy"
-                  margin="normal"
-                  id="date-picker-inline"
-                  label="On Date"
-                  value={date}
-                  style={{ margin: "0px auto" }}
-                  onChange={(e) => setDate(e)}
-                  KeyboardButtonProps={{
-                    "aria-label": "change date",
-                  }}
-                />
-              </MuiPickersUtilsProvider>
-            </Card>
-          </div>
-        </>
+        <div className="m-0 grid grid-cols-1  m-auto">
+          <Card style={{ padding: 6 }} className="m-0  m-auto">
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDatePicker
+                disableToolbar
+                variant="inline"
+                format="MM/dd/yyyy"
+                margin="normal"
+                id="date-picker-inline"
+                label="On Date"
+                value={date}
+                style={{ margin: "0px auto" }}
+                onChange={(e) => setDate(e)}
+                KeyboardButtonProps={{
+                  "aria-label": "change date",
+                }}
+              />
+            </MuiPickersUtilsProvider>
+          </Card>
+        </div>
       );
     case 1:
       return (
@@ -370,7 +368,7 @@ const AddAttendance = ({ className }) => {
           <div className="w-full ">
             <div>
               <div>
-                <Typography className={classes.instructions}>
+                <div className={classes.instructions}>
                   {getStepContent(
                     activeStep,
                     Data,
@@ -382,7 +380,7 @@ const AddAttendance = ({ className }) => {
                     handleAttendance,
                     classTimings
                   )}
-                </Typography>
+                </div>
                 <div className="m-6">
                   <Button
                     disabled={activeStep === 0}

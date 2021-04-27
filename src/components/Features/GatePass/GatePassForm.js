@@ -134,7 +134,7 @@ const GatePassForm = ({
                 fullWidth
                 onChange={handleChange}
                 autoComplete="Description"
-                error={Error["Description"]}
+                error={Error["Description"] ? true : false}
                 helperText={Error["Description"]}
               />
             </Grid>

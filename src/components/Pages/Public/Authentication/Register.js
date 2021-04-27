@@ -269,7 +269,7 @@ const Register = () => {
                   type="password"
                   id="oldpassword"
                   label="Old password"
-                  error={error["oldpassword"]}
+                  error={error["oldpassword"] ? true : false}
                   helperText={error["oldpassword"]}
                 />
               </Grid>
@@ -285,7 +285,7 @@ const Register = () => {
                   fullWidth
                   id="password"
                   label="New Password"
-                  error={error["password"]}
+                  error={error["password"] ? true : false}
                   helperText={error["password"]}
                 />
               </Grid>
@@ -301,7 +301,7 @@ const Register = () => {
                   fullWidth
                   id="confirm"
                   label="Confirm Password"
-                  error={error["confirm"]}
+                  error={error["confirm"] ? true : false}
                   helperText={error["confirm"]}
                 />
               </Grid>

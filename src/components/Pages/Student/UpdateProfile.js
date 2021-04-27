@@ -202,7 +202,7 @@ const UpdateProfile = () => {
               label="Name"
               name="name"
               autoComplete="name"
-              error={Error["name"]}
+              error={Error["name"] ? true : false}
               helperText={Error["name"]}
               autoFocus
             />
@@ -217,7 +217,7 @@ const UpdateProfile = () => {
               label="Mobile number"
               id="number"
               autoComplete="number"
-              error={Error["number"]}
+              error={Error["number"] ? true : false}
               helperText={Error["number"]}
             />
             <TextField
@@ -231,7 +231,7 @@ const UpdateProfile = () => {
               label="Address"
               id="address"
               autoComplete="address"
-              error={Error["address"]}
+              error={Error["address"] ? true : false}
               helperText={Error["address"]}
             />
             <Grid container spacing={2}>
@@ -246,7 +246,7 @@ const UpdateProfile = () => {
                   fullWidth
                   id="fatherName"
                   label="Father's Name "
-                  error={Error["fatherName"]}
+                  error={Error["fatherName"] ? true : false}
                   helperText={Error["fatherName"]}
                 />
               </Grid>
@@ -262,7 +262,7 @@ const UpdateProfile = () => {
                   fullWidth
                   id="fatherMobile"
                   label="Contact Number"
-                  error={Error["fatherMobile"]}
+                  error={Error["fatherMobile"] ? true : false}
                   helperText={Error["fatherMobile"]}
                 />
               </Grid>
@@ -279,7 +279,7 @@ const UpdateProfile = () => {
                   fullWidth
                   id="motherName"
                   label="Mother's Name "
-                  error={Error["motherName"]}
+                  error={Error["motherName"] ? true : false}
                   helperText={Error["motherName"]}
                 />
               </Grid>
@@ -295,7 +295,7 @@ const UpdateProfile = () => {
                   fullWidth
                   id="motherMobile"
                   label="Contact Number"
-                  error={Error["motherMobile"]}
+                  error={Error["motherMobile"] ? true : false}
                   helperText={Error["motherMobile"]}
                 />
               </Grid>
@@ -312,7 +312,7 @@ const UpdateProfile = () => {
                   fullWidth
                   id="dob"
                   label="Date Of Birth"
-                  error={Error["dob"]}
+                  error={Error["dob"] ? true : false}
                   helperText={Error["dob"]}
                 />
               </Grid>
@@ -328,7 +328,7 @@ const UpdateProfile = () => {
                   fullWidth
                   id="bloodGroup"
                   label="Blood Group"
-                  error={Error["bloodGroup"]}
+                  error={Error["bloodGroup"] ? true : false}
                   helperText={Error["bloodGroup"]}
                 />
               </Grid>
@@ -349,7 +349,7 @@ const UpdateProfile = () => {
                   fullWidth
                   id="password"
                   label="Password"
-                  error={Error["password"]}
+                  error={Error["password"] ? true : false}
                   helperText={Error["password"]}
                 />
               </Grid>
@@ -365,7 +365,7 @@ const UpdateProfile = () => {
                   fullWidth
                   id="confirm"
                   label="Confirm Password"
-                  error={Error["confirm"]}
+                  error={Error["confirm"] ? true : false}
                   helperText={Error["confirm"]}
                 />
               </Grid>

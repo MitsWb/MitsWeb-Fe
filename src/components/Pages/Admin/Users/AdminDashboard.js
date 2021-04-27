@@ -482,7 +482,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
                   label="User Name"
                   value={form.name}
                   fullWidth
-                  error={err["name"]}
+                  error={err["name"] ? true : false}
                   helperText={err["name"]}
                   autoComplete="new-password"
                 />
@@ -490,12 +490,12 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
               <Grid item sx={12} sm={6}>
                 {(form.type === "student" || form.type === "faculty") && (
                   <FormControl
-                    error={Error["department"]}
+                    error={Error["department"] ? true : false}
                     variant="filled"
                     //  className={classes.formControl}
                   >
                     <Select
-                      Error={Error["department"]}
+                      Error={Error["department"] ? true : false}
                       onChange={handleChange}
                       displayEmpty
                       id="department"
@@ -548,7 +548,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
                 label="Mobile Number"
                 value={form.mobile}
                 fullWidth
-                error={err["mobile"]}
+                error={err["mobile"] ? true : false}
                 helperText={err["mobile"]}
                 autoComplete="new-password"
               />
@@ -562,7 +562,7 @@ const FormDialog = ({ open, handleClose, id, changeStatus }) => {
                   label="Roll No"
                   value={form.rollNo}
                   fullWidth
-                  error={err["rollNo"]}
+                  error={err["rollNo"] ? true : false}
                   helperText={err["rollNo"]}
                   autoComplete="roll-number"
                 />

@@ -57,7 +57,7 @@ const ForgotPassword = () => {
                       handleSubmit();
                     }
                   }}
-                  error={error}
+                  error={error ? true : false}
                 ></TextField>
                 <Button
                   style={{ marginLeft: 5, outline: "none" }}
