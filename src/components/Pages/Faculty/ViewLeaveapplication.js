@@ -33,7 +33,30 @@ export default function ConfirmationBox({
       return time.join("");
     } else return null;
   };
-
+  const dateConverter = (date) => {
+    if (date) {
+      const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      const DATE = date.split("-");
+      const finalDate =
+        DATE[2] + " " + months[Number(DATE[1]) - 1] + " " + DATE[0];
+      return finalDate;
+    } else {
+      return null;
+    }
+  };
   return (
     <div>
       <Dialog
@@ -63,11 +86,11 @@ export default function ConfirmationBox({
                 {" "}
                 <p>
                   <span className="bold mr-2">From date:</span>
-                  {data.date}
+                  {dateConverter(data.date)}
                 </p>
                 <p>
                   <span className="bold mr-2">To Date:</span>
-                  {data.toDate}
+                  {dateConverter(data.toDate)}
                 </p>
               </>
             ) : (

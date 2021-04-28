@@ -111,6 +111,44 @@ const GetUserSubmissions = () => {
       //   navigate(`/gatepass/view/${row._id}`);
     }
   };
+  const timeConverter = (time) => {
+    if (time) {
+      time = time
+        .toString()
+        .match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+      if (time.length > 1) {
+        time = time.slice(1);
+        time[5] = +time[0] < 12 ? " AM" : " PM";
+        time[0] = +time[0] % 12 || 12;
+      }
+      return time.join("");
+    } else return null;
+  };
+  const dateConverter = (date) => {
+    if (date) {
+      const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      const DATE = date.split("-");
+      const finalDate =
+        DATE[2] + " " + months[Number(DATE[1]) - 1] + " " + DATE[0];
+      return finalDate;
+    } else {
+      return null;
+    }
+  };
   return (
     <>
       <Notify props={notify} closeAlert={closeAlert} />
@@ -211,6 +249,12 @@ const GetUserSubmissions = () => {
                                       </>
                                     )}
                                   </>
+                                ) : column.id === "fromTime" ||
+                                  column.id === "toTime" ? (
+                                  timeConverter(value)
+                                ) : column.id === "date" ||
+                                  column.id === "toDate" ? (
+                                  dateConverter(value)
                                 ) : (
                                   value
                                 )}

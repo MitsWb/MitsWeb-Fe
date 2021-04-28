@@ -83,6 +83,30 @@ function LeaveApplications() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  const dateConverter = (date) => {
+    if (date) {
+      const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      const DATE = date.split("-");
+      const finalDate =
+        DATE[2] + " " + months[Number(DATE[1]) - 1] + " " + DATE[0];
+      return finalDate;
+    } else {
+      return null;
+    }
+  };
   return (
     <>
       <Notify props={notify} closeAlert={() => setnotify({ popup: false })} />
@@ -136,6 +160,9 @@ function LeaveApplications() {
                                   ? value === "fullDay"
                                     ? "Full Day"
                                     : "Half Day"
+                                  : column.id === "date" ||
+                                    column.id === "toDate"
+                                  ? dateConverter(value)
                                   : value}
                               </TableCell>
                             );
