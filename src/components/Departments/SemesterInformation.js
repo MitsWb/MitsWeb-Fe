@@ -6,7 +6,7 @@ import RestoreIcon from "@material-ui/icons/Restore";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
 import useHeading from "../Pages/Shared/useHeading";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
-import Marks from "./Marks";
+import SubjectExamsList from "./Marks/SubjectExamsList";
 
 const useStyles = makeStyles({
   root: {
@@ -48,7 +48,9 @@ function SemesterInformation({ department, semester }) {
           icon={<MenuBookIcon />}
         />
       </BottomNavigation>
-      {value === "marks" && <Marks />}
+      {value === "marks" && (
+        <SubjectExamsList department={department} semester={semester} />
+      )}
     </>
   );
 }

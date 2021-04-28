@@ -126,6 +126,12 @@ export const createExam = (body) => {
 export const getExams = (id) => {
   return fireRequest("getExams", [id]);
 };
+
+export const getExamSubjects = (body) => {
+  console.log(body);
+  return fireRequest("getExamSubjects", [], body);
+};
+
 //security apis
 export const verifyGatepass = (body) => {
   return fireRequest("verifyGatepass", [], body);
