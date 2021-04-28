@@ -4,13 +4,17 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { Card } from "@material-ui/core";
+import {
+  Card,
+  FormControl,
+  FormHelperText,
+  Select,
+  MenuItem,
+  StepLabel,
+} from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { green } from "@material-ui/core/colors";
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 
 const useStyles = makeStyles((theme) => ({
@@ -32,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
     left: "50%",
     marginTop: -12,
     marginLeft: -12,
+  },
+  formControl: {
+    minWidth: 180,
   },
 }));
 
@@ -73,15 +80,7 @@ const LoaderButton = ({ Loading, handleSubmit, type }) => {
   );
 };
 
-const LeaveForm = ({
-  handleChange,
-  handleSubmit,
-  Form,
-  Error,
-  Loading,
-  date,
-  handleDateChange,
-}) => {
+const LeaveForm = ({ handleChange, handleSubmit, Form, Error, Loading }) => {
   const classes = useStyles();
 
   return (
@@ -93,50 +92,106 @@ const LeaveForm = ({
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
-                <div className="ml-0 md:ml-2 lg:ml-2">
-                  <KeyboardDatePicker
-                    disableToolbar
-                    variant="inline"
-                    error={Error["fromTimestamp"]}
-                    format="MM/dd/yyyy"
-                    margin="normal"
-                    id="fromTimestamp"
-                    label="From"
-                    value={date.fromTimestamp}
-                    onChange={(e) => handleDateChange(e, "fromTimestamp")}
-                    KeyboardButtonProps={{
-                      "aria-label": "change date",
-                    }}
-                  />
-                  <Typography
-                    style={{ fontSize: 13, marginTop: -10, color: "red" }}
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={6}>
+                  <FormControl
+                    variant="outlined"
+                    className={classes.formControl}
                   >
-                    {Error["fromTimestamp"] ? Error["fromTimestamp"] : ""}
-                  </Typography>
+                    <Select
+                      value={Form.type}
+                      onChange={handleChange}
+                      displayEmpty
+                      name="type"
+                      className={classes.formControl}
+                      inputProps={{ "aria-label": "Without label" }}
+                    >
+                      <MenuItem value={"fullDay"}>Full Day</MenuItem>
+                      <MenuItem value={"halfDay"}>Half Day</MenuItem>
+                    </Select>
+                    <FormHelperText>Without label</FormHelperText>
+                  </FormControl>
+                </Grid>
+                {Form.type === "halfDay" && (
+                  <Grid item xs={12} sm={6}>
+                    <StepLabel>Date</StepLabel>
+                    <TextField
+                      size="small"
+                      variant="outlined"
+                      className={classes.formControl}
+                      type="date"
+                      name="date"
+                      value={Form.date}
+                      onChange={handleChange}
+                      error={Error["startTimestamp"] ? true : false}
+                      helperText={Error["startTimestamp"]}
+                    />
+                  </Grid>
+                )}
+              </Grid>
+              {Form.type === "fullDay" ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+                  <div className="ml-0 md:ml-2 lg:ml-2">
+                    <StepLabel>From Date</StepLabel>
+                    <TextField
+                      size="small"
+                      variant="outlined"
+                      className={classes.textField}
+                      type="date"
+                      name="fromDate"
+                      value={Form.fromDate}
+                      onChange={handleChange}
+                      error={Error["fromDate"] ? true : false}
+                      helperText={Error["fromDate"]}
+                    />
+                  </div>
+                  <div className="ml-0 md:ml-2 lg:ml-2">
+                    <StepLabel>To Date</StepLabel>
+                    <TextField
+                      size="small"
+                      variant="outlined"
+                      className={classes.textField}
+                      type="date"
+                      name="toDate"
+                      value={Form.toDate}
+                      onChange={handleChange}
+                      error={Error["toDate"] ? true : false}
+                      helperText={Error["toDate"]}
+                    />
+                  </div>
                 </div>
-                <div className="ml-0 md:ml-2 lg:ml-2">
-                  <KeyboardDatePicker
-                    disableToolbar
-                    variant="inline"
-                    error={Error["toTimestamp"]}
-                    format="MM/dd/yyyy"
-                    margin="normal"
-                    id="toTimestamp"
-                    label="To"
-                    value={date.toTimestamp}
-                    onChange={(e) => handleDateChange(e, "toTimestamp")}
-                    KeyboardButtonProps={{
-                      "aria-label": "change date",
-                    }}
-                  />
-                  <Typography
-                    style={{ fontSize: 13, marginTop: -10, color: "red" }}
-                  >
-                    {Error["toTimestamp"] ? Error["toTimestamp"] : ""}
-                  </Typography>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+                  <div className="ml-0 md:ml-2 lg:ml-2">
+                    <StepLabel>From time</StepLabel>
+                    <TextField
+                      size="small"
+                      variant="outlined"
+                      className={classes.textField}
+                      type="time"
+                      name="fromTime"
+                      value={Form.fromTime}
+                      onChange={handleChange}
+                      error={Error["fromTime"] ? true : false}
+                      helperText={Error["fromTime"]}
+                    />
+                  </div>
+                  <div className="ml-0 md:ml-2 lg:ml-2">
+                    <StepLabel>To time</StepLabel>
+                    <TextField
+                      size="small"
+                      variant="outlined"
+                      className={classes.textField}
+                      type="time"
+                      name="toTime"
+                      value={Form.toTime}
+                      onChange={handleChange}
+                      error={Error["toTime"] ? true : false}
+                      helperText={Error["toTime"]}
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
             </Grid>
             <Grid item xs={12}>
               <TextField

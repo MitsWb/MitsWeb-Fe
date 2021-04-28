@@ -195,7 +195,6 @@ const ExamForm = ({
                   helperText={Error["date"]}
                 />
               </Grid>
-
               <Grid item xs={12} sm={6}>
                 <StepLabel>Start Time</StepLabel>
                 <TextField

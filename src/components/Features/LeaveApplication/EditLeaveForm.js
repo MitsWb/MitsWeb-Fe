@@ -24,25 +24,21 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
     description: "",
   };
   const [Error, setError] = useState(initError);
-  const [date, setDate] = useState({
-    fromTimestamp: data.fromTimestamp,
-    toTimestamp: data.toTimestamp,
-  });
   const loading = false;
   const dispatch = useDispatch();
   const [confOpen, setconfOpen] = useState(false);
 
   useEffect(() => {
-    setDate({
-      toTimestamp: new Date(data.toTimestamp),
-      fromTimestamp: new Date(data.fromTimestamp),
-    });
     setData(data._id);
     setLeaveForm({
       description: data.description,
+      fromDate: data.fromDate,
+      toDate: data.toDate,
+      type: data.type,
+      fromTime: data.fromTime,
+      toTime: data.toTime,
+      date: data.date,
       _id: data._id,
-      toTimestamp: new Date(data.toTimestamp),
-      fromTimestamp: new Date(data.fromTimestamp),
     });
     // eslint-disable-next-line
   }, [data]);
@@ -52,32 +48,47 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
     const { value, name } = e.target;
     setLeaveForm({ ...leaveForm, [name]: value });
   };
-  const handleDatechange = (dateNow, type) => {
-    setError(initError);
-    setDate({ ...date, [type]: dateNow });
-    if (type === "fromTimestamp") {
-      setLeaveForm({
-        ...leaveForm,
-        fromTimestamp: new Date(dateNow),
-      });
-    }
-    if (type === "toTimestamp") {
-      setLeaveForm({
-        ...leaveForm,
-        toTimestamp: new Date(dateNow),
-      });
-    }
+  const isNullOrWhiteSpace = (str) => {
+    return !str || str.length === 0 || /^\s*$/.test(str);
   };
-  const handleSubmit = () => {
+
+  function validInputs() {
     let formValid = true;
-    const { description } = leaveForm;
-    if (!description.replace(/\s/g, "").length) {
+    let err = Object.assign({}, initError);
+    if (isNullOrWhiteSpace(leaveForm.description)) {
       formValid = false;
+      err["description"] = "This field is required";
     }
-    if (formValid) {
+    if (leaveForm.type === "halfDay") {
+      if (leaveForm.date === "") {
+        formValid = false;
+        err["date"] = "This field is required";
+      }
+      if (leaveForm.fromTime === "") {
+        formValid = false;
+        err["fromTime"] = "This field is required";
+      }
+      if (leaveForm.toTime === "") {
+        formValid = false;
+        err["toTime"] = "This field is required";
+      }
+    } else {
+      if (leaveForm.fromDate === "") {
+        formValid = false;
+        err["fromDate"] = "This field is required";
+      }
+      if (leaveForm.toDate === "") {
+        formValid = false;
+        err["toDate"] = "This field is required";
+      }
+    }
+    setError(err);
+    return formValid;
+  }
+  const handleSubmit = () => {
+    if (validInputs()) {
       handleClose();
       changeStatus(true);
-      console.log(leaveForm);
       dispatch(editLeave(leaveForm)).then((res) => {
         if (res && res.data && res.data.success) {
           changeStatus(false, "Leave updated");
@@ -122,9 +133,7 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
             Error={Error}
             Helper={""}
             title="Edit Gate Pass"
-            handleDateChange={handleDatechange}
             handleSubmit={handleSubmit}
-            date={date}
             loading={loading}
           />
         </DialogContent>

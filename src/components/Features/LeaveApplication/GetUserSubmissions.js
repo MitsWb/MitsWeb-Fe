@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Paper, Card } from "@material-ui/core";
-import moment from "moment";
+import {
+  Paper,
+  Card,
+  BottomNavigation,
+  BottomNavigationAction,
+} from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -15,11 +19,25 @@ import Loader from "../../../utils/Loader";
 import Notify from "../../../utils/Notify";
 import { getUsersLeave } from "../../../redux/apiActions";
 import EditLeaveForm from "./EditLeaveForm";
-//import { navigate } from "hookrouter";
-const columns = [
-  { id: "fromTimestamp", label: "From", minWidth: 100 },
-  { id: "toTimestamp", label: "To", minWidth: 100 },
+import { LibraryBooks, Restore } from "@material-ui/icons";
 
+//import { navigate } from "hookrouter";
+
+const fullDaycolumns = [
+  { id: "fromDate", label: "From Date", minWidth: 100 },
+  { id: "toDate", label: "To Date", minWidth: 100 },
+  {
+    id: "status",
+    label: "Status",
+    minWidth: 100,
+  },
+  { id: "description", label: "Reason", minWidth: 170 },
+];
+
+const halfDaycolumns = [
+  { id: "date", label: "Date", minWidth: 100 },
+  { id: "fromTime", label: "From Time", minWidth: 100 },
+  { id: "toTime", label: "To Time", minWidth: 100 },
   {
     id: "status",
     label: "Status",
@@ -43,20 +61,24 @@ const GetUserSubmissions = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(4);
   const dispatch = useDispatch();
   const [rows, setRows] = useState([]);
+  const [columns, setcolumn] = useState(fullDaycolumns);
   const [Loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [data, setdata] = useState("");
   const [rerender, setrerender] = useState(false);
+  const [typevalue, setvalue] = useState("fullDay");
   const [notify, setnotify] = useState({ msg: "", popup: false, type: "" });
   useEffect(() => {
     setLoading(true);
     dispatch(getUsersLeave()).then((res) => {
       if (res && res.data && res.data.data) {
-        setRows(res.data.data);
+        const ROWS = res.data.data;
+        const selectedRows = ROWS.filter((e) => e.type === typevalue);
+        setRows(selectedRows);
       }
       setLoading(false);
     });
-  }, [dispatch, rerender]);
+  }, [dispatch, rerender, typevalue]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -98,6 +120,30 @@ const GetUserSubmissions = () => {
         data={data}
         changeStatus={changeStatus}
       />
+      <>
+        <BottomNavigation
+          value={typevalue}
+          onChange={(e, val) => {
+            setvalue(val);
+            val === "fullDay"
+              ? setcolumn(fullDaycolumns)
+              : setcolumn(halfDaycolumns);
+          }}
+          className={classes.root}
+          showLabels
+        >
+          <BottomNavigationAction
+            label="Full Day"
+            value="fullDay"
+            icon={<LibraryBooks />}
+          />
+          <BottomNavigationAction
+            label="Half Day"
+            value="halfDay"
+            icon={<Restore />}
+          />
+        </BottomNavigation>
+      </>
       {Loading ? (
         <Loader />
       ) : (
@@ -142,7 +188,9 @@ const GetUserSubmissions = () => {
                                       <>
                                         <Card
                                           className="h-4 w-4 "
-                                          style={{ backgroundColor: "yellow" }}
+                                          style={{
+                                            backgroundColor: "yellow",
+                                          }}
                                         ></Card>
                                       </>
                                     )}
@@ -163,12 +211,6 @@ const GetUserSubmissions = () => {
                                       </>
                                     )}
                                   </>
-                                ) : column.label === "From" ||
-                                  column.label === "To" ? (
-                                  moment(value).format("MMM Do YY")
-                                ) : column.format &&
-                                  typeof value === "number" ? (
-                                  column.format(value)
                                 ) : (
                                   value
                                 )}

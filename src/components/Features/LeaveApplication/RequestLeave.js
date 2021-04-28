@@ -8,12 +8,15 @@ import BackButton from "../../buttons/BackButton";
 
 export default function RequestLeave() {
   useHeading("Request Leave");
-  var tomorrow = new Date();
-  tomorrow.setDate(new Date().getDate() + 1);
+
   const Initform = {
     description: "",
-    fromTimestamp: new Date(),
-    toTimestamp: tomorrow,
+    fromDate: "",
+    toDate: "",
+    type: "fullDay",
+    fromTime: "",
+    toTime: "",
+    date: "",
   };
   const initError = {
     type: "",
@@ -23,50 +26,51 @@ export default function RequestLeave() {
   const [Form, setForm] = useState(Initform);
   const [Error, setError] = useState(initError);
   const [notify, setNotify] = useState({ popup: false, msg: "", type: "" });
-  const [date, setDate] = useState({
-    fromTimestamp: new Date(),
-    toTimestamp: tomorrow,
-  });
 
   const [Loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
+  const isNullOrWhiteSpace = (str) => {
+    return !str || str.length === 0 || /^\s*$/.test(str);
+  };
 
   const handleChange = (e) => {
     setError(initError);
     const { value, name } = e.target;
     setForm({ ...Form, [name]: value });
   };
-  const handleDatechange = (dateNow, type) => {
-    setError(initError);
-    setDate({ ...date, [type]: dateNow });
-    if (type === "fromTimestamp") {
-      setForm({
-        ...Form,
-        fromTimestamp: new Date(dateNow),
-      });
-    }
-    if (type === "toTimestamp") {
-      setForm({
-        ...Form,
-        toTimestamp: new Date(dateNow),
-      });
-    }
-  };
 
   function validInputs() {
     let formValid = true;
     let err = Object.assign({}, initError);
-    Object.keys(Form).forEach((key) => {
-      if (Form[key] === "") {
-        formValid = false;
-        err[key] = "This field is required";
-      }
-    });
-    if (!(Form.toTimestamp > Form.fromTimestamp)) {
+    if (isNullOrWhiteSpace(Form.description)) {
       formValid = false;
-      err["toTimestamp"] = "Cannot set previous dates";
+      err["description"] = "This field is required";
     }
+    if (Form.type === "halfDay") {
+      if (Form.date === "") {
+        formValid = false;
+        err["date"] = "This field is required";
+      }
+      if (Form.fromTime === "") {
+        formValid = false;
+        err["fromTime"] = "This field is required";
+      }
+      if (Form.toTime === "") {
+        formValid = false;
+        err["toTime"] = "This field is required";
+      }
+    } else {
+      if (Form.fromDate === "") {
+        formValid = false;
+        err["fromDate"] = "This field is required";
+      }
+      if (Form.toDate === "") {
+        formValid = false;
+        err["toDate"] = "This field is required";
+      }
+    }
+    console.log(err);
     setError(err);
     return formValid;
   }
@@ -79,6 +83,7 @@ export default function RequestLeave() {
     if (validInputs()) {
       dispatch(requestLeave(Form)).then((res) => {
         if (res && res.data) {
+          console.log(res.data);
           if (res.data.success) {
             setNotify({
               msg: "Leave application submitted",
@@ -117,9 +122,7 @@ export default function RequestLeave() {
         Error={Error}
         Helper={""}
         Loading={Loading}
-        handleDateChange={handleDatechange}
         handleSubmit={handleSubmit}
-        date={date}
       />
     </>
   );
