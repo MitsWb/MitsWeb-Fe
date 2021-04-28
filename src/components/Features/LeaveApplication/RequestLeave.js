@@ -122,6 +122,7 @@ export default function RequestLeave() {
         Error={Error}
         Helper={""}
         Loading={Loading}
+        title="new"
         handleSubmit={handleSubmit}
       />
     </>

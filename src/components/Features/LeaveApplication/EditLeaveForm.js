@@ -132,7 +132,7 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
             handleChange={handleChange}
             Error={Error}
             Helper={""}
-            title="Edit Gate Pass"
+            title="Edit"
             handleSubmit={handleSubmit}
             loading={loading}
           />

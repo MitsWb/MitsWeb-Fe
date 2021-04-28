@@ -80,7 +80,14 @@ const LoaderButton = ({ Loading, handleSubmit, type }) => {
   );
 };
 
-const LeaveForm = ({ handleChange, handleSubmit, Form, Error, Loading }) => {
+const LeaveForm = ({
+  handleChange,
+  handleSubmit,
+  Form,
+  Error,
+  Loading,
+  title,
+}) => {
   const classes = useStyles();
 
   return (
@@ -93,25 +100,27 @@ const LeaveForm = ({ handleChange, handleSubmit, Form, Error, Loading }) => {
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
-                  <FormControl
-                    variant="outlined"
-                    className={classes.formControl}
-                  >
-                    <Select
-                      value={Form.type}
-                      onChange={handleChange}
-                      displayEmpty
-                      name="type"
+                {title === "new" && (
+                  <Grid item xs={12} sm={6}>
+                    <FormControl
+                      variant="outlined"
                       className={classes.formControl}
-                      inputProps={{ "aria-label": "Without label" }}
                     >
-                      <MenuItem value={"fullDay"}>Full Day</MenuItem>
-                      <MenuItem value={"halfDay"}>Half Day</MenuItem>
-                    </Select>
-                    <FormHelperText>Without label</FormHelperText>
-                  </FormControl>
-                </Grid>
+                      <Select
+                        value={Form.type}
+                        onChange={handleChange}
+                        displayEmpty
+                        name="type"
+                        className={classes.formControl}
+                        inputProps={{ "aria-label": "Without label" }}
+                      >
+                        <MenuItem value={"fullDay"}>Full Day</MenuItem>
+                        <MenuItem value={"halfDay"}>Half Day</MenuItem>
+                      </Select>
+                      <FormHelperText>Without label</FormHelperText>
+                    </FormControl>
+                  </Grid>
+                )}
                 {Form.type === "halfDay" && (
                   <Grid item xs={12} sm={6}>
                     <StepLabel>Date</StepLabel>
