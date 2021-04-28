@@ -11,7 +11,6 @@ export default function RequestLeave() {
 
   const Initform = {
     description: "",
-    fromDate: "",
     toDate: "",
     type: "fullDay",
     fromTime: "",
@@ -47,11 +46,11 @@ export default function RequestLeave() {
       formValid = false;
       err["description"] = "This field is required";
     }
+    if (Form.date === "") {
+      formValid = false;
+      err["date"] = "This field is required";
+    }
     if (Form.type === "halfDay") {
-      if (Form.date === "") {
-        formValid = false;
-        err["date"] = "This field is required";
-      }
       if (Form.fromTime === "") {
         formValid = false;
         err["fromTime"] = "This field is required";
@@ -61,10 +60,6 @@ export default function RequestLeave() {
         err["toTime"] = "This field is required";
       }
     } else {
-      if (Form.fromDate === "") {
-        formValid = false;
-        err["fromDate"] = "This field is required";
-      }
       if (Form.toDate === "") {
         formValid = false;
         err["toDate"] = "This field is required";

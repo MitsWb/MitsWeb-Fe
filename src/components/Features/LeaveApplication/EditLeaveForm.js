@@ -32,7 +32,6 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
     setData(data._id);
     setLeaveForm({
       description: data.description,
-      fromDate: data.fromDate,
       toDate: data.toDate,
       type: data.type,
       fromTime: data.fromTime,
@@ -59,11 +58,11 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
       formValid = false;
       err["description"] = "This field is required";
     }
+    if (leaveForm.date === "") {
+      formValid = false;
+      err["date"] = "This field is required";
+    }
     if (leaveForm.type === "halfDay") {
-      if (leaveForm.date === "") {
-        formValid = false;
-        err["date"] = "This field is required";
-      }
       if (leaveForm.fromTime === "") {
         formValid = false;
         err["fromTime"] = "This field is required";
@@ -73,10 +72,6 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
         err["toTime"] = "This field is required";
       }
     } else {
-      if (leaveForm.fromDate === "") {
-        formValid = false;
-        err["fromDate"] = "This field is required";
-      }
       if (leaveForm.toDate === "") {
         formValid = false;
         err["toDate"] = "This field is required";

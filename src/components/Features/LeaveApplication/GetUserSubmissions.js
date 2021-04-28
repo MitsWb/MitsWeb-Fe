@@ -24,7 +24,7 @@ import { LibraryBooks, Restore } from "@material-ui/icons";
 //import { navigate } from "hookrouter";
 
 const fullDaycolumns = [
-  { id: "fromDate", label: "From Date", minWidth: 100 },
+  { id: "date", label: "From Date", minWidth: 100 },
   { id: "toDate", label: "To Date", minWidth: 100 },
   {
     id: "status",

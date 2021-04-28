@@ -147,11 +147,11 @@ const LeaveForm = ({
                       variant="outlined"
                       className={classes.textField}
                       type="date"
-                      name="fromDate"
-                      value={Form.fromDate}
+                      name="date"
+                      value={Form.date}
                       onChange={handleChange}
-                      error={Error["fromDate"] ? true : false}
-                      helperText={Error["fromDate"]}
+                      error={Error["date"] ? true : false}
+                      helperText={Error["date"]}
                     />
                   </div>
                   <div className="ml-0 md:ml-2 lg:ml-2">
