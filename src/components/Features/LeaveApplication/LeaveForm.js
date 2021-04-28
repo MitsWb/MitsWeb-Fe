@@ -132,8 +132,8 @@ const LeaveForm = ({
                       name="date"
                       value={Form.date}
                       onChange={handleChange}
-                      error={Error["startTimestamp"] ? true : false}
-                      helperText={Error["startTimestamp"]}
+                      error={Error["date"] ? true : false}
+                      helperText={Error["date"]}
                     />
                   </Grid>
                 )}

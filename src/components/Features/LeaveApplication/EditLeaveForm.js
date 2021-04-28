@@ -14,14 +14,15 @@ import { editLeave } from "../../../redux/apiActions";
 
 const FormDialog = ({ open, handleClose, data, changeStatus }) => {
   const [Data, setData] = useState();
-  const initForm = {
-    description: data.description,
-    toTimestamp: data.toTimestamp,
-    fromTimestamp: data.fromTimestamp,
-  };
-  const [leaveForm, setLeaveForm] = useState(initForm);
+
+  const [leaveForm, setLeaveForm] = useState({});
   const initError = {
     description: "",
+    toDate: "",
+    type: "",
+    fromTime: "",
+    toTime: "",
+    date: "",
   };
   const [Error, setError] = useState(initError);
   const loading = false;
@@ -91,7 +92,7 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
           changeStatus(false, res.data ? res.data.msg : "Error", "error");
         }
       });
-    } else alert("err");
+    }
   };
 
   const handleUserDelete = () => {
@@ -118,7 +119,10 @@ const FormDialog = ({ open, handleClose, data, changeStatus }) => {
       />
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={() => {
+          setError(initError);
+          handleClose();
+        }}
         aria-labelledby="form-dialog-title"
       >
         <DialogContent>

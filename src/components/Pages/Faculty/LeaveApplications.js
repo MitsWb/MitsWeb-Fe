@@ -5,7 +5,6 @@ import useHeading from "../Shared/useHeading";
 import { Loader, Notify } from "../../../utils";
 import {
   Paper,
-  Card,
   Table,
   TableCell,
   TableBody,
@@ -17,10 +16,9 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ViewLeave from "./ViewLeaveapplication";
-import moment from "moment";
 const columns = [
-  { id: "fromTimestamp", label: "From\u00a0Date", minWidth: 100 },
-  { id: "toTimestamp", label: "To\u00a0Date", minWidth: 100 },
+  { id: "type", label: "Type", minWidth: 100 },
+  { id: "date", label: "Date", minWidth: 100 },
 
   {
     id: "name",
@@ -86,7 +84,7 @@ function LeaveApplications() {
     setPage(0);
   };
   return (
-    <div>
+    <>
       <Notify props={notify} closeAlert={() => setnotify({ popup: false })} />
       <ViewLeave
         open={open}
@@ -134,42 +132,11 @@ function LeaveApplications() {
                             const value = row[column.id];
                             return (
                               <TableCell key={column.id} align={column.align}>
-                                {column.id === "status" ? (
-                                  <>
-                                    {value === 0 && (
-                                      <>
-                                        <Card
-                                          className="h-4 w-4 "
-                                          style={{ backgroundColor: "yellow" }}
-                                        ></Card>
-                                      </>
-                                    )}
-                                    {value === 1 && (
-                                      <>
-                                        <Card
-                                          className="h-4 w-4 "
-                                          style={{ backgroundColor: "green" }}
-                                        ></Card>
-                                      </>
-                                    )}
-                                    {value === -1 && (
-                                      <>
-                                        <Card
-                                          className="h-4 w-4"
-                                          style={{ backgroundColor: "red" }}
-                                        ></Card>
-                                      </>
-                                    )}
-                                  </>
-                                ) : column.id === "fromTimestamp" ||
-                                  column.id === "toTimestamp" ? (
-                                  moment(value).format("MMM Do YY")
-                                ) : column.format &&
-                                  typeof value === "number" ? (
-                                  column.format(value)
-                                ) : (
-                                  value
-                                )}
+                                {column.label === "Type"
+                                  ? value === "fullDay"
+                                    ? "Full Day"
+                                    : "Half Day"
+                                  : value}
                               </TableCell>
                             );
                           })}
@@ -202,7 +169,7 @@ function LeaveApplications() {
           />
         </Paper>
       )}
-    </div>
+    </>
   );
 }
 

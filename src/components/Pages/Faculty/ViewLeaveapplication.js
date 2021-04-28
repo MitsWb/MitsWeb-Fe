@@ -7,7 +7,6 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { green } from "@material-ui/core/colors";
-import moment from "moment";
 const theme = createMuiTheme({
   palette: {
     primary: green,
@@ -20,6 +19,21 @@ export default function ConfirmationBox({
   data,
   handleConfirm,
 }) {
+  const timeConverter = (time) => {
+    if (time) {
+      time = time
+        .toString()
+        .match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+      if (time.length > 1) {
+        time = time.slice(1);
+        time[5] = +time[0] < 12 ? " AM" : " PM";
+        time[0] = +time[0] % 12 || 12;
+      }
+      return time.join("");
+    } else return null;
+  };
+
   return (
     <div>
       <Dialog
@@ -39,17 +53,36 @@ export default function ConfirmationBox({
               {")"}
             </span>
             <br></br>
+            TYPE : {data.type === "halfDay" ? "Half Day" : "Full Day"}
+            <br></br>
             REASON : {data.description}
             <br></br>
             CLASS : {"Year " + data.currentYear + " " + data.department}
-            <p>
-              <span className="bold mr-2">from Date:</span>
-              {moment(data.fromTimestamp).format("MMM Do YY")}
-            </p>
-            <p>
-              <span className="bold mr-2">Time:</span>
-              {moment(data.toTimestamp).format("MMM Do YY")}
-            </p>
+            {data.type === "fullDay" ? (
+              <>
+                {" "}
+                <p>
+                  <span className="bold mr-2">From date:</span>
+                  {data.date}
+                </p>
+                <p>
+                  <span className="bold mr-2">To Date:</span>
+                  {data.toDate}
+                </p>
+              </>
+            ) : (
+              <>
+                {" "}
+                <p>
+                  <span className="bold mr-2">From time:</span>
+                  {timeConverter(data.fromTime)}
+                </p>
+                <p>
+                  <span className="bold mr-2">To time:</span>
+                  {timeConverter(data.toTime)}
+                </p>
+              </>
+            )}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
