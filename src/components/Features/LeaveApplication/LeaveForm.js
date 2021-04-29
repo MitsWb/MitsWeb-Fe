@@ -7,7 +7,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import {
   Card,
   FormControl,
-  FormHelperText,
   Select,
   MenuItem,
   StepLabel,
@@ -38,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: -12,
   },
   formControl: {
+    minWidth: 180,
+  },
+  textField: {
     minWidth: 180,
   },
 }));
@@ -97,111 +99,110 @@ const LeaveForm = ({
       </Typography>
       <form className={classes.form}>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Grid container spacing={3}>
-                {title === "new" && (
-                  <Grid item xs={12} sm={6}>
-                    <FormControl
-                      variant="outlined"
-                      className={classes.formControl}
-                    >
-                      <Select
-                        value={Form.type}
-                        onChange={handleChange}
-                        displayEmpty
-                        name="type"
-                        className={classes.formControl}
-                        inputProps={{ "aria-label": "Without label" }}
-                      >
-                        <MenuItem value={"fullDay"}>Full Day</MenuItem>
-                        <MenuItem value={"halfDay"}>Half Day</MenuItem>
-                      </Select>
-                      <FormHelperText>Without label</FormHelperText>
-                    </FormControl>
-                  </Grid>
-                )}
-                {Form.type === "halfDay" && (
-                  <Grid item xs={12} sm={6}>
-                    <StepLabel>Date</StepLabel>
-                    <TextField
-                      size="small"
-                      variant="outlined"
-                      className={classes.formControl}
-                      type="date"
-                      name="date"
-                      value={Form.date}
-                      onChange={handleChange}
-                      error={Error["date"] ? true : false}
-                      helperText={Error["date"]}
-                    />
-                  </Grid>
-                )}
+          <Grid container spacing={2}>
+            {title === "new" && (
+              <Grid item xs={12} sm={6}>
+                <StepLabel>Type</StepLabel>
+                <FormControl
+                  size="small"
+                  variant="outlined"
+                  className={classes.formControl}
+                >
+                  <Select
+                    value={Form.type}
+                    onChange={handleChange}
+                    displayEmpty
+                    name="type"
+                    size="small"
+                    className={classes.formControl}
+                    inputProps={{ "aria-label": "Without label" }}
+                  >
+                    <MenuItem value={"fullDay"}>Full Day</MenuItem>
+                    <MenuItem value={"halfDay"}>Half Day</MenuItem>
+                  </Select>
+                </FormControl>
               </Grid>
-              {Form.type === "fullDay" ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
-                  <div className="ml-0 md:ml-2 lg:ml-2">
-                    <StepLabel>From Date</StepLabel>
-                    <TextField
-                      size="small"
-                      variant="outlined"
-                      className={classes.textField}
-                      type="date"
-                      name="date"
-                      value={Form.date}
-                      onChange={handleChange}
-                      error={Error["date"] ? true : false}
-                      helperText={Error["date"]}
-                    />
-                  </div>
-                  <div className="ml-0 md:ml-2 lg:ml-2">
-                    <StepLabel>To Date</StepLabel>
-                    <TextField
-                      size="small"
-                      variant="outlined"
-                      className={classes.textField}
-                      type="date"
-                      name="toDate"
-                      value={Form.toDate}
-                      onChange={handleChange}
-                      error={Error["toDate"] ? true : false}
-                      helperText={Error["toDate"]}
-                    />
-                  </div>
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
-                  <div className="ml-0 md:ml-2 lg:ml-2">
-                    <StepLabel>From time</StepLabel>
-                    <TextField
-                      size="small"
-                      variant="outlined"
-                      className={classes.textField}
-                      type="time"
-                      name="fromTime"
-                      value={Form.fromTime}
-                      onChange={handleChange}
-                      error={Error["fromTime"] ? true : false}
-                      helperText={Error["fromTime"]}
-                    />
-                  </div>
-                  <div className="ml-0 md:ml-2 lg:ml-2">
-                    <StepLabel>To time</StepLabel>
-                    <TextField
-                      size="small"
-                      variant="outlined"
-                      className={classes.textField}
-                      type="time"
-                      name="toTime"
-                      value={Form.toTime}
-                      onChange={handleChange}
-                      error={Error["toTime"] ? true : false}
-                      helperText={Error["toTime"]}
-                    />
-                  </div>
-                </div>
-              )}
-            </Grid>
+            )}
+            {Form.type === "halfDay" && (
+              <Grid item xs={12} sm={6}>
+                <StepLabel>Date</StepLabel>
+                <TextField
+                  size="small"
+                  variant="outlined"
+                  className={classes.formControl}
+                  type="date"
+                  name="date"
+                  value={Form.date}
+                  onChange={handleChange}
+                  error={Error["date"] ? true : false}
+                  helperText={Error["date"]}
+                />
+              </Grid>
+            )}
+            {Form.type === "fullDay" ? (
+              <Grid item xs={12} sm={6}>
+                <StepLabel>From Date</StepLabel>
+                <TextField
+                  size="small"
+                  variant="outlined"
+                  className={classes.textField}
+                  type="date"
+                  name="date"
+                  value={Form.date}
+                  onChange={handleChange}
+                  error={Error["date"] ? true : false}
+                  helperText={Error["date"]}
+                />
+              </Grid>
+            ) : (
+              <Grid item xs={12} sm={6}>
+                <StepLabel>From time</StepLabel>
+                <TextField
+                  size="small"
+                  variant="outlined"
+                  className={classes.textField}
+                  type="time"
+                  name="fromTime"
+                  value={Form.fromTime}
+                  onChange={handleChange}
+                  error={Error["fromTime"] ? true : false}
+                  helperText={Error["fromTime"]}
+                />
+              </Grid>
+            )}
+
+            {Form.type === "fullDay" ? (
+              <Grid item xs={12} sm={6}>
+                <StepLabel>To Date</StepLabel>
+                <TextField
+                  size="small"
+                  variant="outlined"
+                  className={classes.textField}
+                  type="date"
+                  name="toDate"
+                  value={Form.toDate}
+                  onChange={handleChange}
+                  error={Error["toDate"] ? true : false}
+                  helperText={Error["toDate"]}
+                />
+              </Grid>
+            ) : (
+              <Grid item xs={12} sm={6}>
+                <StepLabel>To time</StepLabel>
+                <TextField
+                  size="small"
+                  variant="outlined"
+                  className={classes.textField}
+                  type="time"
+                  name="toTime"
+                  value={Form.toTime}
+                  onChange={handleChange}
+                  error={Error["toTime"] ? true : false}
+                  helperText={Error["toTime"]}
+                />
+              </Grid>
+            )}
+
             <Grid item xs={12}>
               <TextField
                 required
