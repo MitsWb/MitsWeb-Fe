@@ -22,6 +22,7 @@
     "nodemailer": "^6.5.0",
     "pnotify": "^5.1.2",
     "react": "^16.13.1",
+    "react-csv-reader": "^3.3.0",
     "react-dom": "^16.13.1",
     "react-google-login": "^5.2.2",
     "react-qr-code": "^1.1.1",

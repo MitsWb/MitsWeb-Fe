@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import useHeading from "../../Shared/useHeading";
 import AddUserForm from "./AddUserForm";
 import { validateEmailAddress } from "../../../../utils/validation";
-import { addUser } from "../../../../redux/apiActions";
+import { addUser, addUsers } from "../../../../redux/apiActions";
 import { useDispatch } from "react-redux";
-import Notify from "../../../../utils/Notify";
+import { Notify, Loader } from "../../../../utils";
 import BackButton from "../../../buttons/BackButton";
 
 const AddUser = () => {
@@ -32,7 +32,7 @@ const AddUser = () => {
   const [Form, setForm] = useState(Initform);
   const [Error, setError] = useState(initError);
   const [notify, setnotify] = useState({ popup: false, msg: "", type: "" });
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState({ form: false, full: false });
 
   const handleChange = (e) => {
     setError(initError);
@@ -90,12 +90,11 @@ const AddUser = () => {
     }
     setError(err);
     if (validForm) {
-      setLoading(true);
+      setLoading({ ...loading, form: true });
       dispatch(addUser(Form)).then((res) => {
         if (res && res.data) {
           if (res.data.success) {
             setnotify({ msg: "User created", popup: true, type: "success" });
-            setLoading(false);
             setForm(Initform);
           } else {
             setnotify({
@@ -103,10 +102,9 @@ const AddUser = () => {
               popup: true,
               type: "error",
             });
-            setLoading(false);
           }
         }
-        setLoading(false);
+        setLoading({ ...loading, form: false });
       });
     }
   };
@@ -115,18 +113,44 @@ const AddUser = () => {
       popup: false,
     });
   };
+  const handleConfirm = (type, arr = []) => {
+    setLoading({ ...loading, full: true });
+    dispatch(addUsers({ type, data: arr })).then((res) => {
+      if (res && res.data && res.data.success) {
+        if (res.data.ok) {
+          setnotify({ msg: res.data.msg, popup: true, type: "success" });
+        } else {
+          setnotify({
+            msg: "Saved with some problems",
+            popup: true,
+            type: "warning",
+          });
+        }
+      } else {
+        if (res && res.data) {
+          setnotify({ msg: res.data.msg, popup: true, type: "error" });
+        }
+      }
+      setLoading({ ...loading, full: false });
+    });
+  };
   return (
     <>
       <BackButton />
       <Notify props={notify} closeAlert={closeAlert} />
-      <AddUserForm
-        Form={Form}
-        handleChange={handleChange}
-        Error={Error}
-        handleSubmit={handleSubmit}
-        Helper={""}
-        loading={loading}
-      />
+      {loading.full ? (
+        <Loader msg={"Please wait...."} />
+      ) : (
+        <AddUserForm
+          Form={Form}
+          handleChange={handleChange}
+          Error={Error}
+          handleSubmit={handleSubmit}
+          Helper={""}
+          loading={loading.form}
+          handleConfirm={handleConfirm}
+        />
+      )}
     </>
   );
 };

@@ -53,6 +53,11 @@ export default {
     method: "post",
     noAuth: false,
   },
+  addUsers: {
+    path: "/admin/addusers",
+    method: "post",
+    noAuth: false,
+  },
   addSubject: {
     path: "/admin/subject",
     method: "post",

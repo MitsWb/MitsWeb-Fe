@@ -35,6 +35,10 @@ export const deleteUser = (body) => {
 export const addUser = (body) => {
   return fireRequest("addUser", [], body);
 };
+
+export const addUsers = (body) => {
+  return fireRequest("addUsers", [], body);
+};
 export const addSubject = (body) => {
   return fireRequest("addSubject", [], body);
 };
