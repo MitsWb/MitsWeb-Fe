@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { findStudents } from "./../../../redux/apiActions";
+import { usePath } from "hookrouter";
 import {
   Paper,
   Table,
@@ -42,12 +43,12 @@ function StudentsTable({ handleMarksChange }) {
   const [loading, setLoading] = useState(false);
   const [notify, setNotify] = useState({});
   const [rows, setRows] = useState([]);
+  const path = usePath().split("/").reverse();
 
   useEffect(() => {
     setLoading(true);
-    const department = "cse";
-    const semester = 8;
-
+    const department = path[1];
+    const semester = Number(path[0][1]);
     dispatch(findStudents({ department, semester })).then((res) => {
       if (res && res.data && res.data.success) {
         setRows(res.data.data);
@@ -58,6 +59,7 @@ function StudentsTable({ handleMarksChange }) {
       }
       setLoading(false);
     });
+    // eslint-disable-next-line
   }, [dispatch]);
 
   const [page, setPage] = useState(0);

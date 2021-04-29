@@ -26,4 +26,3 @@ yarn-error.log*
 .env
 src/assets/style/main.css
 start.bat
-src/redux/fireRequest.js

@@ -41,27 +41,49 @@ export default function EnterMarksDialog({ open, handleClose, data }) {
     const name = email;
     setMarks({ ...marks, [name]: e.target.value });
   };
+  const isNullOrWhiteSpace = (str) => {
+    return !str || str.length === 0 || /^\s*$/.test(str);
+  };
   const handleSubmit = () => {
+    const keys = Object.keys(marks);
+    let markList = [];
+    var validForm = true;
+    if (keys.length === 0) {
+      validForm = false;
+    }
+    for (let i = 0; i < keys.length; i++) {
+      if (isNaN(Number(marks[keys[i]])) || isNullOrWhiteSpace(marks[keys[i]])) {
+        validForm = false;
+        break;
+      }
+      markList = markList.concat({
+        name: keys[i],
+        marks: Number(marks[keys[i]]),
+      });
+    }
     const body = {
       exam: data._id,
-      markList: marks,
+      markList,
     };
-    setLoading(true);
-    dispatch(addMarks(body)).then((res) => {
-      if (res && res.data && res.data.success) {
-        setNotify({
-          msg: "Marks Entered successfully",
-          popup: true,
-          type: "success",
-        });
-      } else {
-        if (res && res.data) {
-          setNotify({ msg: res.data.msg, popup: true, type: "error" });
+    if (validForm) {
+      dispatch(addMarks(body)).then((res) => {
+        if (res && res.data && res.data.success) {
+          setNotify({
+            msg: "Marks Entered successfully",
+            popup: true,
+            type: "success",
+          });
+        } else {
+          if (res && res.data) {
+            setNotify({ msg: res.data.msg, popup: true, type: "error" });
+          }
         }
-      }
-      setLoading(false);
-      handleClose();
-    });
+        setLoading(false);
+        handleClose();
+      });
+    } else {
+      setNotify({ msg: "Error in form ", type: "error", popup: true });
+    }
   };
   const classes = useStyles();
   const closeAlert = () => {
