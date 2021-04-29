@@ -100,8 +100,7 @@ export const APIRequest = (
 
   // set authorization header in the request header
   const config = {
-    baseURL: "https://mitsweb-be.herokuapp.com",
-    //baseURL: process.env.REACT_APP_BASE_URL,
+    baseURL: process.env.REACT_APP_BASE_URL,
     headers: {},
   };
   if (!request.noAuth && localStorage.getItem("mitsweb-access-token")) {
