@@ -167,8 +167,20 @@ export default {
     noAuth: false,
   },
 
+  findStudents: {
+    path: "/faculty/findStudents",
+    method: "post",
+    noAuth: false,
+  },
+
   addAttendance: {
     path: "/faculty/attendance",
+    method: "post",
+    noAuth: false,
+  },
+
+  addMarks: {
+    path: "/faculty/marks",
     method: "post",
     noAuth: false,
   },

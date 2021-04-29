@@ -115,6 +115,10 @@ export const getStudents = (body) => {
   return fireRequest("getStudents", [], body);
 };
 
+export const findStudents = (body) => {
+  return fireRequest("findStudents", [], body);
+};
+
 export const addAttendance = (body) => {
   return fireRequest("addAttendance", [], body);
 };
@@ -132,8 +136,11 @@ export const getExams = (id) => {
 };
 
 export const getExamSubjects = (body) => {
-  console.log(body);
   return fireRequest("getExamSubjects", [], body);
+};
+
+export const addMarks = (body) => {
+  return fireRequest("addMarks", [], body);
 };
 
 //security apis

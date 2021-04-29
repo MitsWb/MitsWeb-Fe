@@ -7,7 +7,6 @@ import Loader from "./../../../utils/Loader";
 import SubjectExamsCard from "./SubjectExamsCard";
 
 function SubjectExamsList({ department, semester }) {
-  console.log(department, semester);
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);

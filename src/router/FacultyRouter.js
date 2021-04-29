@@ -16,6 +16,7 @@ import {
   ViewExamType,
 } from "../components/Pages/Faculty/Exam";
 import SemesterInformation from "../components/Departments/SemesterInformation";
+import EnterMarks from "../components/Departments/Marks/EnterMarks";
 const routes = {
   "/": () => <FacultyDashboard />,
   "/requests": () => <ApproveRequests />,
@@ -28,6 +29,7 @@ const routes = {
   "/departments/:department/:semester": ({ department, semester }) => (
     <SemesterInformation department={department} semester={semester} />
   ),
+  "/departments/:department/:semester/entermarks": () => <EnterMarks />,
   "/class": () => <MyClasses />,
   "/exam": () => <FacultyExamDashboard />,
   "/exam/create": () => <Exam />,
