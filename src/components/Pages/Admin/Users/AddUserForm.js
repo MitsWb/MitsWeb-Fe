@@ -100,6 +100,7 @@ const UploadUser = ({ open, handleClose, handleConfirm }) => {
   const handleUpload = (data, fileInfo) => {
     let validFile = true;
     let resArr = [];
+    const departments = ["CE", "ME", "EEE", "ECE", "CSE"];
     if (type === "student") {
       if (data[0].length !== 6) {
         validFile = false;
@@ -113,7 +114,6 @@ const UploadUser = ({ open, handleClose, handleConfirm }) => {
             passoutYear: data[i][4],
             rollNo: data[i][5],
           };
-          const departments = ["CE", "ME", "EEE", "ECE", "CSE"];
           const currentYears = [1, 2, 3, 4];
           if (
             student.email &&
@@ -126,6 +126,30 @@ const UploadUser = ({ open, handleClose, handleConfirm }) => {
             student.rollNo
           ) {
             resArr = resArr.concat(student);
+          }
+        }
+      }
+    } else if (type === "faculty") {
+      if (data[0].length !== 5) {
+        validFile = false;
+      } else {
+        for (let i = 0; i < data.length; i++) {
+          const faculty = {
+            email: data[i][0],
+            password: data[i][1],
+            department: data[i][2],
+            joiningYear: Number(data[i][3]),
+            internalId: data[i][4],
+          };
+          if (
+            faculty.email &&
+            faculty.password &&
+            faculty.department &&
+            departments.find((e) => e === faculty.department.toUpperCase()) &&
+            faculty.joiningYear &&
+            faculty.internalId
+          ) {
+            resArr = resArr.concat(faculty);
           }
         }
       }
