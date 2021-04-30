@@ -13,7 +13,7 @@ import { A } from "hookrouter";
 import { register } from "../../../../redux/apiActions";
 import { useDispatch } from "react-redux";
 import {
-  validateEmailAddress,
+  //validateEmailAddress,
   //validatePassword,
   phonePreg,
 } from "../../../../utils/validation";
@@ -128,7 +128,7 @@ const Register = () => {
   function validInputs() {
     let formValid = true;
     let err = Object.assign({}, initError);
-    const { password, confirm, email, number } = form;
+    const { password, confirm, number } = form;
     const isNullOrWhiteSpace = (str) => {
       return !str || str.length === 0 || /^\s*$/.test(str);
     };
@@ -142,10 +142,10 @@ const Register = () => {
       err["confirm"] = "Passwords do not match";
       formValid = false;
     }
-    if (!validateEmailAddress(email)) {
+    /*if (!validateEmailAddress(email)) {
       err["email"] = "Enter a valid email";
       formValid = false;
-    }
+    }*/
     if (!phonePreg(number)) {
       err["number"] = "Invalid Number";
       formValid = false;
@@ -287,6 +287,11 @@ const Register = () => {
                   label="New Password"
                   error={error["password"] ? true : false}
                   helperText={error["password"]}
+                  onKeyPress={(event) => {
+                    if (event.charCode === 13) {
+                      submitHandler(event);
+                    }
+                  }}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -303,6 +308,11 @@ const Register = () => {
                   label="Confirm Password"
                   error={error["confirm"] ? true : false}
                   helperText={error["confirm"]}
+                  onKeyPress={(event) => {
+                    if (event.charCode === 13) {
+                      submitHandler(event);
+                    }
+                  }}
                 />
               </Grid>
             </Grid>

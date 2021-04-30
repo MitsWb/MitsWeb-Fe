@@ -207,6 +207,11 @@ const Login = () => {
               label="Email Address"
               name="email"
               autoComplete="email"
+              onKeyPress={(event) => {
+                if (event.charCode === 13) {
+                  submitHandler(event);
+                }
+              }}
             />
             <TextField
               onChange={changeHandler}
@@ -222,7 +227,6 @@ const Login = () => {
               onKeyPress={(event) => {
                 if (event.charCode === 13) {
                   submitHandler(event);
-                  navigate("/");
                 }
               }}
               autoComplete="current-password"
