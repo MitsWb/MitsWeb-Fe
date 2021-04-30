@@ -20,6 +20,7 @@ import { green } from "@material-ui/core/colors";
 import { useMinimalSelectStyles } from "@mui-treasury/styles/select/minimal";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CSVReader from "react-csv-reader";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -183,10 +184,8 @@ const UploadUser = ({ open, handleClose, handleConfirm }) => {
             className={classes.selectEmpty}
             inputProps={{ "aria-label": "Without label" }}
           >
-            <MenuItem value={"admin"}>Admin</MenuItem>
             <MenuItem value={"student"}>Student</MenuItem>
             <MenuItem value={"faculty"}>Faculty</MenuItem>
-            <MenuItem value={"security"}>Security</MenuItem>
           </Select>
           <FormHelperText>User Type</FormHelperText>
         </FormControl>
@@ -215,6 +214,7 @@ const UploadUser = ({ open, handleClose, handleConfirm }) => {
           size="small"
           onClick={handleClose}
           variant="outlined"
+          style={{ outline: "none" }}
         >
           Back
         </Button>
@@ -223,6 +223,7 @@ const UploadUser = ({ open, handleClose, handleConfirm }) => {
           size="small"
           onClick={handleSubmit}
           variant="outlined"
+          style={{ outline: "none" }}
         >
           Submit
         </Button>
@@ -327,8 +328,10 @@ const AddUserForm = ({
               size="small"
               className="ml-6"
               onClick={() => setopen(true)}
-              color="primary"
+              color="default"
               variant="contained"
+              style={{ outline: "none" }}
+              startIcon={<CloudUploadIcon />}
             >
               Upload
             </Button>
