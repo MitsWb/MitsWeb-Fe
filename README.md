@@ -9,6 +9,8 @@ A web platform developed for our college to implement the missing features in th
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/MitsWb/MitsWeb-Fe?style=flat)
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/MitsWb/MitsWeb-Fe?color=green?style=flat)
 
+<img src="https://raw.githubusercontent.com/arihant-2310/.github-images/main/mitswebDashboard.jpeg">
+
 ## Credits 😀
 
 - [Arihant Hirawat](https://github.com/arihant-2310)
