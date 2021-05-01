@@ -15,9 +15,16 @@ A web platform developed for our college to implement the missing features in th
 
 There are separate dashboards for students, teachers, admin, and security. It is used by students to request leave applications, gate passes, access course materials, exam information, etc. Teachers can enter student marks, attendance, create exams, and approve requests for leave and gate passes. Admins have the privilege to assign roles to teachers like faculty advisors or heads of department. Admins can add new users. Multiple users can be added by uploading data through excel sheets. Security can scan the QR code generated for gate passes to verify and permit students to go outside the campus.
 
+
+## 😍 Faculty Dashboard
+
 <img src="https://raw.githubusercontent.com/arihant-2310/.github-images/main/facultyDashboard.jpeg">
 
-## Credits 😀
+## 😎 Admin Dashboard
+
+<img src="https://raw.githubusercontent.com/arihant-2310/.github-images/main/adminDashboard.jpeg">
+
+## 😀 Credits 
 
 - [Arihant Hirawat](https://github.com/arihant-2310)
 - [Irfan Shereef](https://github.com/irfan-123)
