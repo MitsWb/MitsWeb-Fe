@@ -35,9 +35,30 @@ Being a fully responsive and compatible application, it provides users with the 
   <img alt="Login" src="https://raw.githubusercontent.com/arihant-2310/.github-images/main/mobileView1.jpeg" width="50%">
 </p>
 
+## ⚛ Tech Stack
+
+- Frontend : ReactJS (JavaScript), Material UI, Tailwind CSS
+- Backend : NodeJs (Javascript)
+- Database : MongoDB
+- Deployment and Resources Optimization : Google Cloud Platform (To be done!!)
+
 ## ✨ More About It
 
 This is an ongoing project and in the next phase, our task is to implement report card generation, online fee payment, and manage new admissions.
+
+## 💻 Run the project locally
+
+- Clone the repo `https://github.com/MitsWb/MitsWeb-Fe.git`
+- Run command to install all the dependencies `npm install`
+- Navigate to `http://localhost:8000/`
+
+## 🤔 Challenges
+
+- The main challenges which we encountered while implementing it:
+  - To connect all the schemas with each other.
+  - To build logic to store infomation and retrieve it efficiently.
+  - Navigating user and displaying content based on its type (Student, Faculty, Admin, Security Guard)
+  - Implementing google signin and converting to progressive web app required some time and efforts.
 
 ## Credits 😀
 
