@@ -50,6 +50,8 @@ This is an ongoing project and in the next phase, our task is to implement repor
 
 - Clone the repo `https://github.com/MitsWb/MitsWeb-Fe.git`
 - Run command to install all the dependencies `npm install`
+- Create `.env` file in root folder and add required parameters
+- Run `npm start`
 - Navigate to `http://localhost:8000/`
 
 ## 🤔 Challenges
