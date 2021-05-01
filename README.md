@@ -23,6 +23,18 @@ There are separate dashboards for students, teachers, admin, and security. It is
 
 <img src="https://raw.githubusercontent.com/arihant-2310/.github-images/main/adminDashboardLight.jpeg">
 
+## 📱 Progressive WebApp
+
+MitsWeb is now a Progressive WebApp for better accessibility and user experience. It allows users to install the app directly from the web to their desktops/home screens and provides the native app-like experience.
+
+Being a fully responsive and compatible application, it provides users with the same experience across tablets, mobile devices, and desktops!
+
+<p align="center">
+  <img alt="Banner" src="https://raw.githubusercontent.com/arihant-2310/.github-images/main/mobileView2.jpeg" width="45%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="Login" src="https://raw.githubusercontent.com/arihant-2310/.github-images/main/mobileView1.jpeg" width="50%">
+</p>
+
 ## ✨ More About It
 
 This is an ongoing project and in the next phase, our task is to implement report card generation, online fee payment, and manage new admissions.
