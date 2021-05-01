@@ -22,7 +22,7 @@ There are separate dashboards for students, teachers, admin, and security. It is
 
 ## 😎 Admin Dashboard
 
-<img src="https://raw.githubusercontent.com/arihant-2310/.github-images/main/adminDashboard.jpeg">
+<img src="https://raw.githubusercontent.com/arihant-2310/.github-images/main/adminDashboardLight.jpeg">
 
 ## 😀 Credits 
 
