@@ -22,7 +22,7 @@ import {
   DialogContent,
   Button,
 } from "@material-ui/core";
-import { Loader, Notify } from "../../../../utils";
+import { Loader, Notify, TableSkeleton } from "../../../../utils";
 import SubjectForm from "./SubjectForm";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 const StyledTableCell = withStyles((theme) => ({
@@ -252,7 +252,7 @@ const ViewSubjects = () => {
         handleDeleteSubject={handleDeleteSubject}
       />
       {loading ? (
-        <Loader />
+        <TableSkeleton />
       ) : (
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>

@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { Grid, Card, Typography, CardContent } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { A } from "hookrouter";
-import { Loader } from "../../../../utils";
+import { CardSkeleton } from "../../../../utils";
 import BackButton from "../../../buttons/BackButton";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +39,7 @@ const FacultyExamDashboard = () => {
       <BackButton />
       <Addbutton title={"Add Exams"} href={"/exam/create"} />
       {loading ? (
-        <Loader msg={"Loading exam types"} />
+        <CardSkeleton />
       ) : (
         <Grid container spacing={3}>
           {examtypes.map((value, key) => {

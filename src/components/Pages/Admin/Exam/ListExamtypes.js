@@ -1,4 +1,4 @@
-import { Loader, Notify } from "../../../../utils";
+import { TableSkeleton, Notify } from "../../../../utils";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import DeleteExam from "./DeleteExamConfirm";
@@ -233,7 +233,7 @@ const ListExamtypes = () => {
         handleDeleteExam={handleDeleteExam}
       />
       {loading ? (
-        <Loader msg={"Loading Exam List"} />
+        <TableSkeleton />
       ) : (
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>

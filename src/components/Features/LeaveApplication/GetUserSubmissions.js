@@ -15,7 +15,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import { useDispatch } from "react-redux";
 import { Typography } from "@material-ui/core";
-import Loader from "../../../utils/Loader";
+import { TableSkeleton } from "../../../utils";
 import Notify from "../../../utils/Notify";
 import { getUsersLeave } from "../../../redux/apiActions";
 import EditLeaveForm from "./EditLeaveForm";
@@ -183,7 +183,7 @@ const GetUserSubmissions = () => {
         </BottomNavigation>
       </>
       {Loading ? (
-        <Loader />
+        <TableSkeleton />
       ) : (
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>

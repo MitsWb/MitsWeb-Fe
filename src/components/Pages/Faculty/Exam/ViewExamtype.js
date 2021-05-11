@@ -20,7 +20,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import useHeading from "../../Shared/useHeading";
-import { Loader, Notify } from "../../../../utils";
+import { TableSkeleton, Notify } from "../../../../utils";
 import BackButton from "../../../buttons/BackButton";
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -180,7 +180,9 @@ function ViewExamtype({ typeId }) {
       />
       <Notify props={notify} closeAlert={() => setnotify({ popup: false })} />
       {loading ? (
-        <Loader />
+        <div className="mt-5">
+          <TableSkeleton />
+        </div>
       ) : rows.length === 0 ? (
         <div className="w-full text-center">
           <NoResults />

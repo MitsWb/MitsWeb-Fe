@@ -11,7 +11,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import { Typography, Card } from "@material-ui/core";
-import { Loader, Notify } from "../../../utils";
+import { Notify, TableSkeleton } from "../../../utils";
 import useHeading from "../Shared/useHeading";
 import Confirmation from "./Confirmation";
 import moment from "moment";
@@ -105,7 +105,7 @@ function GetGatePassRequests() {
         handleConfirm={handleConfirm}
       />
       {Loading ? (
-        <Loader msg={"Loading gatepasses..."} />
+        <TableSkeleton />
       ) : display ? (
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>

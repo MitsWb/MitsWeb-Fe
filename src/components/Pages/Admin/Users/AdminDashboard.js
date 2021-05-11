@@ -9,7 +9,7 @@ import {
   getAllfaculties,
 } from "../../../../redux/apiActions";
 import ConfirmationBox from "./Confirmation";
-import { Loader, Notify } from "../../../../utils";
+import { TableSkeleton, Notify } from "../../../../utils";
 import { useMinimalSelectStyles } from "@mui-treasury/styles/select/minimal";
 import {
   Button,
@@ -819,7 +819,7 @@ const AdminDashboard = () => {
           </ButtonGroup>
         </Box>
         {Loading ? (
-          <Loader msg={"Loading Users..."} />
+          <TableSkeleton />
         ) : (
           <div style={{ overflow: "hidden" }}>
             <Paper

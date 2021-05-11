@@ -5,7 +5,7 @@ import useHeading from "../../Shared/useHeading";
 import { A } from "hookrouter";
 import { getClass } from "../../../../redux/apiActions";
 import { useDispatch } from "react-redux";
-import { Loader } from "../../../../utils";
+import { CardSkeleton } from "../../../../utils";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -35,7 +35,7 @@ function MyClasses() {
   return (
     <div>
       {loading ? (
-        <Loader msg={"Loading classes"} />
+        <CardSkeleton />
       ) : myclasses.length === 0 ? (
         <>No classes found</>
       ) : (

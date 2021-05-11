@@ -25,7 +25,7 @@ import {
   editGatepass,
   cancelGatepass,
 } from "../../../redux/apiActions";
-import { Loader, Notify } from "../../../utils";
+import { TableSkeleton, Notify } from "../../../utils";
 import GatePassForm from "./GatePassForm";
 import { navigate } from "hookrouter";
 const columns = [
@@ -235,7 +235,7 @@ const GetUserRequests = () => {
         changeStatus={changeStatus}
       />
       {Loading ? (
-        <Loader msg={"Loading Gatepass..."} />
+        <TableSkeleton />
       ) : (
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>
