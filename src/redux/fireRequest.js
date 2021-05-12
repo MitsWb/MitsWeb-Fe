@@ -100,7 +100,7 @@ export const APIRequest = (
 
   // set authorization header in the request header
   const config = {
-    baseURL: process.env.REACT_APP_BASE_URL,
+    baseURL: process.env.REACT_APP_BASE_URL || "http://localhost:4000",
     headers: {},
   };
   if (!request.noAuth && localStorage.getItem("mitsweb-access-token")) {
