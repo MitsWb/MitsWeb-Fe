@@ -16,7 +16,7 @@ import {
   DialogContent,
   Button,*/
 } from "@material-ui/core";
-import Loader from "../../../../utils/Loader";
+import { TableSkeleton } from "../../../../utils";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -73,7 +73,7 @@ function ViewTimetable() {
   return (
     <div>
       {loading ? (
-        <Loader msg={"Loading Timetables"} />
+        <TableSkeleton />
       ) : (
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>

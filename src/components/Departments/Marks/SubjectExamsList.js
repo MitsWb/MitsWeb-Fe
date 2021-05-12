@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Notify } from "../../../utils";
 import { getExamSubjects } from "./../../../redux/apiActions";
-import Loader from "./../../../utils/Loader";
+import { CardSkeleton } from "./../../../utils";
 import SubjectExamsCard from "./SubjectExamsCard";
 
 function SubjectExamsList({ department, semester }) {
@@ -43,7 +43,7 @@ function SubjectExamsList({ department, semester }) {
     <>
       <Notify props={notify} closeAlert={closeAlert} />
       {loading ? (
-        <Loader msg="fetching data " />
+        <CardSkeleton xs={12} height={150} />
       ) : data.length === 0 ? (
         <div className="w-full text-center">
           <NoResults />

@@ -11,9 +11,11 @@ import {
 } from "@material-ui/core";
 import { getAllsubjects, getExamTypes } from "../../../../redux/apiActions";
 import { useDispatch } from "react-redux";
-import { Loader, Notify } from "../../../../utils";
+import { Notify } from "../../../../utils";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import Dimensions from "../../Shared/Dimensions";
+import Skeleton from "@material-ui/lab/Skeleton";
+
 const useStyles = makeStyles({
   paper: {
     margin: "0px auto",
@@ -252,9 +254,11 @@ const ExamForm = ({
           </Card>
         </div>
       )}
-      {dataLoading && <Loader msg={"Loading exam creation form"} />}
+      {dataLoading && (
+        <Skeleton variant="rect" height={350} className={classes.card} />
+      )}
       {!dataLoading && (!subjects.ready || !examTypes.ready) && (
-        <h1>There is some problem loading the form!!</h1>
+        <Skeleton variant="rect" height={350} className={classes.card} />
       )}
     </>
   );
