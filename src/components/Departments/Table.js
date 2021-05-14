@@ -34,7 +34,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CustomizedTables({ rows, loading }) {
+const RealTimetable = ({ rows, loading }) => {
   const classes = useStyles();
   const { subjects, data } = rows;
 
@@ -78,10 +78,6 @@ export default function CustomizedTables({ rows, loading }) {
                       )}
                     </StyledTableCell>
                   ))}
-                  {/*   <StyledTableCell align="right">{row.calories}</StyledTableCell>
-              <StyledTableCell align="right">{row.fat}</StyledTableCell>
-              <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-              <StyledTableCell align="right">{row.protein}</StyledTableCell>*/}
                 </StyledTableRow>
               ))}
             </TableBody>
@@ -90,4 +86,5 @@ export default function CustomizedTables({ rows, loading }) {
       )}
     </>
   );
-}
+};
+export default RealTimetable;
