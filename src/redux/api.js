@@ -245,4 +245,10 @@ export default {
     method: "get",
     noAuth: false,
   },
+
+  getClassTimetable: {
+    path: "/shared/timetable",
+    method: "post",
+    noAuth: false,
+  },
 };

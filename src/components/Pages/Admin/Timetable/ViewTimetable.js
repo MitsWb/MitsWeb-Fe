@@ -124,7 +124,7 @@ function ViewTimetable() {
                       colSpan={4}
                       className=" border-b border-gray-200 text-center "
                     >
-                      <Typography>No Subjects!!!</Typography>
+                      <Typography>No Timetables!!!</Typography>
                     </TableCell>
                   </TableRow>
                 )}

@@ -181,3 +181,7 @@ export const getExamTypes = () => {
 export const getAllsubjects = () => {
   return fireRequest("getAllsubjects");
 };
+
+export const getClassTimetable = (body) => {
+  return fireRequest("getClassTimetable", [], body);
+};
