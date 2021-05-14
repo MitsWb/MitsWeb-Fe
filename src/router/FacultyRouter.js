@@ -15,7 +15,7 @@ import {
   Exam,
   ViewExamType,
 } from "../components/Pages/Faculty/Exam";
-import SemesterInformation from "../components/Departments/SemesterRoute";
+import SemesterInformation from "../components/Departments/SemesterRouter";
 import EnterMarks from "../components/Departments/Marks/EnterMarks";
 const routes = {
   "/": () => <FacultyDashboard />,

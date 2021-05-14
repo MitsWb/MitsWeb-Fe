@@ -251,4 +251,9 @@ export default {
     method: "post",
     noAuth: false,
   },
+
+  getStudentTimetable: {
+    path: "/student/timetable",
+    method: "get",
+  },
 };

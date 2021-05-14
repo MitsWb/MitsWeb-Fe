@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TemporaryDrawer({ page }) {
+export default function TemporaryDrawer({ page, links }) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     right: false,
@@ -46,17 +46,14 @@ export default function TemporaryDrawer({ page }) {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {["/", "/timetable"].map((text, index) => (
+        {links.map((text, index) => (
           <>
-            <Link to={text}>
+            <Link to={text.link}>
               <ListItem button key={text}>
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
-                {text === "/" && <ListItemText primary={"Home"} />}
-                {text === "/timetable" && (
-                  <ListItemText primary={"Time table"} />
-                )}
+                <ListItemText primary={text.title} />
               </ListItem>
             </Link>
           </>
@@ -69,7 +66,7 @@ export default function TemporaryDrawer({ page }) {
     <>
       <IconButton
         style={{ outline: "none" }}
-        onClick={toggleDrawer("right", true)}
+        onClick={toggleDrawer(anchor, true)}
       >
         <DehazeIcon />
       </IconButton>

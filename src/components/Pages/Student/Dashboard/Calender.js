@@ -27,10 +27,10 @@ function Calender() {
         },
       ],
       dateChanged: (currentDate, events) => {
-        console.log("date change", currentDate, events);
+        //    console.log("date change", currentDate, events);
       },
       monthChanged: (currentDate, events) => {
-        console.log("month change", currentDate, events);
+        //  console.log("month change", currentDate, events);
       },
     });
   }, []);

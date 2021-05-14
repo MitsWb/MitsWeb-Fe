@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Semester from "./Semester";
 import { MemoryRouter, Route } from "react-router-dom";
 import SemesterInfo from "./SemesterInformation";
 import Timetable from "./TimeTable";
 import useHeading from "../Pages/Shared/useHeading";
+import Drawer from "../Common/Drawer";
 
 const SemesterRoute = ({ department, semester }) => {
   useHeading(`Class Dashboard`);
@@ -25,6 +25,10 @@ const SemesterRoute = ({ department, semester }) => {
   const InvalidLink = () => {
     return <>Invalid Link</>;
   };
+  const links = [
+    { link: "/", title: "Home" },
+    { link: "/timetable", title: "Time table" },
+  ];
   return (
     <>
       {!linkValid ? (
@@ -36,12 +40,12 @@ const SemesterRoute = ({ department, semester }) => {
           <Route
             exact
             path="/timetable"
-            component={() => <Semester page={timeTable} />}
+            component={() => <Drawer page={timeTable} links={links} />}
           />
           <Route
             exact
             path="/"
-            component={() => <Semester page={semesterInfo} />}
+            component={() => <Drawer page={semesterInfo} links={links} />}
           />
         </MemoryRouter>
       )}
