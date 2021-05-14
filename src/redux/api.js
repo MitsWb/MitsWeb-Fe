@@ -239,6 +239,12 @@ export default {
     noAuth: false,
   },
 
+  getRazorpay: {
+    path: "shared/razorpay",
+    method: "post",
+    noAuth: false,
+  },
+
   //subjects
   getAllsubjects: {
     path: "/shared/subject",

@@ -181,3 +181,7 @@ export const getExamTypes = () => {
 export const getAllsubjects = () => {
   return fireRequest("getAllsubjects");
 };
+
+export const getRazorpay = (body) => {
+  return fireRequest("getRazorpay", [], body);
+};
