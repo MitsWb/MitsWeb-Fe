@@ -247,7 +247,7 @@ export default {
   },
 
   getClassTimetable: {
-    path: "/shared/timetable",
+    path: "/faculty/timetable",
     method: "post",
     noAuth: false,
   },
