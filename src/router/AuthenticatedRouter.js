@@ -13,7 +13,7 @@ import NewGatepass from "../components/Features/GatePass/NewGatpass";
 import ViewGatePass from "../components/Features/GatePass/ViewGatepass";
 import LeaveDashboard from "../components/Features/LeaveApplication/LeaveDashboard";
 import Logout from "../components/Common/Logout";
-import PaymentDashboard from "../components/Pages/Payment/PaymentDashboard";
+import StudentPaymentDashboard from "../components/Pages/Payment/StudentPaymentDashboard";
 
 const routes = {
   "/": () => <Dashboard />,
@@ -24,7 +24,7 @@ const routes = {
   "/leave": () => <LeaveDashboard />,
   "/leave/new": () => <RequestLeave />,
   "/gatepass/view/:id": ({ id }) => <ViewGatePass id={id} />,
-  "/payment": () => <PaymentDashboard />,
+  "/payment": () => <StudentPaymentDashboard />,
   "/logout": () => <Logout />,
 };
 
