@@ -269,4 +269,16 @@ export default {
     method: "post",
     noAuth: false,
   },
+
+  getPaymentTypes: {
+    path: "/payment/types",
+    method: "get",
+    noAuth: false,
+  },
+
+  getRazorpay: {
+    path: "payment/razorpay",
+    method: "post",
+    noAuth: false,
+  },
 };
