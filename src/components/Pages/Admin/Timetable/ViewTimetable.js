@@ -13,11 +13,13 @@ import {
   Typography,
   /*Dialog,
   DialogActions,
-  DialogContent,
-  Button,*/
+  DialogContent,*/
+  IconButton,
 } from "@material-ui/core";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { TableSkeleton } from "../../../../utils";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { navigate } from "hookrouter";
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -63,6 +65,7 @@ function ViewTimetable() {
   const columns = [
     { id: "department", label: "Dept", minWidth: 100 },
     { id: "semester", label: "Semester", minWidth: 100 },
+    { id: "delete", label: "Delete", minWidth: 100 },
   ];
 
   /*const handleChange = (e) => {
@@ -100,17 +103,27 @@ function ViewTimetable() {
                         <TableRow
                           hover
                           role="checkbox"
-                          /*      onClick={() => {
-                            setData(row);
-                            setopen(true);
-                          }}*/
                           tabIndex={-1}
                           key={row._id}
                         >
                           {columns.map((column) => {
                             const value = row[column.id];
                             return (
-                              <TableCell key={column.id} align={column.align}>
+                              <TableCell
+                                onClick={() => {
+                                  if (!(column.id === "delete"))
+                                    navigate("/timetable/" + row._id);
+                                  //setData(row);
+                                  //setopen(true);
+                                }}
+                                key={column.id}
+                                align={column.align}
+                              >
+                                {column.id === "delete" && (
+                                  <IconButton style={{ outline: "none" }}>
+                                    <DeleteForeverIcon />
+                                  </IconButton>
+                                )}
                                 {value}
                               </TableCell>
                             );

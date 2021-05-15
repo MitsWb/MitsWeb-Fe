@@ -188,3 +188,7 @@ export const getClassTimetable = (body) => {
 export const getStudentTimetable = () => {
   return fireRequest("getStudentTimetable");
 };
+
+export const getTimetablebyID = (id) => {
+  return fireRequest("getTimetablebyID", [id]);
+};

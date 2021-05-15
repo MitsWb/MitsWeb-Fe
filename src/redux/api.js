@@ -239,6 +239,12 @@ export default {
     noAuth: false,
   },
 
+  getTimetablebyID: {
+    path: "shared/timetable",
+    method: "get",
+    noAuth: false,
+  },
+
   //subjects
   getAllsubjects: {
     path: "/shared/subject",

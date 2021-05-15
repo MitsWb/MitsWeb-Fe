@@ -8,6 +8,7 @@ import Logout from "../components/Common/Logout";
 import {
   TimetableDashboard,
   CreateTimeTableForm,
+  TimeTable,
 } from "../components/Pages/Admin/Timetable";
 import { ExamDashboard, ExamType } from "../components/Pages/Admin/Exam";
 import { AddSubject, Subjects } from "../components/Pages/Admin/Subject";
@@ -23,6 +24,7 @@ const routes = {
   "/timetable/new": () => <CreateTimeTableForm />,
   "/exam": () => <ExamDashboard />,
   "/exam/createtypes": () => <ExamType />,
+  "/timetable/:id": ({ id }) => <TimeTable _id={id} />,
 };
 
 const AdminRouter = () => {

@@ -1,4 +1,4 @@
 import TimetableDashboard from "./TimetableDashboard";
 import CreateTimeTableForm from "./CreateTimeTableForm";
-
-export { TimetableDashboard, CreateTimeTableForm };
+import TimeTable from "./Timetable";
+export { TimetableDashboard, CreateTimeTableForm, TimeTable };
