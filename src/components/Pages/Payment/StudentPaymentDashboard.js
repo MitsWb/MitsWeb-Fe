@@ -94,7 +94,7 @@ const StudentPaymentDashboard = () => {
     const options = {
       key: __DEV__
         ? process.env.RAZORPAY_KEY_ID_DEVELOPMENT
-        : process.env.RAZORPAY_KEY_ID_PRODUCTION,
+        : process.env.RAZORPAY_KEY_ID_DEVELOPMENT,
       currency: data.currency,
       amount: data.amount,
       order_id: data.id,
