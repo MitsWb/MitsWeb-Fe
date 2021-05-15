@@ -103,9 +103,6 @@ const StudentPaymentDashboard = () => {
       image:
         "https://raw.githubusercontent.com/arihant-2310/.github-images/main/logo.png",
       handler: function (response) {
-        alert(response.razorpay_payment_id);
-        alert(response.razorpay_order_id);
-        alert(response.razorpay_signature);
         setLoading(false);
         setForm(initForm);
         setError(initError);
