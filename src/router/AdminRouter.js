@@ -26,9 +26,9 @@ const routes = {
   "/timetable/new": () => <CreateTimeTableForm />,
   "/exam": () => <ExamDashboard />,
   "/exam/createtypes": () => <ExamType />,
-  "/timetable/:id": ({ id }) => <TimeTable _id={id} />,
   "/payment": () => <AdminPaymentDashboard />,
   "/payment/createtypes": () => <PaymentType />,
+  "/timetable/:id": ({ id }) => <TimeTable _id={id} />,
 };
 
 const AdminRouter = () => {
