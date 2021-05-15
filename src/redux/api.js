@@ -262,4 +262,11 @@ export default {
     path: "/student/timetable",
     method: "get",
   },
+
+  //payment
+  createPaymentTypes: {
+    path: "/payment/type",
+    method: "post",
+    noAuth: false,
+  },
 };

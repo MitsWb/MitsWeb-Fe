@@ -182,6 +182,14 @@ export const getAllsubjects = () => {
   return fireRequest("getAllsubjects");
 };
 
+//payment apis
+
+export const createPaymentTypes = (body) => {
+  return fireRequest("createPaymentTypes", [], body);
+};
+
+export const getRazorpay = (body) => {
+  return fireRequest("getRazorpay", [], body);
 export const getClassTimetable = (body) => {
   return fireRequest("getClassTimetable", [], body);
 };
