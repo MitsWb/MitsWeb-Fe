@@ -194,6 +194,8 @@ export const getPaymentTypes = () => {
 
 export const getRazorpay = (body) => {
   return fireRequest("getRazorpay", [], body);
+};
+
 export const getClassTimetable = (body) => {
   return fireRequest("getClassTimetable", [], body);
 };
