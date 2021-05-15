@@ -11,6 +11,8 @@ import {
 } from "../components/Pages/Admin/Timetable";
 import { ExamDashboard, ExamType } from "../components/Pages/Admin/Exam";
 import { AddSubject, Subjects } from "../components/Pages/Admin/Subject";
+import PaymentType from "../components/Pages/Payment/PaymentType";
+import AdminPaymentDashboard from "../components/Pages/Payment/AdminPaymentDashboard";
 
 const routes = {
   "/": () => <AdminDashboard />,
@@ -23,6 +25,8 @@ const routes = {
   "/timetable/new": () => <CreateTimeTableForm />,
   "/exam": () => <ExamDashboard />,
   "/exam/createtypes": () => <ExamType />,
+  "/payment": () => <AdminPaymentDashboard />,
+  "/payment/createtypes": () => <PaymentType />,
 };
 
 const AdminRouter = () => {

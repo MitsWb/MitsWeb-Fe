@@ -251,4 +251,11 @@ export default {
     method: "get",
     noAuth: false,
   },
+
+  //payment
+  createPaymentTypes: {
+    path: "/payment/type",
+    method: "post",
+    noAuth: false,
+  },
 };
