@@ -56,6 +56,15 @@ export default function EnterMarksDialog({ open, handleClose, data }) {
         validForm = false;
         break;
       }
+      if (
+        !(
+          Number(marks[keys[i]]) >= 0 &&
+          Number(marks[keys[i]]) <= data.examType.maxMark
+        )
+      ) {
+        validForm = false;
+        break;
+      }
       markList = markList.concat({
         name: keys[i],
         marks: Number(marks[keys[i]]),
@@ -121,7 +130,10 @@ export default function EnterMarksDialog({ open, handleClose, data }) {
             </Toolbar>
           </AppBar>
 
-          <StudentsTable handleMarksChange={handleMarksChange} />
+          <StudentsTable
+            handleMarksChange={handleMarksChange}
+            maxMark={data.examType.maxMark}
+          />
         </Dialog>
       </div>
     </>

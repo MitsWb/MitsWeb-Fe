@@ -37,7 +37,7 @@ const useStyles = makeStyles({
   },
 });
 
-function StudentsTable({ handleMarksChange }) {
+function StudentsTable({ handleMarksChange, maxMark }) {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
@@ -76,7 +76,8 @@ function StudentsTable({ handleMarksChange }) {
     { id: "slno", label: "Sl.No", minWidth: 100 },
     { id: "studentId", label: "Reg.No", minWidth: 100 },
     { id: "name", label: "Name", minWidth: 100 },
-    { id: "marks", label: "Marks", minWidth: 200 },
+    { id: "marks", label: "Marks", minWidth: 100 },
+    { id: "maxMark", label: "Max Marks", minWidth: 100 },
   ];
   const NoResults = () => {
     return <>No exams found</>;
@@ -130,6 +131,7 @@ function StudentsTable({ handleMarksChange }) {
                                   {/* <div className="truncate"> */}
                                   {column.id === "slno" && index + 1}
                                   {column.label === "Name" && value}
+                                  {column.id === "maxMark" && maxMark}
                                   {column.id === "studentId" && value}
                                   {column.id === "marks" && (
                                     <TextField
