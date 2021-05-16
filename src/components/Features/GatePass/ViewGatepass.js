@@ -13,7 +13,8 @@ import Loader from "../../../utils/Loader";
 import useHeading from "../../Pages/Shared/useHeading";
 import IconButton from "@material-ui/core/IconButton";
 import moment from "moment";
-const Link = { url: process.env.REACT_APP_MAIN_URL };
+//const Link = { url: process.env.REACT_APP_MAIN_URL };
+console.log(document.URL);
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -50,7 +51,7 @@ const ViewGatepass = (id) => {
     dispatch(viewGatepass(id.id)).then((res) => {
       if (res && res.data && res.data.success) {
         setData(res.data.data);
-        setlink(Link.url + "/gatepass/view/" + id.id);
+        setlink(document.URL);
       }
       setloading(false);
     });
