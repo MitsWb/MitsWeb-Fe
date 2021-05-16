@@ -123,6 +123,10 @@ export const addAttendance = (body) => {
   return fireRequest("addAttendance", [], body);
 };
 
+export const getAttendanceList = (body) => {
+  return fireRequest("getAttendanceList", [], body);
+};
+
 export const getClass = (id) => {
   return fireRequest("getMyclasses", [id]);
 };

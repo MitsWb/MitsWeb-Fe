@@ -179,6 +179,12 @@ export default {
     noAuth: false,
   },
 
+  getAttendanceList: {
+    path: "/faculty/getattendance",
+    method: "post",
+    noAuth: false,
+  },
+
   addMarks: {
     path: "/faculty/marks",
     method: "post",

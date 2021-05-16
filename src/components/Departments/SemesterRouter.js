@@ -4,6 +4,7 @@ import SemesterInfo from "./SemesterInformation";
 import Timetable from "./TimeTable";
 import useHeading from "../Pages/Shared/useHeading";
 import Drawer from "../Common/Drawer";
+import Back from "../buttons/BackButton";
 
 const SemesterRoute = ({ department, semester }) => {
   useHeading(`Class Dashboard`);
@@ -31,24 +32,27 @@ const SemesterRoute = ({ department, semester }) => {
   ];
   return (
     <>
-      {!linkValid ? (
-        <div className="w-full text-center">
-          <InvalidLink />
-        </div>
-      ) : (
-        <MemoryRouter>
-          <Route
-            exact
-            path="/timetable"
-            component={() => <Drawer page={timeTable} links={links} />}
-          />
-          <Route
-            exact
-            path="/"
-            component={() => <Drawer page={semesterInfo} links={links} />}
-          />
-        </MemoryRouter>
-      )}
+      <Back />
+      <div className="sm:mt-0 md:mt-8 lg:mt-8">
+        {!linkValid ? (
+          <div className="w-full text-center">
+            <InvalidLink />
+          </div>
+        ) : (
+          <MemoryRouter>
+            <Route
+              exact
+              path="/timetable"
+              component={() => <Drawer page={timeTable} links={links} />}
+            />
+            <Route
+              exact
+              path="/"
+              component={() => <Drawer page={semesterInfo} links={links} />}
+            />
+          </MemoryRouter>
+        )}
+      </div>
     </>
   );
 };

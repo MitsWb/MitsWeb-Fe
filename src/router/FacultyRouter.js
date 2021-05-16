@@ -9,7 +9,7 @@ import Logout from "../components/Common/Logout";
 import SemestersList from "../components/Departments/SemestersList";
 import Leave from "../components/Pages/Faculty/LeaveApplications";
 import MyClasses from "../components/Pages/Faculty/Class/MyClasses";
-import Steps from "../components/Pages/Faculty/Class/Steps";
+import ClassRouter from "../components/Pages/Faculty/Class/ClassRouter";
 import {
   FacultyExamDashboard,
   Exam,
@@ -34,7 +34,7 @@ const routes = {
   "/exam": () => <FacultyExamDashboard />,
   "/exam/create": () => <Exam />,
   "/exam/:typeId": ({ typeId }) => <ViewExamType typeId={typeId} />,
-  "/class/:className": ({ className }) => <Steps className={className} />,
+  "/class/:className": ({ className }) => <ClassRouter className={className} />,
 };
 
 const FacultyRouter = () => {

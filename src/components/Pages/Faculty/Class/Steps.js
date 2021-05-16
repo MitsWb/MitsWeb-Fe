@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
@@ -14,7 +14,6 @@ import { getStudents, addAttendance } from "../../../../redux/apiActions";
 import { useDispatch } from "react-redux";
 import { Loader, Notify } from "../../../../utils";
 import useHeading from "../../Shared/useHeading";
-import Backbutton from "../../../buttons/BackButton";
 import moment from "moment";
 import {
   KeyboardDatePicker,
@@ -185,8 +184,6 @@ function getStepContent(
   }
 }
 
-const semesters = [1, 2, 3, 4, 5, 6, 7, 8];
-const branches = ["CE", "ME", "EEE", "ECE", "CSE"];
 const AddAttendance = ({ className }) => {
   const classes = useStyles();
   useHeading("Attendance");
@@ -194,7 +191,6 @@ const AddAttendance = ({ className }) => {
   const dispatch = useDispatch();
   const [Data, setData] = useState([]);
   const [classTimings, setclassTimings] = useState([]);
-  const [linkValid, setlinkValid] = useState(true);
   const [mystep, setmystep] = useState(0);
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
@@ -202,21 +198,7 @@ const AddAttendance = ({ className }) => {
   const [loading, setloading] = useState(false);
   const [checked, setchecked] = useState({});
   const [notify, setnotify] = useState({ msg: "", popup: "", type: "" });
-  useEffect(() => {
-    var validLink = false;
-    setActiveStep(0);
-    if (
-      classDetails.length === 3 &&
-      classDetails[0][0].toLowerCase() === "s" &&
-      classDetails[0].length === 2 &&
-      semesters.find((e) => e === Number(classDetails[0][1])) &&
-      branches.find((e) => e === classDetails[1].toUpperCase())
-    ) {
-      validLink = true;
-    }
-    setlinkValid(validLink);
-    //eslint-disable-next-line
-  }, []);
+
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setmystep(1);
@@ -338,16 +320,7 @@ const AddAttendance = ({ className }) => {
   return (
     <div className={classes.root}>
       <Notify props={notify} closeAlert={() => setnotify({ popup: false })} />
-      <Backbutton />
-      {!linkValid ? (
-        <>
-          <div className="w-full">
-            <Card style={{ padding: 6, width: 200, margin: "0px auto" }}>
-              Invalid Link!!!
-            </Card>
-          </div>
-        </>
-      ) : loading ? (
+      {loading ? (
         <Loader />
       ) : (
         <Card>
