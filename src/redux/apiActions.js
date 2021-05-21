@@ -220,3 +220,7 @@ export const postFeebbackCategory = (body) => {
 export const getFeebbackCategory = () => {
   return fireRequest("getFeebbackCategory");
 };
+
+export const updateFeebbackCategory = (body) => {
+  return fireRequest("updateFeebbackCategory", [], body);
+};

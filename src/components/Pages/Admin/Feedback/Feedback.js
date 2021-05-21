@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import {
   postFeebbackCategory,
   getFeebbackCategory,
+  updateFeebbackCategory,
 } from "../../../../redux/apiActions";
 import { CardSkeleton, Notify } from "../../../../utils";
 import {
@@ -136,8 +137,20 @@ const Feedback = () => {
       seterror(true);
     } else {
       setopen(false);
+      setloading(true);
       const { _id, category } = form;
-      console.log(_id, category);
+      dispatch(updateFeebbackCategory({ _id, category })).then((res) => {
+        if (res && res.data && res.data.success) {
+          setnotify({ popup: true, msg: res.data.msg, type: "success" });
+        } else {
+          setnotify({
+            popup: true,
+            msg: res.data.msg || "Error",
+            type: "error",
+          });
+        }
+        setrerender(!rerender);
+      });
     }
   };
   return (
@@ -152,7 +165,9 @@ const Feedback = () => {
             setform({ ...form, category: e });
           }}
           form={form}
-          handleSubmit={handleSubmit}
+          handleSubmit={() =>
+            form.type === "NEW" ? handleSubmit() : handleEdit()
+          }
           handleClose={() => setopen(false)}
         />
         {loading ? (
@@ -183,17 +198,6 @@ const Feedback = () => {
             {types.map((value, key) => {
               return (
                 <>
-                  <NewCategory
-                    error={error}
-                    open={open}
-                    handleChange={(e) => {
-                      seterror(false);
-                      setform({ ...form, category: e });
-                    }}
-                    form={form}
-                    handleSubmit={handleEdit}
-                    handleClose={() => setopen(false)}
-                  />
                   <Grid
                     key={key}
                     onClick={() => {

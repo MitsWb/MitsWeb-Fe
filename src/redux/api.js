@@ -299,4 +299,9 @@ export default {
     method: "get",
     noAuth: false,
   },
+  updateFeebbackCategory: {
+    path: "feedback/category",
+    method: "put",
+    noAuth: false,
+  },
 };
