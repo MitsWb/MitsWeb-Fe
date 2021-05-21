@@ -44,6 +44,14 @@ const AdminNavbar = ({ page }) => {
     { divider: true },
 
     {
+      path: "/feedback",
+      text: "Feedback ",
+      icon: <MenuBookIcon />,
+    },
+
+    { divider: true },
+
+    {
       path: "/payment",
       text: "Payment",
       icon: <PaymentIcon />,

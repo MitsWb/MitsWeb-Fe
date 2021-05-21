@@ -210,3 +210,13 @@ export const getStudentTimetable = () => {
 export const getTimetablebyID = (id) => {
   return fireRequest("getTimetablebyID", [id]);
 };
+
+//feedback apis
+
+export const postFeebbackCategory = (body) => {
+  return fireRequest("postFeebbackCategory", [], body);
+};
+
+export const getFeebbackCategory = () => {
+  return fireRequest("getFeebbackCategory");
+};

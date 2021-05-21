@@ -287,4 +287,16 @@ export default {
     method: "post",
     noAuth: false,
   },
+
+  //feedback apis
+  postFeebbackCategory: {
+    path: "feedback/category",
+    method: "post",
+    noAuth: false,
+  },
+  getFeebbackCategory: {
+    path: "feedback/category",
+    method: "get",
+    noAuth: false,
+  },
 };

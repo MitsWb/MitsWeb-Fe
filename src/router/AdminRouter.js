@@ -14,6 +14,7 @@ import { ExamDashboard, ExamType } from "../components/Pages/Admin/Exam";
 import { AddSubject, Subjects } from "../components/Pages/Admin/Subject";
 import PaymentType from "../components/Pages/Payment/PaymentType";
 import AdminPaymentDashboard from "../components/Pages/Payment/AdminPaymentDashboard";
+import FeedbackRouter from "../components/Pages/Admin/Feedback/FeedbackRouter";
 
 const routes = {
   "/": () => <AdminDashboard />,
@@ -29,6 +30,7 @@ const routes = {
   "/payment": () => <AdminPaymentDashboard />,
   "/payment/createtypes": () => <PaymentType />,
   "/timetable/:id": ({ id }) => <TimeTable _id={id} />,
+  "/feedback": () => <FeedbackRouter />,
 };
 
 const AdminRouter = () => {
