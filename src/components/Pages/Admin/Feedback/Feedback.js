@@ -41,7 +41,7 @@ const NewCategory = ({
         <DialogTitle>{form.type} CATEGORY</DialogTitle>
         <Grid xs={12} sm={6} item>
           <TextField
-            label="Subject Code"
+            label="Category"
             id="outlined-margin-dense"
             margin="normal"
             variant="outlined"
