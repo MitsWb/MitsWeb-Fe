@@ -230,7 +230,9 @@ const Feedback = () => {
                 style={{ margin: "0px auto" }}
               />
             </div>
-            <CardSkeleton />
+            <div className="mt-10">
+              <CardSkeleton xs={12} height={150} />
+            </div>
           </>
         ) : (
           <>
@@ -271,7 +273,9 @@ const Feedback = () => {
                     <Grid key={key} item xs={12} sm={3}>
                       <Card className={classes.paper}>
                         <CardContent>
-                          <Typography>{value.category}</Typography>
+                          <Typography className="truncate">
+                            {value.category}
+                          </Typography>
                         </CardContent>
                         <Divider />
                         <CardActions>

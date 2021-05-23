@@ -14,7 +14,7 @@ import ViewGatePass from "../components/Features/GatePass/ViewGatepass";
 import LeaveDashboard from "../components/Features/LeaveApplication/LeaveDashboard";
 import Logout from "../components/Common/Logout";
 import StudentPaymentDashboard from "../components/Pages/Payment/StudentPaymentDashboard";
-import Feedback from "../components/Pages/Student/Feedback/Feedback";
+import { Feedback, ViewCategory } from "../components/Pages/Student/Feedback";
 import { useSelector } from "react-redux";
 
 let routes = {
@@ -34,7 +34,11 @@ const AuthenticatedRouter = () => {
   const state = useSelector((reduxState) => reduxState);
   const stats = state.newapi.currentUser.data.stats;
   if (stats.feedback) {
-    routes = { ...routes, "/feedback": () => <Feedback /> };
+    routes = {
+      ...routes,
+      "/feedback": () => <Feedback />,
+      "/feedback/:id": ({ id }) => <ViewCategory _id={id} />,
+    };
   }
   /*
   Need to be done

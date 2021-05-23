@@ -220,8 +220,8 @@ export const postFeebbackCategory = (body) => {
   return fireRequest("postFeebbackCategory", [], body);
 };
 
-export const getFeebbackCategory = () => {
-  return fireRequest("getFeebbackCategory");
+export const getFeebbackCategory = (id) => {
+  return fireRequest("getFeebbackCategory", [id]);
 };
 
 export const updateFeebbackCategory = (body) => {
@@ -230,4 +230,8 @@ export const updateFeebbackCategory = (body) => {
 
 export const postFeedbackQuestions = (body) => {
   return fireRequest("postFeedbackQuestions", [], body);
+};
+
+export const getFeedbackQuestions = (id) => {
+  return fireRequest("getFeedbackQuestions", [id]);
 };
