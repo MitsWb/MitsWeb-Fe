@@ -94,7 +94,7 @@ const Navbar = ({ drawer, page }) => {
       {drawer.map((item, i) =>
         item.divider ? (
           <Divider key={i} />
-        ) : item.path ? (
+        ) : item.hidden ? null : item.path ? (
           <A key={i} href={item.path} className={classes.link}>
             <ListItem button>
               <ListItemIcon>{item.icon}</ListItemIcon>

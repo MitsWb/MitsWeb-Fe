@@ -27,7 +27,6 @@ const Router = () => {
       const access = localStorage.getItem("mitsweb-access-token");
       if (access) {
         const res = await dispatch(getCurrentUser());
-
         if (res) {
           if (res.data) {
             if (

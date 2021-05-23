@@ -8,8 +8,11 @@ import PaymentIcon from "@material-ui/icons/Payment";
 import EventIcon from "@material-ui/icons/Event";
 import Navbar from "./Navbar";
 import { navigate } from "hookrouter";
+import { useSelector } from "react-redux";
 
 const AuthenticatedNavbar = ({ page }) => {
+  const state = useSelector((reduxState) => reduxState);
+  const stats = state.newapi.currentUser.data.stats;
   const drawer = [
     {
       path: "/",
@@ -36,8 +39,16 @@ const AuthenticatedNavbar = ({ page }) => {
     },
 
     {
+      path: "/feedback",
+      text: "Feedback",
+      hidden: !stats.feedback,
+      icon: <EventIcon />,
+    },
+
+    {
       path: "/payment",
       text: "Payment",
+      //  hidden: !stats.payment,   Need to be done after fixing payment stat
       icon: <PaymentIcon />,
     },
 

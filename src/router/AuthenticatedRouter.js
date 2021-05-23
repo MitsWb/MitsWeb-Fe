@@ -14,8 +14,10 @@ import ViewGatePass from "../components/Features/GatePass/ViewGatepass";
 import LeaveDashboard from "../components/Features/LeaveApplication/LeaveDashboard";
 import Logout from "../components/Common/Logout";
 import StudentPaymentDashboard from "../components/Pages/Payment/StudentPaymentDashboard";
+import Feedback from "../components/Pages/Student/Feedback/Feedback";
+import { useSelector } from "react-redux";
 
-const routes = {
+let routes = {
   "/": () => <Dashboard />,
   "/user/:user": ({ user }) => <ProfilePage user={user} />,
   "/updateprofile": () => <UpdateProfile />,
@@ -29,6 +31,16 @@ const routes = {
 };
 
 const AuthenticatedRouter = () => {
+  const state = useSelector((reduxState) => reduxState);
+  const stats = state.newapi.currentUser.data.stats;
+  if (stats.feedback) {
+    routes = { ...routes, "/feedback": () => <Feedback /> };
+  }
+  /*
+  Need to be done
+  if (stats.payment) {
+    routes = { ...routes, "/payment": () => <StudentPaymentDashboard /> };
+  }*/
   const page = useRoutes(routes);
   return page ? <AuthenticatedNavbar page={page} /> : <NotFoundPage />;
 };
