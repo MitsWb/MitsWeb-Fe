@@ -6,7 +6,6 @@ import {
   updateFeebbackCategory,
   changeStat,
 } from "../../../../redux/apiActions";
-import AddIcon from "@material-ui/icons/Add";
 import { IOS } from "../../../Common/Switch";
 import { CardSkeleton, Notify } from "../../../../utils";
 import Skeleton from "@material-ui/lab/Skeleton";
@@ -23,13 +22,11 @@ import {
   DialogTitle,
   CardActions,
   Divider,
-  Tooltip,
-  Fab,
   Chip,
   Avatar,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
+import AddFeedbackQuestions from "./AddFeedbackQuestion";
 const NewCategory = ({
   open,
   handleClose,
@@ -119,7 +116,9 @@ const Feedback = () => {
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState(false);
   const [rerender, setrerender] = useState(false);
+  const [questionsOpen, setQuestionsOpen] = useState(false);
   const [notify, setnotify] = useState({ msg: "", popup: false, type: "" });
+
   useEffect(() => {
     setloading(true);
     dispatch(getFeebbackCategory()).then((res) => {
@@ -130,6 +129,7 @@ const Feedback = () => {
       setloading(false);
     });
   }, [dispatch, rerender]);
+
   const handleSubmit = () => {
     if (isNullOrWhiteSpace(form.category)) {
       seterror(true);
@@ -152,6 +152,7 @@ const Feedback = () => {
       );
     }
   };
+
   const handleEdit = () => {
     if (isNullOrWhiteSpace(form.category)) {
       seterror(true);
@@ -173,6 +174,7 @@ const Feedback = () => {
       });
     }
   };
+
   const handleCheck = () => {
     setchecked(!checked);
     dispatch(changeStat(["feedback", Number(!checked)])).then((res) => {
@@ -185,6 +187,16 @@ const Feedback = () => {
       }
     });
   };
+  const [quesCatg, setQuesCatg] = useState("");
+  const handleQuestionsOpen = (category) => {
+    setQuesCatg(category);
+    setQuestionsOpen(true);
+  };
+
+  const handleQuestionsClose = () => {
+    setQuestionsOpen(false);
+  };
+
   return (
     <>
       <Notify props={notify} closeAlert={() => setnotify({ popup: false })} />
@@ -201,6 +213,11 @@ const Feedback = () => {
             form.type === "NEW" ? handleSubmit() : handleEdit()
           }
           handleClose={() => setopen(false)}
+        />
+        <AddFeedbackQuestions
+          open={questionsOpen}
+          handleClose={handleQuestionsClose}
+          category={quesCatg}
         />
 
         {loading ? (
@@ -269,7 +286,11 @@ const Feedback = () => {
                           >
                             Edit
                           </Button>
-                          <Button size="small" color="primary">
+                          <Button
+                            size="small"
+                            color="primary"
+                            onClick={() => handleQuestionsOpen(value._id)}
+                          >
                             Add Questions
                           </Button>
                         </CardActions>

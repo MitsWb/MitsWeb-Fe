@@ -304,6 +304,11 @@ export default {
     method: "put",
     noAuth: false,
   },
+  postFeedbackQuestions: {
+    path: "feedback/questions",
+    method: "post",
+    noAuth: false,
+  },
 
   changeStat: {
     path: "admin/stats",

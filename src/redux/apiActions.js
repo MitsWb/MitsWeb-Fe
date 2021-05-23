@@ -227,3 +227,7 @@ export const getFeebbackCategory = () => {
 export const updateFeebbackCategory = (body) => {
   return fireRequest("updateFeebbackCategory", [], body);
 };
+
+export const postFeedbackQuestions = (body) => {
+  return fireRequest("postFeedbackQuestions", [], body);
+};
