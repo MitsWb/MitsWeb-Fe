@@ -4,8 +4,11 @@ import {
   postFeebbackCategory,
   getFeebbackCategory,
   updateFeebbackCategory,
+  changeStat,
 } from "../../../../redux/apiActions";
+import { IOS } from "../../../Common/Switch";
 import { CardSkeleton, Notify } from "../../../../utils";
+import Skeleton from "@material-ui/lab/Skeleton";
 import {
   Card,
   Grid,
@@ -18,7 +21,6 @@ import {
   Button,
   DialogTitle,
 } from "@material-ui/core";
-import { A } from "hookrouter";
 import { makeStyles } from "@material-ui/core/styles";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 const NewCategory = ({
@@ -85,6 +87,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
+    cursor: "pointer",
   },
 }));
 const isNullOrWhiteSpace = (str) => {
@@ -96,6 +99,7 @@ const Feedback = () => {
   const dispatch = useDispatch();
   const [open, setopen] = useState(false);
   const classes = useStyles();
+  const [checked, setchecked] = useState(false);
   const [types, settypes] = useState([]);
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState(false);
@@ -106,6 +110,7 @@ const Feedback = () => {
     dispatch(getFeebbackCategory()).then((res) => {
       if (res && res.data && res.data.success) {
         settypes(res.data.data || []);
+        setchecked(res.data.status);
       }
       setloading(false);
     });
@@ -153,6 +158,18 @@ const Feedback = () => {
       });
     }
   };
+  const handleCheck = () => {
+    setchecked(!checked);
+    dispatch(changeStat(["feedback", Number(!checked)])).then((res) => {
+      if (res && res.data) {
+        setnotify({
+          msg: res.data.msg,
+          popup: true,
+          type: res.data.success ? "success" : "error",
+        });
+      }
+    });
+  };
   return (
     <>
       <Notify props={notify} closeAlert={() => setnotify({ popup: false })} />
@@ -170,57 +187,77 @@ const Feedback = () => {
           }
           handleClose={() => setopen(false)}
         />
+
         {loading ? (
-          <CardSkeleton />
+          <>
+            <div className="w-full  mb-5">
+              <Skeleton
+                variant="rect"
+                width={150}
+                height={45}
+                style={{ margin: "0px auto" }}
+              />
+            </div>
+            <CardSkeleton />
+          </>
         ) : (
-          <Grid container spacing={3}>
-            <Grid
-              onClick={() => {
-                setform(initForm);
-                seterror(false);
-                setopen(true);
-              }}
-              key={0}
-              item
-              xs={6}
-              sm={3}
-            >
-              <A href={`#`}>
+          <>
+            <div className="w-full  mb-5">
+              <Card
+                style={{ width: 150, textAlign: "center", margin: "0px auto" }}
+              >
+                <IOS
+                  checked={checked}
+                  handleChange={handleCheck}
+                  label={checked ? "Active" : "Inactive"}
+                />
+              </Card>
+            </div>
+            <Grid container spacing={3}>
+              <Grid
+                onClick={() => {
+                  setform(initForm);
+                  seterror(false);
+                  setopen(true);
+                }}
+                key={0}
+                item
+                xs={6}
+                sm={3}
+              >
                 <Card className={classes.paper}>
                   <CardContent>
                     <Typography>
-                      New <AddCircleIcon color="primary" />
+                      <span>new </span> <AddCircleIcon color="primary" />
                     </Typography>
                   </CardContent>
                 </Card>
-              </A>
-            </Grid>
-            {types.map((value, key) => {
-              return (
-                <>
-                  <Grid
-                    key={key}
-                    onClick={() => {
-                      seterror(false);
-                      setform({ ...value, type: "EDIT" });
-                      setopen(true);
-                    }}
-                    item
-                    xs={6}
-                    sm={3}
-                  >
-                    <A href={`#`}>
+              </Grid>
+              {types.map((value, key) => {
+                return (
+                  <>
+                    <Grid
+                      key={key}
+                      onClick={() => {
+                        seterror(false);
+                        setform({ ...value, type: "EDIT" });
+                        setopen(true);
+                      }}
+                      item
+                      xs={6}
+                      sm={3}
+                    >
                       <Card className={classes.paper}>
                         <CardContent>
                           <Typography>{value.category}</Typography>
                         </CardContent>
                       </Card>
-                    </A>
-                  </Grid>
-                </>
-              );
-            })}
-          </Grid>
+                    </Grid>
+                  </>
+                );
+              })}
+            </Grid>
+          </>
         )}
       </div>
     </>

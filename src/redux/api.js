@@ -304,4 +304,10 @@ export default {
     method: "put",
     noAuth: false,
   },
+
+  changeStat: {
+    path: "admin/stats",
+    method: "get",
+    noAuth: false,
+  },
 };
