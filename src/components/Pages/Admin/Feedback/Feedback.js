@@ -6,6 +6,7 @@ import {
   updateFeebbackCategory,
   changeStat,
 } from "../../../../redux/apiActions";
+import AddIcon from "@material-ui/icons/Add";
 import { IOS } from "../../../Common/Switch";
 import { CardSkeleton, Notify } from "../../../../utils";
 import Skeleton from "@material-ui/lab/Skeleton";
@@ -20,6 +21,12 @@ import {
   DialogActions,
   Button,
   DialogTitle,
+  CardActions,
+  Divider,
+  Tooltip,
+  Fab,
+  Chip,
+  Avatar,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
@@ -84,10 +91,18 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
+    padding: theme.spacing(1),
+    // textAlign: "center",
     color: theme.palette.text.secondary,
     cursor: "pointer",
+  },
+  fab: {
+    margin: theme.spacing(2),
+  },
+  absolute: {
+    position: "absolute",
+    top: theme.spacing(15),
+    left: theme.spacing(35),
   },
 }));
 const isNullOrWhiteSpace = (str) => {
@@ -202,7 +217,7 @@ const Feedback = () => {
           </>
         ) : (
           <>
-            <div className="w-full  mb-5">
+            <div style={{ marginBottom: "15px" }}>
               <Card
                 style={{ width: 150, textAlign: "center", margin: "0px auto" }}
               >
@@ -215,42 +230,49 @@ const Feedback = () => {
             </div>
             <Grid container spacing={3}>
               <Grid
+                item
                 onClick={() => {
                   setform(initForm);
                   seterror(false);
                   setopen(true);
                 }}
-                key={0}
-                item
-                xs={6}
-                sm={3}
               >
-                <Card className={classes.paper}>
-                  <CardContent>
-                    <Typography>
-                      <span>new </span> <AddCircleIcon color="primary" />
-                    </Typography>
-                  </CardContent>
-                </Card>
+                <Chip
+                  checked={checked}
+                  avatar={<Avatar>+</Avatar>}
+                  label="New Category"
+                  clickable
+                  color="primary"
+                  variant="outlined"
+                />
               </Grid>
+            </Grid>
+            <Grid container spacing={3}>
               {types.map((value, key) => {
                 return (
                   <>
-                    <Grid
-                      key={key}
-                      onClick={() => {
-                        seterror(false);
-                        setform({ ...value, type: "EDIT" });
-                        setopen(true);
-                      }}
-                      item
-                      xs={6}
-                      sm={3}
-                    >
+                    <Grid key={key} item xs={12} sm={3}>
                       <Card className={classes.paper}>
                         <CardContent>
                           <Typography>{value.category}</Typography>
                         </CardContent>
+                        <Divider />
+                        <CardActions>
+                          <Button
+                            size="small"
+                            color="primary"
+                            onClick={() => {
+                              seterror(false);
+                              setform({ ...value, type: "EDIT" });
+                              setopen(true);
+                            }}
+                          >
+                            Edit
+                          </Button>
+                          <Button size="small" color="primary">
+                            Add Questions
+                          </Button>
+                        </CardActions>
                       </Card>
                     </Grid>
                   </>
