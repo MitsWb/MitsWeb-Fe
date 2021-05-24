@@ -311,13 +311,18 @@ export default {
   },
   getFeedbackQuestions: {
     path: "feedback/questions",
-    method: "get",
+    method: "post",
     noAuth: false,
   },
 
   changeStat: {
     path: "admin/stats",
     method: "get",
+    noAuth: false,
+  },
+  postFeedback: {
+    path: "feedback",
+    method: "post",
     noAuth: false,
   },
 };

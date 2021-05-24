@@ -232,6 +232,10 @@ export const postFeedbackQuestions = (body) => {
   return fireRequest("postFeedbackQuestions", [], body);
 };
 
-export const getFeedbackQuestions = (id) => {
-  return fireRequest("getFeedbackQuestions", [id]);
+export const getFeedbackQuestions = (id, body) => {
+  return fireRequest("getFeedbackQuestions", [id], body);
+};
+
+export const postFeedback = (body) => {
+  return fireRequest("postFeedback", [], body);
 };
