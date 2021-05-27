@@ -73,7 +73,7 @@ const ViewCategory = ({ _id }) => {
                         {`${value.name}`}
                       </Typography>
                       <Typography className="truncate">
-                        {`${value.code}`}
+                        {`${value.code.toUpperCase()}`}
                       </Typography>
                       <Typography className="truncate">
                         {value.taughtBy.name}
