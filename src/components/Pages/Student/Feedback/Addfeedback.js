@@ -47,8 +47,9 @@ const Addfeedback = ({ open, id, handleClose, data }) => {
       }
       const Data = {
         questionSet: id,
-        faculty: data.email,
+        faculty: data.taughtBy.email,
         feedback: finalArr,
+        code: data.code,
       };
       setLoading(true);
 
@@ -97,7 +98,7 @@ const Addfeedback = ({ open, id, handleClose, data }) => {
                 <CloseIcon />
               </IconButton>
               <Typography variant="h6" className={classes.title}>
-                {`${data.name} | ${data.subject}`}
+                {`${data.taughtBy ? data.taughtBy.name : ""} | ${data.code}`}
               </Typography>
               <Button autoFocus color="inherit" onClick={handleSubmit}>
                 Submit
@@ -107,7 +108,8 @@ const Addfeedback = ({ open, id, handleClose, data }) => {
           <div style={{ marginTop: 50 }}>
             <ListQuestions
               id={id}
-              email={data.email}
+              email={data.taughtBy ? data.taughtBy.email : ""}
+              subjectCode={data.code}
               addFeedback={(e) => setfeedback(e)}
             />
           </div>

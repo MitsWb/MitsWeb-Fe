@@ -269,6 +269,11 @@ export default {
     method: "get",
   },
 
+  getTeachers: {
+    path: "/student/teachers",
+    method: "get",
+  },
+
   //payment
   createPaymentTypes: {
     path: "/payment/type",
