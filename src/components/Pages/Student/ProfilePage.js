@@ -11,6 +11,7 @@ import { Avatar } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { A } from "hookrouter";
 import BackButton from "../../buttons/BackButton";
+import UploadProfileImage from "./UploadProfileImage";
 
 const useStyles = makeStyles({
   root: {
@@ -144,6 +145,7 @@ const ProfilePage = () => {
           </A>
         </CardActions>
       </Card>
+      <UploadProfileImage />
     </>
   );
 };

@@ -85,6 +85,7 @@ const UpdateProfile = () => {
   const [form, setForm] = useState(initForm);
   const [notify, setnotify] = useState({ popup: false, msg: "", type: "" });
   const [Error, setError] = useState(initError);
+
   useEffect(() => {}, []);
   function changeHandler(e) {
     setError(initError);
@@ -130,6 +131,7 @@ const UpdateProfile = () => {
 
   function submitHandler(e) {
     e.preventDefault();
+
     if (validInputs()) {
       const newForm = {
         name: form.name,
@@ -150,10 +152,8 @@ const UpdateProfile = () => {
           },
         },
       };
-      console.log(form);
       dispatch(updateProfile(newForm)).then((res) => {
         if (res) {
-          console.log(res.data);
           if (res.data.success) {
             setnotify({
               msg: "Profile updated",
@@ -370,7 +370,6 @@ const UpdateProfile = () => {
                 />
               </Grid>
             </Grid>
-
             <Button
               fullWidth
               variant="contained"
