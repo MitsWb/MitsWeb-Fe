@@ -91,13 +91,22 @@ const ProfilePage = () => {
       <BackButton />
       {loading ? (
         <>
-          <Skeleton className={classes.root} height={500} variant="rect" />
           <Skeleton
             className={classes.root}
-            height={100}
-            width={200}
+            animation="wave"
+            height={500}
             variant="rect"
           />
+          <div className="mt-2">
+            {" "}
+            <Skeleton
+              className={classes.root}
+              height={100}
+              width={350}
+              variant="rect"
+              animation="wave"
+            />
+          </div>
         </>
       ) : (
         <>
@@ -201,7 +210,7 @@ const ProfilePage = () => {
               </A>
             </CardActions>
           </Card>
-          <div className="w-full">
+          <div className="w-full mt-2">
             <UploadProfileImage imageChanged={imageChanged} />
           </div>
         </>

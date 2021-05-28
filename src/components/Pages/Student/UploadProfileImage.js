@@ -3,8 +3,8 @@ import FilesUpload from "../../../utils/FilesUpload";
 
 const UploadProfileImage = ({ imageChanged }) => {
   return (
-    <div style={{ width: 200, margin: "0px auto" }}>
-      <FilesUpload imageChanged={imageChanged} style={{ width: 200 }} />
+    <div style={{ width: 350, margin: "0px auto" }}>
+      <FilesUpload imageChanged={imageChanged} style={{ width: 350 }} />
     </div>
   );
 };

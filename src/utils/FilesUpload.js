@@ -7,8 +7,8 @@ import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import axios from "axios";
 import Notify from "./Notify";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import { Button, makeStyles } from "@material-ui/core";
-
+import { Button, makeStyles, Grid } from "@material-ui/core";
+import "./hideCredits.css";
 const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
@@ -68,17 +68,19 @@ function FilesUpload({ imageChanged }) {
   return (
     <>
       <Notify props={notify} closeAlert={closeAlert} />
-      <form onSubmit={onSubmit}>
-        <div className="filepond-wrapper">
-          <FilePond
-            files={imgCollection || []}
-            allowMultiple={false}
-            server={null}
-            onupdatefiles={(fileItems) => onFileChange(fileItems)}
-            labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
-          ></FilePond>
-        </div>
-        <div className="form-group">
+      <Grid spacing={2} container>
+        <Grid item>
+          <div style={{ width: 200 }}>
+            <FilePond
+              files={imgCollection || []}
+              allowMultiple={false}
+              server={null}
+              onupdatefiles={(fileItems) => onFileChange(fileItems)}
+              labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+            ></FilePond>
+          </div>
+        </Grid>
+        <Grid item>
           <Button
             variant="contained"
             color="default"
@@ -88,8 +90,8 @@ function FilesUpload({ imageChanged }) {
           >
             Upload
           </Button>
-        </div>
-      </form>
+        </Grid>
+      </Grid>{" "}
     </>
   );
 }
