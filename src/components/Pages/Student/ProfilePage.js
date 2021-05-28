@@ -60,7 +60,7 @@ const ProfilePage = () => {
     bloodGroup: "",
   };
   const [currentUser, setCurrentUser] = useState(initForm);
-
+  const [rerender, setrerender] = useState(false);
   const [notify, setnotify] = useState({ popup: false, msg: "", type: "" });
   const [loading, setloading] = useState(false);
   const noImg =
@@ -76,112 +76,136 @@ const ProfilePage = () => {
       }
       setloading(false);
     });
-  }, [dispatch]);
-
+  }, [dispatch, rerender]);
+  const imageChanged = (res) => {
+    setnotify({
+      msg: res.data.msg,
+      popup: true,
+      type: res.data.success ? "success" : "error",
+    });
+    setrerender(!rerender);
+  };
   return (
     <>
       <Notify props={notify} closeAlert={() => setnotify({ popup: false })} />
       <BackButton />
       {loading ? (
-        <Skeleton className={classes.root} height={500} variant="rect" />
+        <>
+          <Skeleton className={classes.root} height={500} variant="rect" />
+          <Skeleton
+            className={classes.root}
+            height={100}
+            width={200}
+            variant="rect"
+          />
+        </>
       ) : (
-        <Card className={classes.root}>
-          <Avatar
-            className={classes.media}
-            src={currentUser.photo ? currentUser.photo : noImg}
-          ></Avatar>
-          <CardContent>
-            <Typography
-              className="text-center"
-              gutterBottom
-              variant="h5"
-              component="h2"
-            >
-              {currentUser.name}
-            </Typography>
-            <Grid container spacing={2} className="text-center">
-              <Grid item xs={12} sm={6}>
-                <Typography gutterBottom className="text-center lg:text-right">
-                  <PhoneIcon fontSize="small" /> {currentUser.mobile}
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Typography gutterBottom className="text-center lg:text-left">
-                  {currentUser.email}
-                </Typography>
-              </Grid>
-            </Grid>
-
-            <Card className="p-1 bg-red-200">
-              <CardContent>
-                <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1">
-                  <Typography>
-                    <span className={classes.title}>D.O.B : </span>{" "}
-                    {currentUser.dob ? currentUser.dob : "EMPTY"}
-                  </Typography>
-                  <Typography>
-                    <span className={classes.title}>Blood Group : </span>{" "}
-                    {currentUser.bloodGroup ? currentUser.bloodGroup : "EMPTY"}
-                  </Typography>
-                </div>
-
-                <Typography>
-                  <span className={classes.title}> Address :</span>{" "}
-                  {currentUser.address ? currentUser.address : "EMPTY"}
-                </Typography>
-                <br></br>
-                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
-                    <Typography>
-                      <Typography className={classes.parent}>
-                        Details of Father :
-                      </Typography>
-                      <span className={classes.title}>Name :</span>{" "}
-                      {currentUser.parentDetails
-                        ? currentUser.parentDetails.father.name
-                        : "EMPTY"}
-                      <br></br>
-                      <span className={classes.title}>Mobile No : </span>
-                      {currentUser.parentDetails
-                        ? currentUser.parentDetails.father.mobile
-                        : "EMPTY"}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Typography>
-                      <Typography className={classes.parent}>
-                        Details of Mother :
-                      </Typography>
-                      <span className={classes.title}>Name :</span>{" "}
-                      {currentUser.parentDetails
-                        ? currentUser.parentDetails.mother.name
-                        : "EMPTY"}
-                      <br></br>
-                      <span className={classes.title}>Mobile No : </span>
-                      {currentUser.parentDetails
-                        ? currentUser.parentDetails.mother.mobile
-                        : "EMPTY"}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </CardContent>
-          <CardActions>
-            <A href="/updateprofile">
-              <Button
-                size="small"
-                variant="contained"
-                color="primary"
-                style={{ outline: "none" }}
+        <>
+          <Card className={classes.root}>
+            <Avatar
+              className={classes.media}
+              src={currentUser.photo ? currentUser.photo : noImg}
+            ></Avatar>
+            <CardContent>
+              <Typography
+                className="text-center"
+                gutterBottom
+                variant="h5"
+                component="h2"
               >
-                Edit profile
-              </Button>
-            </A>
-          </CardActions>
-        </Card>
+                {currentUser.name}
+              </Typography>
+              <Grid container spacing={2} className="text-center">
+                <Grid item xs={12} sm={6}>
+                  <Typography
+                    gutterBottom
+                    className="text-center lg:text-right"
+                  >
+                    <PhoneIcon fontSize="small" /> {currentUser.mobile}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Typography gutterBottom className="text-center lg:text-left">
+                    {currentUser.email}
+                  </Typography>
+                </Grid>
+              </Grid>
+
+              <Card className="p-1 bg-red-200">
+                <CardContent>
+                  <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1">
+                    <Typography>
+                      <span className={classes.title}>D.O.B : </span>{" "}
+                      {currentUser.dob ? currentUser.dob : "EMPTY"}
+                    </Typography>
+                    <Typography>
+                      <span className={classes.title}>Blood Group : </span>{" "}
+                      {currentUser.bloodGroup
+                        ? currentUser.bloodGroup
+                        : "EMPTY"}
+                    </Typography>
+                  </div>
+
+                  <Typography>
+                    <span className={classes.title}> Address :</span>{" "}
+                    {currentUser.address ? currentUser.address : "EMPTY"}
+                  </Typography>
+                  <br></br>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                      <Typography>
+                        <Typography className={classes.parent}>
+                          Details of Father :
+                        </Typography>
+                        <span className={classes.title}>Name :</span>{" "}
+                        {currentUser.parentDetails
+                          ? currentUser.parentDetails.father.name
+                          : "EMPTY"}
+                        <br></br>
+                        <span className={classes.title}>Mobile No : </span>
+                        {currentUser.parentDetails
+                          ? currentUser.parentDetails.father.mobile
+                          : "EMPTY"}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <Typography>
+                        <Typography className={classes.parent}>
+                          Details of Mother :
+                        </Typography>
+                        <span className={classes.title}>Name :</span>{" "}
+                        {currentUser.parentDetails
+                          ? currentUser.parentDetails.mother.name
+                          : "EMPTY"}
+                        <br></br>
+                        <span className={classes.title}>Mobile No : </span>
+                        {currentUser.parentDetails
+                          ? currentUser.parentDetails.mother.mobile
+                          : "EMPTY"}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+            </CardContent>
+            <CardActions>
+              <A href="/updateprofile">
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="primary"
+                  style={{ outline: "none" }}
+                >
+                  Edit profile
+                </Button>
+              </A>
+            </CardActions>
+          </Card>
+          <div className="w-full">
+            <UploadProfileImage imageChanged={imageChanged} />
+          </div>
+        </>
       )}
-      <UploadProfileImage />
     </>
   );
 };

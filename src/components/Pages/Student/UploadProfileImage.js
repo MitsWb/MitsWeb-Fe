@@ -1,12 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import FilesUpload from "../../../utils/FilesUpload";
 
-export default class UploadProfileImage extends Component {
-  render() {
-    return (
-      <div>
-        <FilesUpload />
-      </div>
-    );
-  }
-}
+const UploadProfileImage = ({ imageChanged }) => {
+  return (
+    <div style={{ width: 200, margin: "0px auto" }}>
+      <FilesUpload imageChanged={imageChanged} style={{ width: 200 }} />
+    </div>
+  );
+};
+
+export default UploadProfileImage;

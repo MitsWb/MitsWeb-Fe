@@ -17,9 +17,9 @@ const useStyles = makeStyles((theme) => ({
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
-function FilesUpload() {
+function FilesUpload({ imageChanged }) {
   const classes = useStyles();
-  const [imgCollection, setImgCollection] = useState("");
+  const [imgCollection, setImgCollection] = useState([]);
   const [notify, setNotify] = useState({ popup: false, msg: "", type: "" });
 
   const onFileChange = (files) => {
@@ -37,13 +37,26 @@ function FilesUpload() {
     }
 
     formData.append("folder", "folder-name");
+    const options = {
+      headers: {
+        "content-type": "application/json",
+        "mitsweb-access-token":
+          localStorage.getItem("mitsweb-access-token") || "",
+      },
+    };
 
-    axios
-      .post(`${process.env.REACT_APP_BASE_URL}/files/`, formData, {})
-      .then((res) => {
-        console.log(res);
-        setImgCollection([]);
-      });
+    try {
+      axios
+        .post(`${process.env.REACT_APP_BASE_URL}/files/`, formData, options)
+        .then((res) => {
+          setImgCollection([]);
+          if (res && res.data) {
+            imageChanged(res);
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const closeAlert = () => {
@@ -58,7 +71,7 @@ function FilesUpload() {
       <form onSubmit={onSubmit}>
         <div className="filepond-wrapper">
           <FilePond
-            files={imgCollection}
+            files={imgCollection || []}
             allowMultiple={false}
             server={null}
             onupdatefiles={(fileItems) => onFileChange(fileItems)}
