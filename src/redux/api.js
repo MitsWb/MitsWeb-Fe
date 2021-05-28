@@ -74,6 +74,10 @@ export default {
     noAuth: false,
   },
 
+  getStudent: {
+    path: "/user/student",
+    method: "get",
+  },
   //leave application api's
   requestLeave: {
     path: "/leaveapplication/request",

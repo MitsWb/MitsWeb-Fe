@@ -243,3 +243,7 @@ export const postFeedback = (body) => {
 export const getTeachers = () => {
   return fireRequest("getTeachers");
 };
+
+export const getStudent = () => {
+  return fireRequest("getStudent");
+};
