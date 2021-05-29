@@ -41,6 +41,34 @@ const ViewType = (props) => {
       setLoading(false);
     });
   }, [dispatch, id]);
+  const getRemarks = (arr) => {
+    const value = {
+      belowaverage: 1,
+      average: 2,
+      good: 3,
+      verygood: 4,
+      excellent: 5,
+    };
+    let sum = 0;
+    for (let i = 0; i < arr.length; i++) {
+      sum += value[arr[i]];
+    }
+    return sum / arr.length;
+  };
+  const processObj = (Obj) => {
+    const keys = Object.keys(Obj);
+    let retArr = [];
+    for (let i = 0; i < keys.length; i++) {
+      const ans = Obj[keys[i]];
+      const answer = ans.slice(1);
+      retArr = retArr.concat({
+        question: ans[0],
+        answer,
+        remarks: getRemarks(answer),
+      });
+    }
+    return retArr;
+  };
   const handleSubmit = () => {
     const { currentYear, department } = details;
     dispatch(getFeebbackList(id, { currentYear, department })).then((res) => {
@@ -50,12 +78,14 @@ const ViewType = (props) => {
         for (let i = 0; i < result.length; i++) {
           const key = Object.keys(result[i]);
           const keyArr = key[0].split("--");
-          const answerArr = result[i][key[0]];
+          const answerArr = processObj(result[i][key[0]]);
+
           const data = {
             faculty: keyArr[0],
             subject: keyArr[1],
+            feedbackList: answerArr,
           };
-          console.log(data, answerArr);
+          console.log(data);
         }
       }
       //  console.log(res.data.data);
