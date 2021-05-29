@@ -247,3 +247,7 @@ export const getTeachers = () => {
 export const getStudent = () => {
   return fireRequest("getStudent");
 };
+
+export const validFeedbackType = (id) => {
+  return fireRequest("validFeedbackType", [id]);
+};

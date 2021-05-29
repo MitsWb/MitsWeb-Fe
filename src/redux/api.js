@@ -323,6 +323,11 @@ export default {
     method: "post",
     noAuth: false,
   },
+  validFeedbackType: {
+    path: "feedback/isvalid",
+    method: "get",
+    noAuth: false,
+  },
 
   changeStat: {
     path: "admin/stats",

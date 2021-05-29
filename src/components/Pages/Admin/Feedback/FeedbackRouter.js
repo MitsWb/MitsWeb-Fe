@@ -3,26 +3,32 @@ import { MemoryRouter, Route } from "react-router-dom";
 import FeebBack from "./Feedback";
 import useHeading from "../../Shared/useHeading";
 import Drawer from "../../../Common/Drawer";
-
+import ViewType from "./ViewType";
+import ViewFeedback from "./ViewFeedbacks";
 const FeedbackRouter = () => {
   useHeading(`Feedbacks`);
 
   const links = [
-    { link: "/", title: "Types" },
-    { link: "/test", title: "Test" },
+    { link: "/", title: "Home" },
+    { link: "/feedbacktype", title: "Feedbacks" },
   ];
   return (
     <>
       <MemoryRouter>
         <Route
           exact
-          path="/test"
-          component={() => <Drawer page={<>test</>} links={links} />}
+          path="/"
+          component={() => <Drawer page={<FeebBack />} links={links} />}
         />
         <Route
           exact
-          path="/"
-          component={() => <Drawer page={<FeebBack />} links={links} />}
+          path="/feedbacktype"
+          component={() => <Drawer page={<ViewFeedback />} links={links} />}
+        />
+        <Route
+          exact
+          path="/feedbacktype/:_id"
+          component={() => <Drawer page={<ViewType />} links={links} />}
         />
       </MemoryRouter>
     </>
