@@ -44,7 +44,21 @@ const ViewType = (props) => {
   const handleSubmit = () => {
     const { currentYear, department } = details;
     dispatch(getFeebbackList(id, { currentYear, department })).then((res) => {
-      console.log(res.data.data);
+      if (res && res.data) {
+        const result = res.data.data;
+        // const finalArr = [];
+        for (let i = 0; i < result.length; i++) {
+          const key = Object.keys(result[i]);
+          const keyArr = key[0].split("--");
+          const answerArr = result[i][key[0]];
+          const data = {
+            faculty: keyArr[0],
+            subject: keyArr[1],
+          };
+          console.log(data, answerArr);
+        }
+      }
+      //  console.log(res.data.data);
     });
   };
   return (
