@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { validFeedbackType } from "../../../../redux/apiActions";
+import {
+  validFeedbackType,
+  getFeebbackList,
+} from "../../../../redux/apiActions";
 import { useDispatch } from "react-redux";
 import { Notify, Loader } from "../../../../utils";
 import {
@@ -11,27 +14,39 @@ import {
   InputLabel,
   FormControl,
   Button,
+  Typography,
 } from "@material-ui/core";
 const ViewType = (props) => {
   const location = useLocation();
-  const _id = location.pathname.split("/")[2];
+  const id = location.pathname.split("/")[2];
   const dispatch = useDispatch();
+  const [category, setcategory] = useState("");
   const [notify, setnotify] = useState({ msg: "", popup: false, type: "" });
   const [loading, setLoading] = useState(false);
   const [details, setdetails] = useState({ currentYear: 1, department: "CE" });
   useEffect(() => {
     setLoading(true);
-    dispatch(validFeedbackType(_id || "id")).then((res) => {
+    dispatch(validFeedbackType(id || "id")).then((res) => {
       if (res && res.data) {
-        setnotify({
-          msg: res.data.msg,
-          popup: !res.data.success,
-          type: "error",
-        });
+        if (res.data.success) {
+          setcategory(res.data.data.category);
+        } else {
+          setnotify({
+            msg: res.data.msg,
+            popup: true,
+            type: "error",
+          });
+        }
       }
       setLoading(false);
     });
-  }, [dispatch, _id]);
+  }, [dispatch, id]);
+  const handleSubmit = () => {
+    const { currentYear, department } = details;
+    dispatch(getFeebbackList(id, { currentYear, department })).then((res) => {
+      console.log(res.data.data);
+    });
+  };
   return (
     <>
       <Notify props={notify} closeAlert={() => setnotify({ popup: false })} />
@@ -40,6 +55,18 @@ const ViewType = (props) => {
       ) : (
         <>
           <div className="w-full">
+            <Card
+              className="truncate"
+              style={{
+                maxWidth: 200,
+                margin: "0px auto",
+                textAlign: "center",
+                fontWeight: 500,
+              }}
+            >
+              <Typography variant="h5 ">{category}</Typography>
+            </Card>
+            <br></br>
             <Card style={{ maxWidth: 400, margin: "0px auto", padding: 5 }}>
               <Grid container xs={6} sm={12} spacing={2}>
                 <Grid item>
@@ -104,6 +131,7 @@ const ViewType = (props) => {
                     color="primary"
                     variant="contained"
                     style={{ outline: "none" }}
+                    onClick={handleSubmit}
                   >
                     Find
                   </Button>

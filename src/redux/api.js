@@ -328,7 +328,11 @@ export default {
     method: "get",
     noAuth: false,
   },
-
+  getFeebbackList: {
+    path: "feedback/getfeedback",
+    method: "post",
+    noAuth: false,
+  },
   changeStat: {
     path: "admin/stats",
     method: "get",

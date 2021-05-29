@@ -251,3 +251,7 @@ export const getStudent = () => {
 export const validFeedbackType = (id) => {
   return fireRequest("validFeedbackType", [id]);
 };
+
+export const getFeebbackList = (id, body) => {
+  return fireRequest("getFeebbackList", [id], body);
+};
