@@ -17,6 +17,7 @@ import {
 } from "../components/Pages/Faculty/Exam";
 import SemesterInformation from "../components/Departments/SemesterRouter";
 import EnterMarks from "../components/Departments/Marks/EnterMarks";
+import CourseNavbar from "../components/Pages/CourseResources/CourseNavbar";
 const routes = {
   "/": () => <FacultyDashboard />,
   "/requests": () => <ApproveRequests />,
@@ -34,6 +35,7 @@ const routes = {
   "/exam": () => <FacultyExamDashboard />,
   "/exam/create": () => <Exam />,
   "/exam/:typeId": ({ typeId }) => <ViewExamType typeId={typeId} />,
+  "/course": () => <CourseNavbar />,
   "/class/:className": ({ className }) => <ClassRouter className={className} />,
 };
 

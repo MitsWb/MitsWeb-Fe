@@ -8,6 +8,7 @@ import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
 import Navbar from "./Navbar";
 import { navigate } from "hookrouter";
 import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
+import FolderSharedIcon from "@material-ui/icons/FolderShared";
 
 const FacultyNavbar = ({ page }) => {
   const drawer = [
@@ -27,6 +28,12 @@ const FacultyNavbar = ({ page }) => {
       path: "/exam",
       text: "Exams",
       icon: <MenuBookIcon />,
+    },
+    { divider: true },
+    {
+      path: "/course",
+      text: "Course Resources",
+      icon: <FolderSharedIcon />,
     },
     { divider: true },
     {
