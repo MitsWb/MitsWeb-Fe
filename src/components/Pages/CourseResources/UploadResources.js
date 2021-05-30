@@ -34,13 +34,13 @@ function UploadResources() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let files = fileCollection.map((fileItem) => fileItem.file);
+    setFileCollection([...fileCollection, files]);
 
     var formData = new FormData();
-    if (fileCollection.length > 0)
-      for (let img of fileCollection[0]) {
-        formData.append("resources", img);
-      }
-
+    for (let img of fileCollection) {
+      formData.append("resources", img.file);
+    }
     const options = {
       headers: {
         "Content-type": "multipart/form-data",
@@ -52,7 +52,6 @@ function UploadResources() {
     for (let [key, value] of Object.entries(form)) {
       if (key !== "resources") formData.append(key, value);
     }
-
     try {
       axios
         .post(
@@ -95,12 +94,7 @@ function UploadResources() {
       popup: false,
     });
   };
-  const onFileChange = (files) => {
-    let items = files.map((fileItem) => fileItem.file);
-    if (items.length === 0) {
-      setFileCollection([]);
-    } else setFileCollection([...fileCollection, items]);
-  };
+
   return (
     <>
       <Notify props={notify} closeAlert={closeAlert} />
@@ -111,7 +105,7 @@ function UploadResources() {
         handleChange={handleChange}
         handleSubmit={handleSubmit}
         fileCollection={fileCollection}
-        setFileCollection={onFileChange}
+        setFileCollection={setFileCollection}
       />
     </>
   );
