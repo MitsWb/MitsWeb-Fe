@@ -52,7 +52,8 @@ const ViewGatepass = (id) => {
       }
       setloading(false);
     });
-  }, [id, dispatch]);
+    // eslint-disable-next-line
+  }, []);
   return (
     <div>
       <QRCode open={open} handleClose={() => setopen(false)} link={link} />
