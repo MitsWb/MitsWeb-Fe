@@ -271,6 +271,7 @@ export default {
   getStudentTimetable: {
     path: "/student/timetable",
     method: "get",
+    noAuth: false,
   },
 
   getTeachers: {

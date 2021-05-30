@@ -1,33 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 import useHeading from "../../Shared/useHeading";
+import { getStudentTimetable } from "../../../../redux/apiActions";
 import Drawer from "../../../Common/Drawer";
 import Dashboard from "./Dashboard";
 import Timetable from "./TimeTable";
-
-const SemesterRoute = ({ department, semester }) => {
+import { useDispatch } from "react-redux";
+import { Notify, Loader } from "../../../../utils";
+const DashbpardRoute = () => {
   useHeading(`Class Dashboard`);
-
+  const [rows, setrows] = useState([]);
+  const [notify, setnotify] = useState({ msg: "", popup: false, type: "" });
+  const dispatch = useDispatch();
+  const [loading, setloading] = useState(false);
+  useEffect(() => {
+    setloading(true);
+    dispatch(getStudentTimetable()).then((res) => {
+      if (res && res.data && res.data.success) {
+        setrows(res.data.data);
+      } else if (res && res.data) {
+        setnotify({ msg: res.data.msg, popup: true, type: "error" });
+      }
+      setloading(false);
+    });
+  }, [dispatch]);
   const links = [
     { link: "/", title: "Home" },
     { link: "/timetable", title: "Timetable" },
   ];
   return (
     <>
-      <MemoryRouter>
-        <Route
-          exact
-          path="/"
-          component={() => <Drawer page={<Dashboard />} links={links} />}
-        />
-        <Route
-          exact
-          path="/timetable"
-          component={() => <Drawer page={<Timetable />} links={links} />}
-        />
-      </MemoryRouter>
+      <Notify props={notify} closeAlert={() => setnotify({ popup: false })} />
+      {loading ? (
+        <Loader msg="loading dashboard" />
+      ) : (
+        <MemoryRouter>
+          <Route
+            exact
+            path="/"
+            component={() => <Drawer page={<Dashboard />} links={links} />}
+          />
+          <Route
+            exact
+            path="/timetable"
+            component={() => (
+              <Drawer page={<Timetable rows={rows} />} links={links} />
+            )}
+          />
+        </MemoryRouter>
+      )}
     </>
   );
 };
 
-export default SemesterRoute;
+export default DashbpardRoute;
