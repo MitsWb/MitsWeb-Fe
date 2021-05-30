@@ -24,9 +24,10 @@ function FilesUpload({ imageChanged }) {
 
   const onFileChange = (files) => {
     let items = files.map((fileItem) => fileItem.file);
-    setImgCollection([...imgCollection, items]);
+    if (items.length === 0) {
+      setImgCollection([]);
+    } else setImgCollection([...imgCollection, items]);
   };
-
   const onSubmit = (e) => {
     e.preventDefault();
 
