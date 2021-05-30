@@ -9,7 +9,6 @@ import Collapse from "@material-ui/core/Collapse";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import { red } from "@material-ui/core/colors";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
@@ -18,10 +17,6 @@ import { Button, Grid } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
-  },
-  media: {
-    height: 0,
-    paddingTop: "56.25%", // 16:9
   },
   expand: {
     transform: "rotate(0deg)",
@@ -33,9 +28,7 @@ const useStyles = makeStyles((theme) => ({
   expandOpen: {
     transform: "rotate(180deg)",
   },
-  avatar: {
-    backgroundColor: red[500],
-  },
+  avatar: {},
 }));
 
 function ShowResourcesForm({ courses }) {
@@ -55,7 +48,14 @@ function ShowResourcesForm({ courses }) {
               <Card className={classes.root} key={index}>
                 <CardHeader
                   avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
+                    <Avatar
+                      aria-label="recipe"
+                      className={classes.avatar}
+                      style={{
+                        backgroundColor:
+                          "#" + (((1 << 24) * Math.random()) | 0).toString(16),
+                      }}
+                    >
                       {course.type[0].toUpperCase()}
                     </Avatar>
                   }
