@@ -16,7 +16,9 @@ import {
   Button,
   Typography,
 } from "@material-ui/core";
-const ViewType = (props) => {
+import ShowFeedbackResponse from "./ShowFeedbackResponse";
+
+const ViewType = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const dispatch = useDispatch();
@@ -24,6 +26,8 @@ const ViewType = (props) => {
   const [notify, setnotify] = useState({ msg: "", popup: false, type: "" });
   const [loading, setLoading] = useState(false);
   const [details, setdetails] = useState({ currentYear: 1, department: "CE" });
+  const [feedbacks, setFeedbacks] = useState([]);
+
   useEffect(() => {
     setLoading(true);
     dispatch(validFeedbackType(id || "id")).then((res) => {
@@ -41,6 +45,7 @@ const ViewType = (props) => {
       setLoading(false);
     });
   }, [dispatch, id]);
+
   const getRemarks = (arr) => {
     const value = {
       belowaverage: 1,
@@ -49,32 +54,41 @@ const ViewType = (props) => {
       verygood: 4,
       excellent: 5,
     };
+
     let sum = 0;
+
     for (let i = 0; i < arr.length; i++) {
       sum += value[arr[i]];
     }
+
     return sum / arr.length;
   };
+
   const processObj = (Obj) => {
     const keys = Object.keys(Obj);
     let retArr = [];
+
     for (let i = 0; i < keys.length; i++) {
       const ans = Obj[keys[i]];
       const answer = ans.slice(1);
+
       retArr = retArr.concat({
         question: ans[0],
         answer,
         remarks: getRemarks(answer),
       });
     }
+
     return retArr;
   };
+
   const handleSubmit = () => {
     const { currentYear, department } = details;
+
     dispatch(getFeebbackList(id, { currentYear, department })).then((res) => {
       if (res && res.data) {
+        let finalResult = [];
         const result = res.data.data;
-        // const finalArr = [];
         for (let i = 0; i < result.length; i++) {
           const key = Object.keys(result[i]);
           const keyArr = key[0].split("--");
@@ -85,12 +99,13 @@ const ViewType = (props) => {
             subject: keyArr[1],
             feedbackList: answerArr,
           };
-          console.log(data);
+          finalResult.push(data);
         }
+        setFeedbacks(finalResult);
       }
-      //  console.log(res.data.data);
     });
   };
+
   return (
     <>
       <Notify props={notify} closeAlert={() => setnotify({ popup: false })} />
@@ -182,6 +197,11 @@ const ViewType = (props) => {
                 </Grid>
               </Grid>
             </Card>
+          </div>
+          <div style={{ marginTop: "5px" }}>
+            {feedbacks.length > 0 && (
+              <ShowFeedbackResponse feedbacks={feedbacks} />
+            )}
           </div>
         </>
       )}
