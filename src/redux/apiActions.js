@@ -255,3 +255,8 @@ export const validFeedbackType = (id) => {
 export const getFeebbackList = (id, body) => {
   return fireRequest("getFeebbackList", [id], body);
 };
+
+//course material api's
+export const getMyCourses = () => {
+  return fireRequest("getMyCourses");
+};
