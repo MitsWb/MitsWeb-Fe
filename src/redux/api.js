@@ -334,4 +334,11 @@ export default {
     method: "post",
     noAuth: false,
   },
+
+  //course material api's
+  getMyCourses: {
+    path: "shared/resources",
+    method: "get",
+    noAuth: false,
+  },
 };

@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
 export default function CourseNavbar() {
   const classes = useStyles();
   useHeading("Course Resources");
-  const [uploadNew, setUploadNew] = useState(true);
-  const [showResources, setShowResources] = useState(false);
+  const [uploadNew, setUploadNew] = useState(false);
+  const [showResources, setShowResources] = useState(true);
 
   return (
     <>

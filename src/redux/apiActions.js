@@ -247,3 +247,8 @@ export const getTeachers = () => {
 export const getStudent = () => {
   return fireRequest("getStudent");
 };
+
+//course material api's
+export const getMyCourses = () => {
+  return fireRequest("getMyCourses");
+};
