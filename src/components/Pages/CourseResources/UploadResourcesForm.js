@@ -29,6 +29,7 @@ import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orien
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import "./../../../utils";
+import Skeleton from "@material-ui/lab/Skeleton";
 let color = blue;
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
@@ -294,7 +295,14 @@ const UploadResourcesForm = ({
             </Grid>
           </Card>
         </div>
-      ) : null}
+      ) : (
+        <Skeleton
+          className={classes.card}
+          animation="wave"
+          height={550}
+          variant="rect"
+        />
+      )}
     </>
   );
 };

@@ -12,6 +12,7 @@ import UploadResources from "./UploadResources";
 const useStyles = makeStyles((theme) => ({
   link: {
     display: "flex",
+    cursor: "pointer",
   },
   icon: {
     marginRight: theme.spacing(0.5),
@@ -31,7 +32,6 @@ export default function CourseNavbar() {
       <Breadcrumbs aria-label="breadcrumb">
         <Link
           color={showResources ? "primary" : "inherit"}
-          href="/course/new"
           onClick={(e) => {
             e.preventDefault();
             setUploadNew(false);
