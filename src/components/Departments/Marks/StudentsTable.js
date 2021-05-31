@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { findStudents } from "./../../../redux/apiActions";
+import { findStudents, getSubjectMarks } from "./../../../redux/apiActions";
 import { usePath } from "hookrouter";
 import {
   Paper,
@@ -37,10 +37,11 @@ const useStyles = makeStyles({
   },
 });
 
-function StudentsTable({ handleMarksChange, maxMark }) {
+function StudentsTable({ handleMarksChange, maxMark, examId, type }) {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
+  const [subjectMarks, setSubjectMarks] = useState([]);
   const [notify, setNotify] = useState({});
   const [rows, setRows] = useState([]);
   const path = usePath().split("/").reverse();
@@ -48,6 +49,7 @@ function StudentsTable({ handleMarksChange, maxMark }) {
   useEffect(() => {
     setLoading(true);
     const department = path[1];
+
     const semester = Number(path[0][1]);
     dispatch(findStudents({ department, semester })).then((res) => {
       if (res && res.data && res.data.success) {
@@ -57,8 +59,22 @@ function StudentsTable({ handleMarksChange, maxMark }) {
           setNotify({ msg: res.data.msg, popup: true, type: "error" });
         }
       }
+      // setLoading(false);
+    });
+
+    setLoading(true);
+    dispatch(getSubjectMarks(examId)).then((res) => {
+      if (res && res.data && res.data.success) {
+        setSubjectMarks(res.data.data);
+        console.log(res.data.data);
+      } else {
+        if (res && res.data) {
+          setNotify({ msg: res.data.msg, popup: true, type: "error" });
+        }
+      }
       setLoading(false);
     });
+
     // eslint-disable-next-line
   }, [dispatch]);
 
@@ -82,6 +98,7 @@ function StudentsTable({ handleMarksChange, maxMark }) {
   const NoResults = () => {
     return <>No exams found</>;
   };
+
   return (
     <>
       <Notify props={notify} closeAlert={() => setNotify({ popup: false })} />
@@ -117,6 +134,7 @@ function StudentsTable({ handleMarksChange, maxMark }) {
                         page * rowsPerPage + rowsPerPage
                       )
                       .map((row, index) => {
+                        console.log(subjectMarks[row.email]);
                         return (
                           <TableRow
                             hover
@@ -133,17 +151,26 @@ function StudentsTable({ handleMarksChange, maxMark }) {
                                   {column.label === "Name" && value}
                                   {column.id === "maxMark" && maxMark}
                                   {column.id === "studentId" && value}
-                                  {column.id === "marks" && (
+                                  {column.id === "marks" && type === "view" && (
                                     <TextField
                                       size="small"
                                       variant="outlined"
                                       style={{ width: 80 }}
-                                      onChange={(e) =>
-                                        handleMarksChange(e, row.email)
-                                      }
+                                      defaultValue={subjectMarks[row.email]}
+                                      disabled
                                     />
-                                  )}{" "}
-                                  {/* </div> */}
+                                  )}
+                                  {column.id === "marks" &&
+                                    type === "enter" && (
+                                      <TextField
+                                        size="small"
+                                        variant="outlined"
+                                        style={{ width: 80 }}
+                                        onChange={(e) =>
+                                          handleMarksChange(e, row.email)
+                                        }
+                                      />
+                                    )}
                                 </TableCell>
                               );
                             })}

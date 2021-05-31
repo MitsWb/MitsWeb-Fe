@@ -150,6 +150,10 @@ export const addMarks = (body) => {
   return fireRequest("addMarks", [], body);
 };
 
+export const getSubjectMarks = (id) => {
+  return fireRequest("getSubjectMarks", [id]);
+};
+
 //security apis
 export const verifyGatepass = (body) => {
   return fireRequest("verifyGatepass", [], body);

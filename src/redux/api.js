@@ -200,6 +200,12 @@ export default {
     method: "get",
     noAuth: false,
   },
+
+  getSubjectMarks: {
+    path: "/faculty/marks",
+    method: "get",
+    noAuth: false,
+  },
   //security apis
   verifyGatepass: {
     path: "/security/verify",

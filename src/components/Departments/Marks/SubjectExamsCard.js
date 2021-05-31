@@ -20,10 +20,11 @@ const useStyles = makeStyles({
 
 export default function SubjectExamsCard({ data }) {
   const classes = useStyles();
-  const [enterMarks, setEnterMarks] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [type, setType] = useState("");
 
   const handleEnterMarksClose = () => {
-    setEnterMarks(false);
+    setOpen(false);
   };
 
   return (
@@ -49,19 +50,30 @@ export default function SubjectExamsCard({ data }) {
           <Button
             size="small"
             color="primary"
-            onClick={() => setEnterMarks(true)}
+            onClick={() => {
+              setType("enter");
+              setOpen(true);
+            }}
           >
             Enter Marks
           </Button>
-          <Button size="small" color="primary">
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => {
+              setOpen(true);
+              setType("view");
+            }}
+          >
             View Marks
           </Button>
         </CardActions>
       </Card>
       <EnterMarksDialog
-        open={enterMarks}
+        open={open}
         handleClose={handleEnterMarksClose}
         data={data}
+        type={type}
       />
     </>
   );

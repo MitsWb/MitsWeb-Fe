@@ -27,7 +27,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function EnterMarksDialog({ open, handleClose, data }) {
+export default function EnterMarksDialog({ open, handleClose, data, type }) {
   const dispatch = useDispatch();
   const [marks, setMarks] = useState({});
   const [loading, setLoading] = useState(false);
@@ -82,6 +82,7 @@ export default function EnterMarksDialog({ open, handleClose, data }) {
             popup: true,
             type: "success",
           });
+          setMarks([]);
         } else {
           if (res && res.data) {
             setNotify({ msg: res.data.msg, popup: true, type: "error" });
@@ -94,6 +95,7 @@ export default function EnterMarksDialog({ open, handleClose, data }) {
       setNotify({ msg: "Error in form ", type: "error", popup: true });
     }
   };
+
   const classes = useStyles();
   const closeAlert = () => {
     setNotify({
@@ -124,15 +126,19 @@ export default function EnterMarksDialog({ open, handleClose, data }) {
               <Typography variant="h6" className={classes.title}>
                 {`${data.subject.name} | ${data.examType.type}`}
               </Typography>
-              <Button autoFocus color="inherit" onClick={handleSubmit}>
-                save
-              </Button>
+              {type !== "view" && (
+                <Button autoFocus color="inherit" onClick={handleSubmit}>
+                  save
+                </Button>
+              )}
             </Toolbar>
           </AppBar>
 
           <StudentsTable
             handleMarksChange={handleMarksChange}
             maxMark={data.examType.maxMark}
+            examId={data._id}
+            type={type}
           />
         </Dialog>
       </div>
