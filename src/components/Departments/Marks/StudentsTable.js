@@ -66,7 +66,6 @@ function StudentsTable({ handleMarksChange, maxMark, examId, type }) {
     dispatch(getSubjectMarks(examId)).then((res) => {
       if (res && res.data && res.data.success) {
         setSubjectMarks(res.data.data);
-        console.log(res.data.data);
       } else {
         if (res && res.data) {
           setNotify({ msg: res.data.msg, popup: true, type: "error" });
@@ -134,7 +133,6 @@ function StudentsTable({ handleMarksChange, maxMark, examId, type }) {
                         page * rowsPerPage + rowsPerPage
                       )
                       .map((row, index) => {
-                        console.log(subjectMarks[row.email]);
                         return (
                           <TableRow
                             hover

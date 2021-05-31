@@ -1,7 +1,6 @@
 import React from "react";
 import Box from "@material-ui/core/Box";
 import ListItem from "@material-ui/core/ListItem";
-import { useJupiterListItemStyles } from "@mui-treasury/styles/listItem/jupiter";
 import { makeStyles, Typography } from "@material-ui/core";
 import useHeading from "../Pages/Shared/useHeading";
 import BackButton from "../buttons/BackButton";
@@ -26,7 +25,6 @@ const useStyles = makeStyles(({ breakpoints }) => ({
 }));
 
 const SemestersList = ({ department }) => {
-  const classes = useJupiterListItemStyles();
   const styles = useStyles();
   useHeading("Semesters");
   const semesters = ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8"];
@@ -37,7 +35,7 @@ const SemestersList = ({ department }) => {
         {semesters.map((semester, key) => {
           return (
             <A key={key} href={`/departments/${department}/${semester}`}>
-              <ListItem classes={classes} className={styles.items} button>
+              <ListItem key={key} className={styles.items} button>
                 <Typography className={styles.title}>{semester}</Typography>
               </ListItem>
             </A>

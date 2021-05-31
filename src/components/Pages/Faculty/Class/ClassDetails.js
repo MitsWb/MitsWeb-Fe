@@ -20,12 +20,9 @@ function ClassDetails({ details, handleChange }) {
               margin: "0px auto",
             }}
           >
-            <Grid container xs={6} sm={12} spacing={2}>
-              <Grid item>
-                <FormControl
-                  variant="outlined"
-                  style={{ minWidth: "150px", margin: 5 }}
-                >
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <FormControl variant="outlined" style={{ width: "100%" }}>
                   <InputLabel>Module</InputLabel>
                   <Select
                     value={details.module}
@@ -46,11 +43,8 @@ function ClassDetails({ details, handleChange }) {
                 </FormControl>
               </Grid>
 
-              <Grid item>
-                <FormControl
-                  variant="outlined"
-                  style={{ minWidth: "150px", margin: 5 }}
-                >
+              <Grid item xs={12} sm={6}>
+                <FormControl variant="outlined" style={{ width: "100%" }}>
                   <InputLabel>Delivery Mode</InputLabel>
                   <Select
                     value={details.deliveryMode}
@@ -63,14 +57,16 @@ function ClassDetails({ details, handleChange }) {
                   </Select>
                 </FormControl>
               </Grid>
-              <TextField
-                label="Topic"
-                name="topic"
-                value={details.topic}
-                onChange={handleChange}
-                variant="outlined"
-                style={{ minWidth: "300px", margin: "0px auto" }}
-              />
+              <Grid item xs={12}>
+                <TextField
+                  label="Topic"
+                  name="topic"
+                  value={details.topic}
+                  onChange={handleChange}
+                  variant="outlined"
+                  style={{ width: "100%" }}
+                />
+              </Grid>
             </Grid>
           </Card>
         </div>

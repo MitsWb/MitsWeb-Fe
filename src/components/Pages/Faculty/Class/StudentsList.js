@@ -50,10 +50,8 @@ export default function EnterMarksDialog({ open, handleClose, data, list }) {
                 justify="center"
                 direction="row"
                 spacing={0}
-                xs={12}
-                sm={6}
               >
-                <Grid item>
+                <Grid item xs={12} sm={6}>
                   <div className="flex flex-row">
                     <div className="truncate mr-2">
                       <Typography>{`${data.startTime}-${data.endTime}`}</Typography>
@@ -63,7 +61,7 @@ export default function EnterMarksDialog({ open, handleClose, data, list }) {
                     </div>
                   </div>
                 </Grid>
-                <Grid item>
+                <Grid item xs={12} sm={6}>
                   <div className="ml-2">
                     <Popover data={data} />
                   </div>
@@ -92,19 +90,13 @@ export default function EnterMarksDialog({ open, handleClose, data, list }) {
                     <CardContent>
                       <div className="flex relative flex-row">
                         <div className="w-4/5">
-                          <Grid
-                            style={{ width: "100%" }}
-                            container
-                            xs={6}
-                            sm={12}
-                            spacing={2}
-                          >
-                            <Grid item>
+                          <Grid style={{ width: "100%" }} container spacing={2}>
+                            <Grid item xs={6} sm={12}>
                               <div className="truncate">
                                 <Typography> {value.studentId}</Typography>
                               </div>
                             </Grid>
-                            <Grid item>
+                            <Grid item xs={6} sm={12}>
                               <div className="truncate">
                                 <Typography> {value.name}</Typography>
                               </div>
