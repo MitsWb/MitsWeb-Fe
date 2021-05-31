@@ -135,7 +135,7 @@ function ViewExamtype({ typeId }) {
     { id: "date", label: "Date", minWidth: 100 },
 
     {
-      id: "subject",
+      id: "type",
       label: "Type",
       minWidth: 100,
     },
@@ -226,14 +226,14 @@ function ViewExamtype({ typeId }) {
                           >
                             {columns.map((column) => {
                               const value = row[column.id];
+
                               return (
                                 <TableCell key={column.id} align={column.align}>
                                   <p className="truncate">
-                                    {column.label === "Subject Name" &&
-                                      value.name}
-                                    {column.label === "Date" && value}
-                                    {column.label === "Type" &&
-                                      value.courseType}
+                                    {column.id === "subject" && value.name}
+                                    {column.id === "date" && value}
+                                    {column.id === "type" &&
+                                      row.subject.courseType}
                                   </p>
                                 </TableCell>
                               );
