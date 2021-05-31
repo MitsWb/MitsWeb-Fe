@@ -44,8 +44,8 @@ function ShowResourcesForm({ courses }) {
       <Grid container spacing={2} style={{ marginTop: "2rem" }}>
         {courses.map((course, index) => {
           return (
-            <Grid item xs={12} sm={4}>
-              <Card className={classes.root} key={index}>
+            <Grid item xs={12} sm={4} key={index}>
+              <Card className={classes.root}>
                 <CardHeader
                   avatar={
                     <Avatar
