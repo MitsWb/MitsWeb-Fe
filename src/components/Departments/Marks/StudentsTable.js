@@ -166,6 +166,7 @@ function StudentsTable({ handleMarksChange, maxMark, examId, type }) {
                                         size="small"
                                         variant="outlined"
                                         style={{ width: 80 }}
+                                        defaultValue={subjectMarks[row.email]}
                                         onChange={(e) =>
                                           handleMarksChange(e, row.email)
                                         }
