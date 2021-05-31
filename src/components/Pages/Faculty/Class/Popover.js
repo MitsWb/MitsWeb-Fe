@@ -26,6 +26,7 @@ const SimplePopover = ({ data }) => {
         color="secondary"
         onClick={handleClick}
         size="large"
+        style={{ outline: "none" }}
       >
         <InfoIcon />
       </IconButton>
