@@ -19,6 +19,8 @@ import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
+import ClassDetails from "./ClassDetails";
+import ImportContactsIcon from "@material-ui/icons/ImportContacts";
 const useQontoStepIconStyles = makeStyles({
   root: {
     color: "#eaeaf0",
@@ -127,7 +129,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return ["Choose Date", "Attendance"];
+  return ["Choose Date", "Details", "Attendance"];
 }
 
 function getStepContent(
@@ -139,7 +141,9 @@ function getStepContent(
   checked,
   setchecked,
   handleAttendance,
-  classTimings
+  classTimings,
+  details,
+  handleDetails
 ) {
   switch (step) {
     case 0:
@@ -166,6 +170,8 @@ function getStepContent(
         </div>
       );
     case 1:
+      return <ClassDetails details={details} handleChange={handleDetails} />;
+    case 2:
       return (
         <>
           <AttendaceList
@@ -198,12 +204,36 @@ const AddAttendance = ({ className }) => {
   const [loading, setloading] = useState(false);
   const [checked, setchecked] = useState({});
   const [notify, setnotify] = useState({ msg: "", popup: "", type: "" });
-
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setmystep(1);
+  const [details, setdetails] = useState({
+    deliveryMode: "offline",
+    module: "none",
+    topic: "",
+  });
+  const isNullOrWhiteSpace = (str) => {
+    return !str || str.length === 0 || /^\s*$/.test(str);
   };
-
+  const handleNext = () => {
+    if (activeStep === 1) {
+      if (details.module === "none") {
+        setnotify({
+          msg: "please select module",
+          popup: true,
+          type: "warning",
+        });
+        return;
+      }
+      if (isNullOrWhiteSpace(details.topic)) {
+        setnotify({ msg: "please fill topic", popup: true, type: "warning" });
+        return;
+      }
+    }
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setmystep(activeStep + 1);
+  };
+  const handleDetails = (e) => {
+    const { name, value } = e.target;
+    setdetails({ ...details, [name]: value });
+  };
   function ColorlibStepIcon(props) {
     const classes = useColorlibStepIconStyles();
     const { active, completed } = props;
@@ -215,7 +245,8 @@ const AddAttendance = ({ className }) => {
           onClick={() => setActiveStep(0)}
         />
       ),
-      2: <GroupAdd />,
+      2: <ImportContactsIcon />,
+      3: <GroupAdd />,
     };
 
     return (
@@ -240,7 +271,7 @@ const AddAttendance = ({ className }) => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  if (mystep === 1) {
+  if (mystep === 2) {
     setmystep(0);
     const day = moment(date).format("dddd");
     setloading(true);
@@ -289,6 +320,7 @@ const AddAttendance = ({ className }) => {
       }
     }
     const timeArr = selectedDate.split("-");
+    const { module, deliveryMode, topic } = details;
     const finalData = {
       startTime: timeArr[0],
       timeStamp: date,
@@ -297,8 +329,13 @@ const AddAttendance = ({ className }) => {
       semester: Number(classDetails[0][1]),
       period: classDetails[2],
       attendanceList: result,
+      module,
+      deliveryMode,
+      topic,
     };
+
     setloading(true);
+
     dispatch(addAttendance(finalData)).then((res) => {
       if (res && res.data && res.data.success) {
         setnotify({ msg: res.data.msg, popup: true, type: "success" });
@@ -350,7 +387,9 @@ const AddAttendance = ({ className }) => {
                     checked,
                     handleCheck,
                     handleAttendance,
-                    classTimings
+                    classTimings,
+                    details,
+                    handleDetails
                   )}
                 </div>
                 <div className="m-6">
@@ -364,7 +403,7 @@ const AddAttendance = ({ className }) => {
                     Back
                   </Button>
                   <Button
-                    disabled={activeStep === 1}
+                    disabled={activeStep === 2}
                     variant="contained"
                     color="primary"
                     onClick={handleNext}

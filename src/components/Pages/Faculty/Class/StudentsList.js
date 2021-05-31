@@ -7,6 +7,7 @@ import IconButton from "@material-ui/core/IconButton";
 import { Typography, Card, CardContent, Grid } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
+import Popover from "./Popover";
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "fixed",
@@ -23,6 +24,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function EnterMarksDialog({ open, handleClose, data, list }) {
   const classes = useStyles();
+
   return (
     <>
       <div>
@@ -43,22 +45,27 @@ export default function EnterMarksDialog({ open, handleClose, data, list }) {
                 <CloseIcon />
               </IconButton>
               <Grid
-                style={{ width: "100%" }}
                 container
-                xs={6}
-                sm={12}
-                spacing={2}
+                alignItems="center"
+                justify="center"
+                direction="row"
+                spacing={0}
+                xs={12}
+                sm={6}
               >
                 <Grid item>
-                  <div className="truncate">
-                    <Typography>
-                      {`${data.startTime}-${data.endTime}`}
-                    </Typography>
+                  <div className="flex flex-row">
+                    <div className="truncate mr-2">
+                      <Typography>{`${data.startTime}-${data.endTime}`}</Typography>
+                    </div>
+                    <div className="truncate ml-2 mr-2">
+                      <Typography> {data.timeStamp}</Typography>
+                    </div>
                   </div>
                 </Grid>
                 <Grid item>
-                  <div className="truncate">
-                    <Typography> {data.timeStamp}</Typography>
+                  <div className="ml-2">
+                    <Popover data={data} />
                   </div>
                 </Grid>
               </Grid>
