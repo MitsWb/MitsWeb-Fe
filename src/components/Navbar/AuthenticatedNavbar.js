@@ -5,6 +5,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
 import PaymentIcon from "@material-ui/icons/Payment";
+import EventNoteIcon from "@material-ui/icons/EventNote";
 import EventIcon from "@material-ui/icons/Event";
 import Navbar from "./Navbar";
 import { navigate } from "hookrouter";
@@ -21,9 +22,9 @@ const AuthenticatedNavbar = ({ page }) => {
     },
 
     {
-      path: "/user/profile",
-      text: "Profile",
-      icon: <AccountCircleIcon />,
+      path: "/events",
+      text: "Events",
+      icon: <EventNoteIcon />,
     },
 
     {
@@ -50,6 +51,11 @@ const AuthenticatedNavbar = ({ page }) => {
       text: "Payment",
       //  hidden: !stats.payment,   Need to be done after fixing payment stat
       icon: <PaymentIcon />,
+    },
+    {
+      path: "/user/profile",
+      text: "Profile",
+      icon: <AccountCircleIcon />,
     },
 
     { divider: true },

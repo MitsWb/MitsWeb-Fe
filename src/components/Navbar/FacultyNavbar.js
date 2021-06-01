@@ -9,6 +9,7 @@ import Navbar from "./Navbar";
 import { navigate } from "hookrouter";
 import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
 import FolderSharedIcon from "@material-ui/icons/FolderShared";
+import EventNoteIcon from "@material-ui/icons/EventNote";
 
 const FacultyNavbar = ({ page }) => {
   const drawer = [
@@ -16,6 +17,12 @@ const FacultyNavbar = ({ page }) => {
       path: "/",
       text: "Dashboard",
       icon: <DashboardIcon />,
+    },
+    { divider: true },
+    {
+      path: "/events",
+      text: "Events",
+      icon: <EventNoteIcon />,
     },
     { divider: true },
     {

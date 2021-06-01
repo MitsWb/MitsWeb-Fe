@@ -16,9 +16,11 @@ import Logout from "../components/Common/Logout";
 import StudentPaymentDashboard from "../components/Pages/Payment/StudentPaymentDashboard";
 import { Feedback, ViewCategory } from "../components/Pages/Student/Feedback";
 import { useSelector } from "react-redux";
+import EventsCalendar from "../components/Features/Events/EventsCalendar";
 
 let routes = {
   "/": () => <Dashboard />,
+  "/events": () => <EventsCalendar selectable={false} />,
   "/user/:user": ({ user }) => <ProfilePage user={user} />,
   "/updateprofile": () => <UpdateProfile />,
   "/gatepass": () => <RequestGatePass />,

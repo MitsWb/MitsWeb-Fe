@@ -18,8 +18,10 @@ import {
 import SemesterInformation from "../components/Departments/SemesterRouter";
 import EnterMarks from "../components/Departments/Marks/EnterMarks";
 import CourseNavbar from "../components/Pages/CourseResources/CourseNavbar";
+import EventsCalendar from "../components/Features/Events/EventsCalendar";
 const routes = {
   "/": () => <FacultyDashboard />,
+  "/events": () => <EventsCalendar selectable={true} />,
   "/requests": () => <ApproveRequests />,
   "/leave": () => <Leave />,
   "/gatepass/view/:id": ({ id }) => <ViewGatePass id={id} />,

@@ -357,4 +357,17 @@ export default {
     method: "get",
     noAuth: false,
   },
+
+  //event api's
+  getEvents: {
+    path: "shared/event",
+    method: "get",
+    noAuth: false,
+  },
+
+  postEvent: {
+    path: "shared/event",
+    method: "post",
+    noAuth: false,
+  },
 };

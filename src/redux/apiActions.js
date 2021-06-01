@@ -264,3 +264,12 @@ export const getFeebbackList = (id, body) => {
 export const getMyCourses = () => {
   return fireRequest("getMyCourses");
 };
+
+//event api's
+export const getEvents = () => {
+  return fireRequest("getEvents");
+};
+
+export const postEvent = (body) => {
+  return fireRequest("postEvent", [], body);
+};

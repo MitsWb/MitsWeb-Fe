@@ -26,6 +26,7 @@ const DashbpardRoute = () => {
     { link: "/", title: "Home" },
     { link: "/timetable", title: "Timetable" },
   ];
+
   return (
     <>
       <Notify props={notify} closeAlert={() => setnotify({ popup: false })} />
