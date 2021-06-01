@@ -1,9 +1,12 @@
+import { Container } from "@material-ui/core";
 import React from "react";
-import Calender from "./Calender";
+import EventsCalendar from "../../../Features/Events/EventsCalendar";
 const DashboardPage = () => {
   return (
     <>
-      <Calender />
+      <Container maxWidth="xl">
+        <EventsCalendar selectable={false} />
+      </Container>
     </>
   );
 };

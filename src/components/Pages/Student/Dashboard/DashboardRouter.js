@@ -18,8 +18,6 @@ const DashbpardRoute = () => {
     dispatch(getStudentTimetable()).then((res) => {
       if (res && res.data && res.data.success) {
         setrows(res.data.data);
-      } else if (res && res.data) {
-        setnotify({ msg: res.data.msg, popup: true, type: "error" });
       }
       setloading(false);
     });
