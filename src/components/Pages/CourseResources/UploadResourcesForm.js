@@ -181,8 +181,12 @@ const UploadResourcesForm = ({
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
-                    {semesters.map((semester) => {
-                      return <MenuItem value={semester}>{semester}</MenuItem>;
+                    {semesters.map((semester, index) => {
+                      return (
+                        <MenuItem key={index} value={semester}>
+                          {semester}
+                        </MenuItem>
+                      );
                     })}
                   </Select>
                 </FormControl>
