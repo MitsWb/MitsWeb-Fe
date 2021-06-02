@@ -10,6 +10,7 @@ import { getEvents, postEvent } from "./../../../redux/apiActions";
 import { Notify } from "../../../utils";
 import { Container } from "@material-ui/core";
 import useHeading from "../../Pages/Shared/useHeading";
+import NotifySnackBar from "../../../utils/NotifySnackBar";
 
 const localizer = momentLocalizer(moment);
 const propTypes = {};
@@ -28,6 +29,8 @@ const EventsCalendar = ({ selectable }) => {
   const [form, setForm] = useState(initForm);
   const [open, setOpen] = useState(false);
   const [notify, setNotify] = useState({ msg: "", popup: false, type: "" });
+  const [show, setShow] = useState(false);
+  const [title, setTitle] = useState();
   const [loading, setLoading] = useState(false);
 
   const { height } = Dimensions();
@@ -67,6 +70,11 @@ const EventsCalendar = ({ selectable }) => {
     setForm({ ...form, [name]: value });
   };
 
+  const showEvent = (title, uploadBy) => {
+    setShow(true);
+    setTitle(`${title} By: (${uploadBy}).`);
+  };
+
   useEffect(() => {
     dispatch(getEvents()).then((res) => {
       if (res.data && res.data.success && res.data.data) {
@@ -98,12 +106,13 @@ const EventsCalendar = ({ selectable }) => {
             events={event}
             defaultView={Views.MONTH}
             defaultDate={new Date()}
-            onSelectEvent={(event) => alert(event.title)}
+            onSelectEvent={(event) => showEvent(event.title, event.uploadBy)}
             onSelectSlot={handleSelect}
           />
         </div>
       </Container>
       <Notify props={notify} closeAlert={() => setNotify({ popup: false })} />
+      <NotifySnackBar open={show} setOpen={setShow} msg={title} />
     </>
   );
 };
