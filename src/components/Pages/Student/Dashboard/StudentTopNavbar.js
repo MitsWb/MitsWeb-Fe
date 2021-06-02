@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import RestoreIcon from "@material-ui/icons/Restore";
+import EventIcon from "@material-ui/icons/Event";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
-import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
-import SubjectExamsList from "./Marks/SubjectExamsList";
-import ShowResources from "../Pages/CourseResources/ShowResources";
+import ShowResources from "../../CourseResources/ShowResources";
+import EventsCalendar from "../../../Features/Events/EventsCalendar";
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import TimeTable from "./TimeTable";
 
 const useStyles = makeStyles({
   root: {
@@ -15,9 +16,9 @@ const useStyles = makeStyles({
   },
 });
 
-function SemesterInformation({ department, semester }) {
+function StudentTopNavbar() {
   const classes = useStyles();
-  const [value, setValue] = useState("discussions");
+  const [value, setValue] = useState("events");
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -32,15 +33,15 @@ function SemesterInformation({ department, semester }) {
           showLabels
         >
           <BottomNavigationAction
-            label="Discussions"
-            value="discussions"
-            icon={<RestoreIcon />}
+            label="Events"
+            value="events"
+            icon={<EventIcon />}
           />
 
           <BottomNavigationAction
-            label="Marks"
-            value="marks"
-            icon={<LibraryBooksIcon />}
+            label="Timetable"
+            value="timetable"
+            icon={<AccessTimeIcon />}
           />
           <BottomNavigationAction
             label="Notes"
@@ -48,12 +49,11 @@ function SemesterInformation({ department, semester }) {
             icon={<MenuBookIcon />}
           />
         </BottomNavigation>
-        {value === "marks" && (
-          <SubjectExamsList department={department} semester={semester} />
-        )}
         {value === "notes" && <ShowResources />}
+        {value === "timetable" && <TimeTable />}
+        {value === "events" && <EventsCalendar />}
       </>
     </>
   );
 }
-export default SemesterInformation;
+export default StudentTopNavbar;

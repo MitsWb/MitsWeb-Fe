@@ -37,7 +37,8 @@ const DashbpardRoute = () => {
           <Route
             exact
             path="/"
-            component={() => <Drawer page={<Dashboard />} links={links} />}
+            // component={() => <Drawer page={<Dashboard />} links={links} />}
+            component={() => <Dashboard links={links} />}
           />
           <Route
             exact

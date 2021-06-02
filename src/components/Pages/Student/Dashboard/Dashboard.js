@@ -1,9 +1,9 @@
 import React from "react";
-import Calender from "./Calender";
+import StudentTopNavbar from "./StudentTopNavbar";
 const DashboardPage = () => {
   return (
     <>
-      <Calender />
+      <StudentTopNavbar />
     </>
   );
 };

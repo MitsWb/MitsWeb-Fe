@@ -6,7 +6,6 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
 import FeedbackIcon from "@material-ui/icons/Feedback";
 import PaymentIcon from "@material-ui/icons/Payment";
-import EventNoteIcon from "@material-ui/icons/EventNote";
 import EventIcon from "@material-ui/icons/Event";
 import Navbar from "./Navbar";
 import { navigate } from "hookrouter";
@@ -20,12 +19,6 @@ const AuthenticatedNavbar = ({ page }) => {
       path: "/",
       text: "Dashboard",
       icon: <DashboardIcon />,
-    },
-
-    {
-      path: "/events",
-      text: "Events",
-      icon: <EventNoteIcon />,
     },
 
     {

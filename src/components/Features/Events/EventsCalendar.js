@@ -99,7 +99,7 @@ const EventsCalendar = ({ selectable }) => {
           handleSubmit={handleSubmit}
           loading={loading}
         />
-        <div style={{ height: height - 120 }}>
+        <div style={{ height: height - 200 }}>
           <Calendar
             selectable={selectable}
             localizer={localizer}
