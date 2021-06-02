@@ -4,6 +4,8 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import TableChartIcon from "@material-ui/icons/TableChart";
 import PaymentIcon from "@material-ui/icons/Payment";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
+import EventIcon from "@material-ui/icons/Event";
+import FeedbackIcon from "@material-ui/icons/Feedback";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import { BookOutlined } from "@material-ui/icons";
 import Navbar from "./Navbar";
@@ -15,6 +17,13 @@ const AdminNavbar = ({ page }) => {
       path: "/",
       text: "Users",
       icon: <DashboardIcon />,
+    },
+
+    { divider: true },
+    {
+      path: "/events",
+      text: "Events",
+      icon: <EventIcon />,
     },
 
     { divider: true },
@@ -46,7 +55,7 @@ const AdminNavbar = ({ page }) => {
     {
       path: "/feedback",
       text: "Feedback ",
-      icon: <MenuBookIcon />,
+      icon: <FeedbackIcon />,
     },
 
     { divider: true },

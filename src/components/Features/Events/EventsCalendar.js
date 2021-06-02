@@ -9,11 +9,13 @@ import { useDispatch } from "react-redux";
 import { getEvents, postEvent } from "./../../../redux/apiActions";
 import { Notify } from "../../../utils";
 import { Container } from "@material-ui/core";
+import useHeading from "../../Pages/Shared/useHeading";
 
 const localizer = momentLocalizer(moment);
 const propTypes = {};
 
 const EventsCalendar = ({ selectable }) => {
+  useHeading("Events");
   const dispatch = useDispatch();
   const initForm = {
     start: "",

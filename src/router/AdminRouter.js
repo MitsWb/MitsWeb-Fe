@@ -15,9 +15,11 @@ import { AddSubject, Subjects } from "../components/Pages/Admin/Subject";
 import PaymentType from "../components/Pages/Payment/PaymentType";
 import AdminPaymentDashboard from "../components/Pages/Payment/AdminPaymentDashboard";
 import FeedbackRouter from "../components/Pages/Admin/Feedback/FeedbackRouter";
+import EventsCalendar from "../components/Features/Events/EventsCalendar";
 
 const routes = {
   "/": () => <AdminDashboard />,
+  "/events": () => <EventsCalendar selectable={true} />,
   "/user/new": () => <AddUser />,
   "/gatepass/view/:id": ({ id }) => <ViewGatePass id={id} />,
   "/logout": () => <Logout />,

@@ -4,6 +4,7 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
+import FeedbackIcon from "@material-ui/icons/Feedback";
 import PaymentIcon from "@material-ui/icons/Payment";
 import EventNoteIcon from "@material-ui/icons/EventNote";
 import EventIcon from "@material-ui/icons/Event";
@@ -43,7 +44,7 @@ const AuthenticatedNavbar = ({ page }) => {
       path: "/feedback",
       text: "Feedback",
       hidden: !stats.feedback,
-      icon: <EventIcon />,
+      icon: <FeedbackIcon />,
     },
 
     {
