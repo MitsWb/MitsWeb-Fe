@@ -5,10 +5,12 @@ import {
   getFeebbackCategory,
   updateFeebbackCategory,
   changeStat,
+  deleteFeedback,
 } from "../../../../redux/apiActions";
 import { IOS } from "../../../Common/Switch";
 import { CardSkeleton, Notify } from "../../../../utils";
 import Skeleton from "@material-ui/lab/Skeleton";
+import Delete from "./Delete";
 import {
   Card,
   Grid,
@@ -24,9 +26,11 @@ import {
   Divider,
   Chip,
   Avatar,
+  IconButton,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AddFeedbackQuestions from "./AddFeedbackQuestion";
+import { DeleteForever } from "@material-ui/icons";
 const NewCategory = ({
   open,
   handleClose,
@@ -118,7 +122,7 @@ const Feedback = () => {
   const [rerender, setrerender] = useState(false);
   const [questionsOpen, setQuestionsOpen] = useState(false);
   const [notify, setnotify] = useState({ msg: "", popup: false, type: "" });
-
+  const [deleteData, setdeleteData] = useState({ open: false, data: "" });
   useEffect(() => {
     setloading(true);
     dispatch(getFeebbackCategory()).then((res) => {
@@ -196,7 +200,23 @@ const Feedback = () => {
   const handleQuestionsClose = () => {
     setQuestionsOpen(false);
   };
-
+  const handleDelete = () => {
+    const { _id } = deleteData.data;
+    setdeleteData({ ...deleteData, open: false });
+    dispatch(deleteFeedback(_id)).then((res) => {
+      if (res && res.data) {
+        const success = res.data.success ? true : false;
+        setnotify({
+          type: success ? "success" : "error",
+          msg: success
+            ? (deleteData.data.category || "") + " deleted !"
+            : res.data.msg,
+          popup: true,
+        });
+      }
+      setrerender(!rerender);
+    });
+  };
   return (
     <>
       <Notify props={notify} closeAlert={() => setnotify({ popup: false })} />
@@ -236,6 +256,12 @@ const Feedback = () => {
           </>
         ) : (
           <>
+            <Delete
+              data={deleteData.data}
+              open={deleteData.open}
+              handleClose={() => setdeleteData({ ...deleteData, open: false })}
+              handleDelete={handleDelete}
+            />
             <div style={{ marginBottom: "15px" }}>
               <Card
                 style={{ width: 150, textAlign: "center", margin: "0px auto" }}
@@ -272,10 +298,28 @@ const Feedback = () => {
                   <>
                     <Grid key={key} item xs={12} sm={3}>
                       <Card className={classes.paper}>
-                        <CardContent>
-                          <Typography className="truncate">
-                            {value.category}
-                          </Typography>
+                        <CardContent className="flex flex-row">
+                          <div className="w-4/5">
+                            <Typography className="truncate">
+                              {value.category}
+                            </Typography>
+                          </div>
+                          <div className="w-1/5 text-right">
+                            <IconButton
+                              onClick={() =>
+                                setdeleteData({
+                                  data: value,
+                                  open: true,
+                                })
+                              }
+                              className="outline-none"
+                            >
+                              <DeleteForever
+                                color="secondary"
+                                className="t-0 r-0 absolute"
+                              />
+                            </IconButton>
+                          </div>
                         </CardContent>
                         <Divider />
                         <CardActions>

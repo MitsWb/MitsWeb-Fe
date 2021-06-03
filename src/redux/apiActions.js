@@ -244,6 +244,10 @@ export const postFeedback = (body) => {
   return fireRequest("postFeedback", [], body);
 };
 
+export const deleteFeedback = (id) => {
+  return fireRequest("deleteFeedback", [id]);
+};
+
 export const getTeachers = () => {
   return fireRequest("getTeachers");
 };

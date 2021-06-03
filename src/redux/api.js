@@ -350,6 +350,11 @@ export default {
     method: "post",
     noAuth: false,
   },
+  deleteFeedback: {
+    path: "feedback",
+    method: "delete",
+    noAuth: false,
+  },
 
   //course material api's
   getMyCourses: {
