@@ -1,9 +1,16 @@
 import React from "react";
-import { Button, Dialog, DialogActions, DialogTitle } from "@material-ui/core";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@material-ui/core";
 const Delete = ({ open, handleClose, handleDelete, data }) => {
   return (
     <Dialog className="p-6" open={open} onClose={handleClose}>
-      <DialogTitle>You are about to delete {data.category} !</DialogTitle>
+      <DialogTitle>DELETE</DialogTitle>
+      <DialogContent>You are about to delete {data.category} !</DialogContent>
       <DialogActions>
         <Button
           style={{ outline: "none" }}

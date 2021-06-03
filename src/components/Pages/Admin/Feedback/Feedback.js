@@ -201,6 +201,7 @@ const Feedback = () => {
     setQuestionsOpen(false);
   };
   const handleDelete = () => {
+    setloading(true);
     const { _id } = deleteData.data;
     setdeleteData({ ...deleteData, open: false });
     dispatch(deleteFeedback(_id)).then((res) => {
@@ -312,7 +313,7 @@ const Feedback = () => {
                                   open: true,
                                 })
                               }
-                              className="outline-none"
+                              style={{ outline: "none" }}
                             >
                               <DeleteForever
                                 color="secondary"
