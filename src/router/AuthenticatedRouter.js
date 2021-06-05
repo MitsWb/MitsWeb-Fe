@@ -26,7 +26,6 @@ let routes = {
   "/leave": () => <LeaveDashboard />,
   "/leave/new": () => <RequestLeave />,
   "/gatepass/view/:id": ({ id }) => <ViewGatePass id={id} />,
-  "/payment": () => <StudentPaymentDashboard />,
   "/logout": () => <Logout />,
 };
 
@@ -40,11 +39,11 @@ const AuthenticatedRouter = () => {
       "/feedback/:id": ({ id }) => <ViewCategory _id={id} />,
     };
   }
-  /*
-  Need to be done
+
+  //Need to be done
   if (stats.payment) {
     routes = { ...routes, "/payment": () => <StudentPaymentDashboard /> };
-  }*/
+  }
   const page = useRoutes(routes);
   return page ? <AuthenticatedNavbar page={page} /> : <NotFoundPage />;
 };

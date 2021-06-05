@@ -249,6 +249,7 @@ const Feedback = () => {
                 width={150}
                 height={45}
                 style={{ margin: "0px auto" }}
+                animation="wave"
               />
             </div>
             <div className="mt-10">

@@ -52,6 +52,10 @@ export const deleteSubject = (id) => {
 export const changeStat = (params) => {
   return fireRequest("changeStat", params);
 };
+
+export const getPaymentStat = () => {
+  return fireRequest("getPaymentStat");
+};
 //gatepass api's
 export const requestGatePass = (body) => {
   return fireRequest("requestGatePass", [], body);

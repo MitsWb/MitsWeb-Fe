@@ -74,6 +74,12 @@ export default {
     noAuth: false,
   },
 
+  getPaymentStat: {
+    path: "/admin/stats/payment",
+    method: "get",
+    noAuth: false,
+  },
+
   getStudent: {
     path: "/user/student",
     method: "get",

@@ -43,7 +43,7 @@ const AuthenticatedNavbar = ({ page }) => {
     {
       path: "/payment",
       text: "Payment",
-      //  hidden: !stats.payment,   Need to be done after fixing payment stat
+      hidden: !stats.payment, //   Need to be done after fixing payment stat
       icon: <PaymentIcon />,
     },
     {
