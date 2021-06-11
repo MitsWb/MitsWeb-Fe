@@ -11,7 +11,6 @@ import { Grid } from "@material-ui/core";
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 function UploadToGCP({ multiple }) {
-  console.log("i am");
   const [notify, setNotify] = useState({ popup: false, msg: "", type: "" });
   const [fileCollection, setFileCollection] = useState([]);
 
