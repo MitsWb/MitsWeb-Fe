@@ -28,14 +28,14 @@ const StudentPaymentDashboard = () => {
   const initForm = {
     paymentType: "",
     amount: "",
-    date: "",
+    dueDate: "",
     remarks: "",
   };
 
   const initError = {
     paymentType: "",
     amount: "",
-    date: "",
+    dueDate: "",
     remarks: "",
   };
 

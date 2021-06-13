@@ -120,7 +120,7 @@ const PaymentForm = ({
                       ...Form,
                       paymentType: value ? value._id : null,
                       amount: value ? value.amount : null,
-                      date: value ? value.dueDate : null,
+                      dueDate: value ? value.dueDate : null,
                     });
                   }}
                   renderInput={(params) => (
@@ -158,11 +158,11 @@ const PaymentForm = ({
                   variant="outlined"
                   label="Due Date"
                   className={classes.textField}
-                  name="date"
-                  value={Form.date}
+                  name="dueDate"
+                  value={Form.dueDate}
                   onChange={handleChange}
-                  error={Error["date"] ? true : false}
-                  helperText={Error["date"]}
+                  error={Error["dueDate"] ? true : false}
+                  helperText={Error["dueDate"]}
                 />
               </Grid>
 
