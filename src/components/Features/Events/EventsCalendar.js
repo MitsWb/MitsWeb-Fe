@@ -87,7 +87,7 @@ const EventsCalendar = ({ selectable }) => {
       }
     });
     // eslint-disable-next-line
-  }, []);
+  }, [dispatch, loading]);
 
   return (
     <>

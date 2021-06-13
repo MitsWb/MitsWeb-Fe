@@ -99,7 +99,7 @@ export default function AddEventDialog({
                   <MenuItem value={1}>First Year</MenuItem>
                   <MenuItem value={2}>Second Year</MenuItem>
                   <MenuItem value={3}>Third Year</MenuItem>
-                  <MenuItem value={4}>Forth Year</MenuItem>
+                  <MenuItem value={4}>Fourth Year</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
